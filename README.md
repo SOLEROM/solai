@@ -1,0 +1,2 @@
+# solai
+learn and train
