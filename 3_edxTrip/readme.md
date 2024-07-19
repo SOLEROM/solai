@@ -4,7 +4,7 @@ sudo apt install python3.10
 sudo apt install python3.10-dev
 sudo apt install python3.10-venv
 
-python3.10 -m venv venvTns10
+lsTns10
 source venvTns10/bin/activate
 (venvTns10) (main)vlad@vladis:learn/3_edxTrip ‹main*›$ python --version            
 Python 3.10.12
