@@ -1,0 +1,16 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: readme.md
+parts:
+
+#########################################################################################################
+  - caption: General
+    ## gen
+    chapters:
+    - file: readme.md
+    ## practice
+    - file: lossFunc/readme.md
+      # sections:
+      # - file: 00_ai24/lossFunc/rmse.ipynb
