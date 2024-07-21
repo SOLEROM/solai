@@ -1,4 +1,4 @@
 #!/bin/bash
 rm -rf _build
 jupyter-book build  . --toc ./_toc.yml  --config _jupBook/_config.yml
-
+mv _build docs 
