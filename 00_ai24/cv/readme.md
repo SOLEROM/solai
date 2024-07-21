@@ -6,7 +6,6 @@
 * [Basic convulsion](./convolution/readme.md)
 * [layers](./convolution/layers.md)
 * [pooling](./convolution/pooling.md)
-* [cnn example](./convolution/cnnFrqExample.md)
 * [cnn example](./convolution/cnnFrqExample.ipynb)
 
 * [batch Norm](./convolution/batchNorm.md)
