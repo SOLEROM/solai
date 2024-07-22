@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>&lt;no title&gt; &#8212; solAiKM</title>
+    <title>Batch Normalization &#8212; solAiKM</title>
   
   
   
@@ -57,6 +57,8 @@
     <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '00_ai24/cv/convolution/batchNorm';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -317,7 +319,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1><no title></h1>
+    <h1>Batch Normalization</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -326,9 +328,17 @@ document.write(`
                 <h2> Contents </h2>
             </div>
             <nav aria-label="Page">
-                <ul class="simple visible nav section-nav flex-column">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation">Motivation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#train-time">Train Time</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-time">Test Time</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#batch-normalization-in-convolutional-neural-networks-cnns">Batch Normalization in Convolutional Neural Networks (CNNs)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-notes">Additional Notes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visual-representations">Visual Representations</a></li>
 </ul>
-
+</li>
+</ul>
             </nav>
         </div>
     </div>
@@ -339,7 +349,102 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  
+  <section class="tex2jax_ignore mathjax_ignore" id="batch-normalization">
+<h1>Batch Normalization<a class="headerlink" href="#batch-normalization" title="Link to this heading">#</a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">#</a></h2>
+<p><strong>Batch Normalization (BatchNorm)</strong> is a technique used in training deep neural networks to improve the stability and performance of the model. By normalizing the inputs to each layer, it addresses issues like internal covariate shift, leading to several benefits:</p>
+<ol class="arabic simple">
+<li><p><strong>Stabilizes Learning</strong>: Reduces internal covariate shift by normalizing inputs, making the learning process more stable.</p></li>
+<li><p><strong>Speeds Up Training</strong>: Models with batch normalization can converge faster and are less sensitive to the initial learning rate.</p></li>
+<li><p><strong>Improves Generalization</strong>: Acts as a regularizer, potentially reducing the need for other regularization techniques like dropout.</p></li>
+</ol>
+</section>
+<section id="motivation">
+<h2>Motivation<a class="headerlink" href="#motivation" title="Link to this heading">#</a></h2>
+<p>Batch normalization works by normalizing the output of each layer:</p>
+<ol class="arabic">
+<li><p><strong>Compute Mean and Standard Deviation</strong>: Calculate the mean <span class="math notranslate nohighlight">\(\mu\)</span> and standard deviation <span class="math notranslate nohighlight">\(\sigma\)</span> for each feature in the mini-batch.</p></li>
+<li><p><strong>Normalize</strong>: Subtract the mean and divide by the standard deviation:</p>
+<div class="math notranslate nohighlight">
+\[\hat{x} = \frac{x - \mu}{\sigma}\]</div>
+</li>
+<li><p><strong>Scale and Shift</strong>: Apply learnable parameters <span class="math notranslate nohighlight">\(\gamma\)</span> (scale) and <span class="math notranslate nohighlight">\(\beta\)</span> (shift) to the normalized output:</p>
+<div class="math notranslate nohighlight">
+\[y = \gamma \hat{x} + \beta\]</div>
+</li>
+</ol>
+<p>Here, <span class="math notranslate nohighlight">\(\gamma\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> are parameters learned during training, allowing the network to maintain the representational power.</p>
+<p><img alt="alt text" src="../../../_images/image-21.png" /></p>
+</section>
+<section id="train-time">
+<h2>Train Time<a class="headerlink" href="#train-time" title="Link to this heading">#</a></h2>
+<p>During training, the normalization process uses the statistics of the current mini-batch:</p>
+<ol class="arabic simple">
+<li><p><strong>Calculate Batch Statistics</strong>: Compute the mean and variance for each feature in the mini-batch.</p></li>
+<li><p><strong>Normalize</strong>: Use these statistics to normalize the inputs of each layer.</p></li>
+<li><p><strong>Apply Learnable Parameters</strong>: Adjust the normalized inputs using the learnable parameters <span class="math notranslate nohighlight">\(\gamma\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>.</p></li>
+</ol>
+</section>
+<section id="test-time">
+<h2>Test Time<a class="headerlink" href="#test-time" title="Link to this heading">#</a></h2>
+<p>During inference (test time), batch normalization uses running estimates of the mean and variance, accumulated during training:</p>
+<ol class="arabic simple">
+<li><p><strong>Running Statistics</strong>: Use the running mean and running variance instead of batch statistics.</p></li>
+<li><p><strong>Normalize</strong>: Normalize inputs using these running statistics to ensure consistency and stability.</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[\hat{x} = \frac{x - \text{running mean}}{\text{running variance}}\]</div>
+<p>This ensures that the model’s performance is consistent regardless of the mini-batch size used during training.</p>
+</section>
+<section id="batch-normalization-in-convolutional-neural-networks-cnns">
+<h2>Batch Normalization in Convolutional Neural Networks (CNNs)<a class="headerlink" href="#batch-normalization-in-convolutional-neural-networks-cnns" title="Link to this heading">#</a></h2>
+<p>In CNNs, batch normalization is typically applied per channel rather than per feature. Each feature map (channel) is normalized independently:</p>
+<ol class="arabic simple">
+<li><p><strong>Normalize Per Channel</strong>: Calculate the mean and variance for each channel across the spatial dimensions.</p></li>
+<li><p><strong>Apply Learnable Parameters</strong>: Adjust each channel using the channel-specific <span class="math notranslate nohighlight">\(\gamma\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> parameters.</p></li>
+</ol>
+<p>This approach helps in maintaining the spatial structure of the input while normalizing the feature maps.</p>
+</section>
+<section id="additional-notes">
+<h2>Additional Notes<a class="headerlink" href="#additional-notes" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Redundant Bias</strong>: When using batch normalization, the bias term in the preceding linear or convolutional layer becomes redundant, as it can be absorbed into the <span class="math notranslate nohighlight">\(\gamma\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span> parameters.</p></li>
+<li><p><strong>Hyperparameter <span class="math notranslate nohighlight">\(\rho\)</span></strong>: During training, a momentum parameter <span class="math notranslate nohighlight">\(\rho\)</span> is often used to update the running mean and variance.</p></li>
+</ul>
+<section id="visual-representations">
+<h3>Visual Representations<a class="headerlink" href="#visual-representations" title="Link to this heading">#</a></h3>
+<p><em>Figures illustrating the training and test time mechanisms for batch normalization can be very helpful in understanding these processes.</em></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example PyTorch implementation of Batch Normalization</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+
+<span class="c1"># Define a simple model with BatchNorm</span>
+<span class="k">class</span> <span class="nc">SimpleModel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">SimpleModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">784</span><span class="p">,</span> <span class="mi">256</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bn1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BatchNorm1d</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bn1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+<span class="c1"># Instantiate and print the model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">SimpleModel</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In this example, the model includes a fully connected layer followed by batch normalization. This setup helps stabilize and accelerate the training process.</p>
+</section>
+</section>
+</section>
+
     <script type="text/x-thebe-config">
     {
         requestKernel: true,
@@ -385,9 +490,17 @@ document.write(`
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav class="bd-toc-nav page-toc">
-    <ul class="simple visible nav section-nav flex-column">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation">Motivation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#train-time">Train Time</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#test-time">Test Time</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#batch-normalization-in-convolutional-neural-networks-cnns">Batch Normalization in Convolutional Neural Networks (CNNs)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-notes">Additional Notes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#visual-representations">Visual Representations</a></li>
 </ul>
-
+</li>
+</ul>
   </nav></div>
 
 </div></div>

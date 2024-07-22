@@ -1,3 +1,10 @@
 #!/bin/bash
 rm -rf _build
+rm -rf docs
+rm -rf jupyter_execute
 jupyter-book build  . --toc ./_toc.yml  --config _jupBook/_config.yml
+mv _build/html docs
+mv _build/jupyter_execute .
+rm -rf _build
+
+

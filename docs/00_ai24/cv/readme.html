@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title> &#8212; solAiKM</title>
+    <title>AI Computer Vision &#8212; solAiKM</title>
   
   
   
@@ -317,7 +317,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1></h1>
+    <h1>AI Computer Vision</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -328,6 +328,20 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intro">intro</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-features">basic features</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pytorch-layers">pytorch layers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lib">lib</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concepts">concepts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#augmentation">augmentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#demo-arch">demo arch</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-arch">common arch</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference">inference</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transfer-learning">transfer learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debug">debug</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detection">detection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#localization">localization</a></li>
 </ul>
             </nav>
         </div>
@@ -339,23 +353,169 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="id1">
-<h1><a class="headerlink" href="#id1" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="ai-computer-vision">
+<h1>AI Computer Vision<a class="headerlink" href="#ai-computer-vision" title="Link to this heading">#</a></h1>
 <section id="intro">
 <h2>intro<a class="headerlink" href="#intro" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="#./fullyConnectedDrawback.md"><span class="xref myst">Exploiting Data Structure</span></a></p></li>
-<li><p><a class="reference internal" href="convolution/readme.html"><span class="std std-doc">Basic convulsion</span></a></p></li>
-<li><p><a class="reference internal" href="convolution/layers.html"><span class="std std-doc">layers</span></a></p></li>
-<li><p><a class="reference internal" href="convolution/pooling.html"><span class="std std-doc">pooling</span></a></p></li>
-<li><p><a class="reference internal" href="convolution/cnnFrqExample.html"><span class="std std-doc">cnn example</span></a></p></li>
-<li><p><a class="reference internal" href="convolution/batchNorm.html"><span class="std std-doc">batch Norm</span></a></p>
+<li><p>motivation <a class="reference internal" href="convolution/fullyConnectedDrawback.html"><span class="std std-doc">Exploiting Data Structure</span></a></p></li>
+<li><p><a class="reference internal" href="convolution/cnnFrqExample.html"><span class="std std-doc">cnn example for Frequency Estimation</span></a></p>
 <ul>
-<li><p><a class="reference internal" href="#./convolution/lab_batchNorm.ipynb"><span class="xref myst">lab demo</span></a></p></li>
+<li><p>:green_book: <a class="reference internal" href="convolution/0085DeepLearning1DConvFreqEst.html"><span class="std std-doc">lab Convolution for Frequency Estimation</span></a> show also when model dont learn to generalize</p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#./convolution/0085DeepLearning1DConvFreqEst.ipynb"><span class="xref myst">lab Convolution for Frequency Estimation</span></a></p></li>
+<li><p><a class="reference internal" href="convolution/readme.html"><span class="std std-doc">Basic convulsion</span></a> padding and basic kernel examples</p></li>
+<li><p><a class="reference internal" href="convolution/2d.html"><span class="std std-doc">2d convolution</span></a></p></li>
 </ul>
+</section>
+<section id="basic-features">
+<h2>basic features<a class="headerlink" href="#basic-features" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="convolution/layers.html"><span class="std std-doc">layers</span></a></p></li>
+<li><p><a class="reference internal" href="convolution/pooling.html"><span class="std std-doc">pooling</span></a></p></li>
+<li><p><a class="reference internal" href="convolution/batchNorm.html"><span class="std std-doc">batch Norm</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="convolution/lab_batchNorm.html"><span class="std std-doc">Norm demo</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="convolution/filters.html"><span class="std std-doc">filters</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="convolution/filter_laplacian.html"><span class="std std-doc">laplacian</span></a></p></li>
+</ul>
+</li>
+</ul>
+<section id="pytorch-layers">
+<h3>pytorch layers<a class="headerlink" href="#pytorch-layers" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="pytorch/common.html"><span class="std std-doc">common layers</span></a></p></li>
+<li><p><a class="reference internal" href="pytorch/custom.html"><span class="std std-doc">custom nn</span></a></p></li>
+<li><p><a class="reference internal" href="pytorch/microMacro.html"><span class="std std-doc">MulticlassAccuracy</span></a> micro macro modes</p></li>
+</ul>
+</section>
+<section id="lib">
+<h3>lib<a class="headerlink" href="#lib" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="torchvis/readme.html"><span class="std std-doc">torchvision lib</span></a></p></li>
+<li><p><a class="reference internal" href="torchvis/transformVers.html"><span class="std std-doc">v1/v2.transforms </span></a></p></li>
+</ul>
+</section>
+</section>
+<section id="concepts">
+<h2>concepts<a class="headerlink" href="#concepts" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="concept/recfield.html"><span class="std std-doc">receptive field</span></a></p>
+<ul>
+<li><p>:green_book: <a class="reference internal" href="concept/recField.html"><span class="std std-doc">lab calc RF</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="concept/encodeDecode.html"><span class="std std-doc">encode decode</span></a></p></li>
+<li><p><a class="reference internal" href="concept/skipConnections.html"><span class="std std-doc">skip connections</span></a></p></li>
+</ul>
+</section>
+<section id="augmentation">
+<h2>augmentation<a class="headerlink" href="#augmentation" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="augm/readme.html"><span class="std std-doc">about augmentation</span></a></p></li>
+<li><p>:green_book: <a class="reference internal" href="augm/0094DeepLearningImageAugmentation.html"><span class="std std-doc">basic img effects</span></a></p></li>
+<li><p><a class="reference internal" href="augm/cutMethods.html"><span class="std std-doc">cut effects</span></a></p>
+<ul>
+<li><p>:green_book: <a class="reference internal" href="augm/0095DeepLearningImageAugmentation.html"><span class="std std-doc">lab demo cut effects</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="augm/smoothing.html"><span class="std std-doc">smoothing</span></a></p>
+<ul>
+<li><p>:green_book: <a class="reference internal" href="augm/0096DeepLearningLabelSmoothing.html"><span class="std std-doc">lab smoothing demo</span></a></p></li>
+</ul>
+</li>
+<li><p>:green_book: <a class="reference internal" href="augm/0097DeepLearningRegularizedTraining.html"><span class="std std-doc">lab combine cutting with smooth</span></a></p></li>
+</ul>
+</section>
+<section id="demo-arch">
+<h2>demo arch<a class="headerlink" href="#demo-arch" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>:green_book: <a class="reference internal" href="convolution/0086DeepLearningConv2DCifar10.html"><span class="std std-doc">lab cifar</span></a></p></li>
+<li><p>:green_book: <a class="reference internal" href="convolution/0087DeepLearningConv2DFashionMNIST.html"><span class="std std-doc">lab mnist</span></a> - multiple models with tensor board</p></li>
+<li><p>:green_book: <a class="reference internal" href="concept/studentTeacherDemo.html"><span class="std std-doc">lab student model</span></a> - Knowledge Distillation</p></li>
+</ul>
+</section>
+<section id="common-arch">
+<h2>common arch<a class="headerlink" href="#common-arch" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="arch/readme.html"><span class="std std-doc">compare</span></a></p></li>
+<li><p><a class="reference internal" href="arch/darknet53.html"><span class="std std-doc">darknet53</span></a></p></li>
+<li><p><a class="reference internal" href="arch/alexnet.html"><span class="std std-doc">alexnet</span></a></p></li>
+<li><p><a class="reference internal" href="arch/vgg.html"><span class="std std-doc">vgg</span></a></p></li>
+<li><p><a class="reference internal" href="arch/googleNet.html"><span class="std std-doc">googleNet</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="arch/inception.html"><span class="std std-doc">Inception Modules</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="arch/resnet.html"><span class="std std-doc">resnet</span></a></p>
+<ul>
+<li><p>:green_book: <a class="reference internal" href="arch/0092DeepLearningResNet.html"><span class="std std-doc">lab resnet model</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="arch/yolo.html"><span class="std std-doc">yolo</span></a></p></li>
+<li><p><a class="reference internal" href="arch/minirocket.html"><span class="std std-doc">minirocket</span></a></p>
+<ul>
+<li><p>:green_book: <a class="reference internal" href="arch/lab_minirocket_basicDemo.html"><span class="std std-doc">lab minirocket demo</span></a></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="inference">
+<h2>inference<a class="headerlink" href="#inference" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="infer/readme.html"><span class="std std-doc">preDefine models</span></a></p></li>
+<li><p><a class="reference internal" href="infer/pyInter.html"><span class="std std-doc">pytorch inference</span></a></p></li>
+<li><p><a class="reference internal" href="infer/sota.html"><span class="std std-doc">sota</span></a></p></li>
+<li><p><a class="reference internal" href="infer/zoo.html"><span class="std std-doc">zoo</span></a></p></li>
+<li><p>:green_book: <a class="reference internal" href="infer/0091DeepLearningPreTrainedModels.html"><span class="std std-doc">lab pre train compare</span></a></p></li>
+</ul>
+</section>
+<section id="transfer-learning">
+<h2>transfer learning<a class="headerlink" href="#transfer-learning" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="transf/readme.html"><span class="std std-doc">about transfer learning</span></a></p></li>
+<li><p><a class="reference internal" href="transf/compare.html"><span class="std std-doc">compare methods</span></a></p></li>
+<li><p><a class="reference internal" href="transf/fineTune.html"><span class="std std-doc">fineTune</span></a></p></li>
+<li><p><a class="reference internal" href="transf/freeze.html"><span class="std std-doc">freeze</span></a></p></li>
+<li><p>:green_book: <a class="reference internal" href="transf/0093DeepLearningTransferLearning.html"><span class="std std-doc">lab Transfer Learning of resnet</span></a></p></li>
+<li><p><a class="reference internal" href="transf/overfit.html"><span class="std std-doc">overfit</span></a></p>
+<ul>
+<li><p>:green_book: <a class="reference internal" href="transf/lab_reducude_demo.html"><span class="std std-doc">lab reduce demo</span></a>  TBD</p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="transf/transformers.html"><span class="std std-doc">transformers</span></a></p>
+<ul>
+<li><p>:green_book: <a class="reference internal" href="transf/lab_transofmers_basic.html"><span class="std std-doc">lab transofmers basic</span></a>  TBD</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="debug">
+<h2>debug<a class="headerlink" href="#debug" title="Link to this heading">#</a></h2>
+<p>visualize cnn
+<a class="reference external" href="https://jithinjk.github.io/blog/nn_visualized.md.html">https://jithinjk.github.io/blog/nn_visualized.md.html</a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="aaa/location.html"><span class="std std-doc">location</span></a></p></li>
+<li><p><a class="reference internal" href="aaa/lab_pretrain_demo.html"><span class="std std-doc">lab pretrain</span></a></p></li>
+<li><p><a class="reference internal" href="aaa/localization.html"><span class="std std-doc">localization</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="aaa/0098DeepLearningObjectLocalization.html"><span class="std std-doc">lab localization</span></a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="aaa/lab_plot_transforms_e2e.html"><span class="std std-doc">Transforms v2: End-to-end object detection/segmentation example</span></a></p></li>
+<li><p><a class="reference internal" href="aaa/detection.html"><span class="std std-doc">detection</span></a></p></li>
+<li><p><a class="reference internal" href="aaa/hms.html"><span class="std std-doc">NMS</span></a> Non Maximum Suppression</p></li>
+<li><p><a class="reference internal" href="aaa/map.html"><span class="std std-doc">MAP</span></a></p></li>
+</ul>
+</section>
+<section id="detection">
+<h2>detection<a class="headerlink" href="#detection" title="Link to this heading">#</a></h2>
+</section>
+<section id="localization">
+<h2>localization<a class="headerlink" href="#localization" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -406,6 +566,20 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#intro">intro</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-features">basic features</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pytorch-layers">pytorch layers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lib">lib</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concepts">concepts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#augmentation">augmentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#demo-arch">demo arch</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-arch">common arch</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference">inference</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transfer-learning">transfer learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debug">debug</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detection">detection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#localization">localization</a></li>
 </ul>
   </nav></div>
 

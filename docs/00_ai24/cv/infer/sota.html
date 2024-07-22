@@ -1,0 +1,696 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>sota - state-of-the-art &#8212; solAiKM</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '00_ai24/cv/infer/sota';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../readme.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">solAiKM</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../readme.html">
+                    solai
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">General</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../convolution/cnnFrqExample.html">CNN for Frequency Estimation Problem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../lossFunc/rmse.html">Root Mean Square Error (RMSE)</a></li>
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/00_ai24/cv/infer/sota.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>sota - state-of-the-art</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lr-optimizations">LR Optimizations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trivialaugment">TrivialAugment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#long-training">Long Training</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#random-erasing">Random Erasing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#label-smoothing">Label Smoothing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mixup">Mixup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cutmix">Cutmix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weight-decay-tuning">Weight Decay Tuning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fixres-mitigations">FixRes Mitigations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ema-exponential-moving-average">EMA (Exponential Moving Average)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-resize-tuning">Inference Resize Tuning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repeated-augmentation">Repeated Augmentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#batch-normalization">Batch Normalization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dropout">Dropout</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-clipping">Gradient Clipping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transfer-learning">Transfer Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cosine-annealing">Cosine Annealing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#early-stopping">Early Stopping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#warmup-learning-rate">Warmup Learning Rate</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-distillation">Knowledge Distillation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-augmentation">Data Augmentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autoaugment">AutoAugment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stochastic-depth">Stochastic Depth</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ghost-batch-normalization">Ghost Batch Normalization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#label-propagation">Label Propagation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-accumulation">Gradient Accumulation</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="sota-state-of-the-art">
+<h1>sota - state-of-the-art<a class="headerlink" href="#sota-state-of-the-art" title="Link to this heading">#</a></h1>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pytorch.org/blog/how-to-train-state-of-the-art-models-using-torchvision-latest-primitives/">https://pytorch.org/blog/how-to-train-state-of-the-art-models-using-torchvision-latest-primitives/</a></p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+</span> <span class="n">LR</span> <span class="n">optimizations</span> 	
+<span class="o">+</span> <span class="n">TrivialAugment</span> 	
+<span class="o">+</span> <span class="n">Long</span> <span class="n">Training</span> 	
+<span class="o">+</span> <span class="n">Random</span> <span class="n">Erasing</span> 	
+<span class="o">+</span> <span class="n">Label</span> <span class="n">Smoothing</span> 
+<span class="o">+</span> <span class="n">Mixup</span> 	
+<span class="o">+</span> <span class="n">Cutmix</span> 	
+<span class="o">+</span> <span class="n">Weight</span> <span class="n">Decay</span> <span class="n">tuning</span> 	
+<span class="o">+</span> <span class="n">FixRes</span> <span class="n">mitigations</span> 	
+<span class="o">+</span> <span class="n">EMA</span> 	
+<span class="o">+</span> <span class="n">Inference</span> <span class="n">Resize</span> <span class="n">tuning</span> 
+<span class="o">+</span> <span class="n">Repeated</span> <span class="n">Augmentation</span> 
+</pre></div>
+</div>
+<section id="lr-optimizations">
+<h2>LR Optimizations<a class="headerlink" href="#lr-optimizations" title="Link to this heading">#</a></h2>
+<p><strong>Learning Rate (LR) Optimization</strong> involves adjusting the learning rate during training to improve convergence and performance. Techniques like learning rate schedules, warm restarts, and adaptive learning rates (e.g., using optimizers like Adam, RMSprop) help in finding a better minimum of the loss function.</p>
+<ul class="simple">
+<li><p><strong>How it helps</strong>: Proper LR adjustments prevent the model from getting stuck in local minima and ensure faster and more stable convergence.</p></li>
+</ul>
+</section>
+<section id="trivialaugment">
+<h2>TrivialAugment<a class="headerlink" href="#trivialaugment" title="Link to this heading">#</a></h2>
+<p><strong>TrivialAugment</strong> is a simple data augmentation technique that applies a random transformation from a predefined set of augmentations to the input data.</p>
+<ul class="simple">
+<li><p><strong>How it helps</strong>: By introducing random variations, the model becomes more robust to changes and improves generalization.</p></li>
+</ul>
+</section>
+<section id="long-training">
+<h2>Long Training<a class="headerlink" href="#long-training" title="Link to this heading">#</a></h2>
+<p><strong>Long Training</strong> refers to extending the training duration, often with a smaller learning rate, to allow the model to fine-tune its parameters more precisely.</p>
+<ul class="simple">
+<li><p><strong>How it helps</strong>: Prolonged training with a reduced learning rate can lead to better convergence and improved performance.</p></li>
+</ul>
+</section>
+<section id="random-erasing">
+<h2>Random Erasing<a class="headerlink" href="#random-erasing" title="Link to this heading">#</a></h2>
+<p><strong>Random Erasing</strong> is a data augmentation technique where random patches of input images are masked out during training.</p>
+<ul class="simple">
+<li><p><strong>How it helps</strong>: This makes the model more resilient to missing parts of the image, improving robustness and generalization.</p></li>
+</ul>
+</section>
+<section id="label-smoothing">
+<h2>Label Smoothing<a class="headerlink" href="#label-smoothing" title="Link to this heading">#</a></h2>
+<p><strong>Label Smoothing</strong> involves softening the labels by assigning a small probability to all classes instead of assigning a probability of 1 to the correct class and 0 to others.</p>
+<ul class="simple">
+<li><p><strong>How it helps</strong>: It prevents the model from becoming overconfident, leading to better calibration and improved generalization.</p></li>
+</ul>
+</section>
+<section id="mixup">
+<h2>Mixup<a class="headerlink" href="#mixup" title="Link to this heading">#</a></h2>
+<p><strong>Mixup</strong> creates new training examples by combining pairs of examples and their labels with a certain mixing ratio.</p>
+<ul class="simple">
+<li><p><strong>How it helps</strong>: This encourages the model to behave linearly in-between training examples, improving robustness and generalization.</p></li>
+</ul>
+</section>
+<section id="cutmix">
+<h2>Cutmix<a class="headerlink" href="#cutmix" title="Link to this heading">#</a></h2>
+<p><strong>Cutmix</strong> combines two images by cutting a patch from one image and pasting it into another, while mixing their labels proportionally.</p>
+<ul class="simple">
+<li><p><strong>How it helps</strong>: Similar to Mixup, it promotes learning more robust features and improves generalization by providing more varied training examples.</p></li>
+</ul>
+</section>
+<section id="weight-decay-tuning">
+<h2>Weight Decay Tuning<a class="headerlink" href="#weight-decay-tuning" title="Link to this heading">#</a></h2>
+<p><strong>Weight Decay Tuning</strong> involves adjusting the regularization parameter that penalizes large weights to prevent overfitting.</p>
+<ul class="simple">
+<li><p><strong>How it helps</strong>: Proper weight decay tuning helps in controlling the complexity of the model, leading to better generalization.</p></li>
+</ul>
+</section>
+<section id="fixres-mitigations">
+<h2>FixRes Mitigations<a class="headerlink" href="#fixres-mitigations" title="Link to this heading">#</a></h2>
+<p><strong>FixRes (Fixed Resolution) Mitigations</strong> involve adjusting the resolution of input images during different stages of training and testing to improve accuracy.</p>
+<ul class="simple">
+<li><p><strong>How it helps</strong>: It helps in training models at higher resolutions, making them more robust to different scales and improving performance.</p></li>
+</ul>
+</section>
+<section id="ema-exponential-moving-average">
+<h2>EMA (Exponential Moving Average)<a class="headerlink" href="#ema-exponential-moving-average" title="Link to this heading">#</a></h2>
+<p><strong>Exponential Moving Average (EMA)</strong> maintains a moving average of the model parameters during training.</p>
+<ul class="simple">
+<li><p><strong>How it helps</strong>: EMA can stabilize training and improve final model performance by averaging out the noise in parameter updates.</p></li>
+</ul>
+</section>
+<section id="inference-resize-tuning">
+<h2>Inference Resize Tuning<a class="headerlink" href="#inference-resize-tuning" title="Link to this heading">#</a></h2>
+<p><strong>Inference Resize Tuning</strong> involves adjusting the size of input images at inference time to optimize performance.</p>
+<ul class="simple">
+<li><p><strong>How it helps</strong>: Properly tuning the input size can balance accuracy and computational efficiency, leading to better model performance during inference.</p></li>
+</ul>
+</section>
+<section id="repeated-augmentation">
+<h2>Repeated Augmentation<a class="headerlink" href="#repeated-augmentation" title="Link to this heading">#</a></h2>
+<p><strong>Repeated Augmentation</strong> applies the same augmentation multiple times to the same image within a batch.</p>
+<ul class="simple">
+<li><p><strong>How it helps</strong>: It increases the diversity of the training data seen by the model, enhancing robustness and generalization.</p></li>
+</ul>
+</section>
+<section id="batch-normalization">
+<h2>Batch Normalization<a class="headerlink" href="#batch-normalization" title="Link to this heading">#</a></h2>
+<p><strong>Batch Normalization (BatchNorm)</strong> normalizes the activations of each layer for each mini-batch during training.</p>
+<ul class="simple">
+<li><p><strong>How it helps</strong>: It reduces internal covariate shift, leading to faster convergence and higher stability during training.</p></li>
+</ul>
+</section>
+<section id="dropout">
+<h2>Dropout<a class="headerlink" href="#dropout" title="Link to this heading">#</a></h2>
+<p><strong>Dropout</strong> randomly drops neurons during training to prevent overfitting.</p>
+<ul class="simple">
+<li><p><strong>How it helps</strong>: By randomly omitting neurons, dropout forces the network to learn more robust features and prevents overfitting.</p></li>
+</ul>
+</section>
+<section id="gradient-clipping">
+<h2>Gradient Clipping<a class="headerlink" href="#gradient-clipping" title="Link to this heading">#</a></h2>
+<p><strong>Gradient Clipping</strong> involves capping the gradients during backpropagation to prevent the problem of exploding gradients.</p>
+<ul class="simple">
+<li><p><strong>How it helps</strong>: It stabilizes training by ensuring that the gradient updates are not excessively large, which can otherwise destabilize training.</p></li>
+</ul>
+</section>
+<section id="transfer-learning">
+<h2>Transfer Learning<a class="headerlink" href="#transfer-learning" title="Link to this heading">#</a></h2>
+<p><strong>Transfer Learning</strong> leverages pre-trained models on large datasets to initialize a model for a new task.</p>
+<ul class="simple">
+<li><p><strong>How it helps</strong>: It speeds up training and often leads to better performance by starting with a model that already has learned useful features.</p></li>
+</ul>
+</section>
+<section id="cosine-annealing">
+<h2>Cosine Annealing<a class="headerlink" href="#cosine-annealing" title="Link to this heading">#</a></h2>
+<p><strong>Cosine Annealing</strong> is a learning rate schedule that reduces the learning rate following a cosine function.</p>
+<ul class="simple">
+<li><p><strong>How it helps</strong>: It allows the model to converge more smoothly by reducing the learning rate gradually and cyclically.</p></li>
+</ul>
+</section>
+<section id="early-stopping">
+<h2>Early Stopping<a class="headerlink" href="#early-stopping" title="Link to this heading">#</a></h2>
+<p><strong>Early Stopping</strong> monitors the model’s performance on a validation set and stops training when performance stops improving.</p>
+<ul class="simple">
+<li><p><strong>How it helps</strong>: It prevents overfitting by halting training once the model starts to overfit the training data.</p></li>
+</ul>
+</section>
+<section id="warmup-learning-rate">
+<h2>Warmup Learning Rate<a class="headerlink" href="#warmup-learning-rate" title="Link to this heading">#</a></h2>
+<p><strong>Warmup Learning Rate</strong> starts training with a very small learning rate and gradually increases it to the initial value.</p>
+<ul class="simple">
+<li><p><strong>How it helps</strong>: It helps in stabilizing training in the initial epochs, especially for very deep networks.</p></li>
+</ul>
+</section>
+<section id="knowledge-distillation">
+<h2>Knowledge Distillation<a class="headerlink" href="#knowledge-distillation" title="Link to this heading">#</a></h2>
+<p><strong>Knowledge Distillation</strong> involves training a smaller, student model to mimic the outputs of a larger, teacher model.</p>
+<ul class="simple">
+<li><p><strong>How it helps</strong>: The student model can achieve competitive performance with reduced complexity and better generalization.</p></li>
+</ul>
+</section>
+<section id="data-augmentation">
+<h2>Data Augmentation<a class="headerlink" href="#data-augmentation" title="Link to this heading">#</a></h2>
+<p><strong>Data Augmentation</strong> involves generating new training samples through transformations like rotation, scaling, and flipping.</p>
+<ul class="simple">
+<li><p><strong>How it helps</strong>: It artificially enlarges the training dataset, helping the model generalize better by learning from more diverse examples.</p></li>
+</ul>
+</section>
+<section id="autoaugment">
+<h2>AutoAugment<a class="headerlink" href="#autoaugment" title="Link to this heading">#</a></h2>
+<p><strong>AutoAugment</strong> is a data augmentation technique that uses reinforcement learning to find the best augmentation policies.</p>
+<ul class="simple">
+<li><p><strong>How it helps</strong>: It automatically finds effective augmentation strategies that improve model performance.</p></li>
+</ul>
+</section>
+<section id="stochastic-depth">
+<h2>Stochastic Depth<a class="headerlink" href="#stochastic-depth" title="Link to this heading">#</a></h2>
+<p><strong>Stochastic Depth</strong> randomly drops entire layers during training.</p>
+<ul class="simple">
+<li><p><strong>How it helps</strong>: It acts as a form of regularization, making the network more robust and reducing overfitting.</p></li>
+</ul>
+</section>
+<section id="ghost-batch-normalization">
+<h2>Ghost Batch Normalization<a class="headerlink" href="#ghost-batch-normalization" title="Link to this heading">#</a></h2>
+<p><strong>Ghost Batch Normalization</strong> splits a large batch into smaller “ghost” batches for batch normalization.</p>
+<ul class="simple">
+<li><p><strong>How it helps</strong>: It reduces memory usage and makes training more stable, especially for very large batches.</p></li>
+</ul>
+</section>
+<section id="label-propagation">
+<h2>Label Propagation<a class="headerlink" href="#label-propagation" title="Link to this heading">#</a></h2>
+<p><strong>Label Propagation</strong> uses unlabeled data by propagating labels from labeled data points.</p>
+<ul class="simple">
+<li><p><strong>How it helps</strong>: It leverages both labeled and unlabeled data, improving the model’s performance in semi-supervised learning settings.</p></li>
+</ul>
+</section>
+<section id="gradient-accumulation">
+<h2>Gradient Accumulation<a class="headerlink" href="#gradient-accumulation" title="Link to this heading">#</a></h2>
+<p><strong>Gradient Accumulation</strong> accumulates gradients over multiple mini-batches before performing an update.</p>
+<ul class="simple">
+<li><p><strong>How it helps</strong>: It allows the use of larger effective batch sizes without increasing memory requirements.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./00_ai24/cv/infer"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lr-optimizations">LR Optimizations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#trivialaugment">TrivialAugment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#long-training">Long Training</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#random-erasing">Random Erasing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#label-smoothing">Label Smoothing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mixup">Mixup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cutmix">Cutmix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weight-decay-tuning">Weight Decay Tuning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fixres-mitigations">FixRes Mitigations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ema-exponential-moving-average">EMA (Exponential Moving Average)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-resize-tuning">Inference Resize Tuning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#repeated-augmentation">Repeated Augmentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#batch-normalization">Batch Normalization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dropout">Dropout</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-clipping">Gradient Clipping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transfer-learning">Transfer Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cosine-annealing">Cosine Annealing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#early-stopping">Early Stopping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#warmup-learning-rate">Warmup Learning Rate</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-distillation">Knowledge Distillation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-augmentation">Data Augmentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autoaugment">AutoAugment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stochastic-depth">Stochastic Depth</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ghost-batch-normalization">Ghost Batch Normalization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#label-propagation">Label Propagation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-accumulation">Gradient Accumulation</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By 0xsol
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
