@@ -6,8 +6,8 @@ author: 0xsol
 # logo: logo.png
 
 # # Define the output directory for the build
-# build:
-#   path_output: ./docs
+build:
+  path_output: ./docs
 
 exclude_patterns:
   - _build
