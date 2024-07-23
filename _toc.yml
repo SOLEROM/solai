@@ -1,0 +1,71 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: readme.md
+parts:
+
+#########################################################################################################
+  - caption: AI24
+    ## cv
+    chapters:
+    - file: 00_ai24/cv/readme.md
+      sections:
+      - file: 00_ai24/cv/convolution/fullyConnectedDrawback.md
+      - file: 00_ai24/cv/convolution/cnnFrqExample.ipynb
+      - file: 00_ai24/cv/convolution/0085DeepLearning1DConvFreqEst.ipynb
+      - file: 00_ai24/cv/convolution/readme.md
+      - file: 00_ai24/cv/convolution/2d.md
+      - file: 00_ai24/cv/convolution/layers.md
+      - file: 00_ai24/cv/convolution/pooling.md
+      - file: 00_ai24/cv/convolution/batchNorm.md
+      - file: 00_ai24/cv/convolution/lab_batchNorm.ipynb
+      - file: 00_ai24/cv/convolution/filters.md
+      - file: 00_ai24/cv/convolution/filter_laplacian.md
+      - file: 00_ai24/cv/pytorch/common.md
+      - file: 00_ai24/cv/pytorch/custom.md
+      - file: 00_ai24/cv/pytorch/microMacro.md
+      - file: 00_ai24/cv/torchvis/readme.md
+      - file: 00_ai24/cv/torchvis/transformVers.md
+      - file: 00_ai24/cv/concept/recfield.md
+      - file: 00_ai24/cv/concept/recField.ipynb
+      - file: 00_ai24/cv/concept/encodeDecode.md
+      - file: 00_ai24/cv/concept/skipConnections.md
+      - file: 00_ai24/cv/augm/readme.md
+      - file: 00_ai24/cv/augm/0094DeepLearningImageAugmentation.ipynb
+      - file: 00_ai24/cv/augm/cutMethods.md
+      - file: 00_ai24/cv/augm/0095DeepLearningImageAugmentation.ipynb
+      - file: 00_ai24/cv/augm/smoothing.md
+      - file: 00_ai24/cv/augm/0096DeepLearningLabelSmoothing.ipynb
+      - file: 00_ai24/cv/augm/0097DeepLearningRegularizedTraining.ipynb
+      - file: 00_ai24/cv/convolution/0086DeepLearningConv2DCifar10.ipynb
+      - file: 00_ai24/cv/convolution/0087DeepLearningConv2DFashionMNIST.ipynb
+      - file: 00_ai24/cv/concept/studentTeacherDemo.ipynb
+      - file: 00_ai24/cv/arch/readme.md
+      - file: 00_ai24/cv/arch/darknet53.md
+      - file: 00_ai24/cv/arch/alexnet.md
+      - file: 00_ai24/cv/arch/vgg.md
+      - file: 00_ai24/cv/arch/googleNet.md
+      - file: 00_ai24/cv/arch/inception.md
+      - file: 00_ai24/cv/arch/resnet.md
+      - file: 00_ai24/cv/arch/0092DeepLearningResNet.ipynb
+      - file: 00_ai24/cv/arch/yolo.md
+      - file: 00_ai24/cv/arch/minirocket.md
+      - file: 00_ai24/cv/arch/lab_minirocket_basicDemo.ipynb
+      - file: 00_ai24/cv/infer/readme.md
+      - file: 00_ai24/cv/infer/pyInter.md
+      - file: 00_ai24/cv/infer/sota.md
+      - file: 00_ai24/cv/infer/zoo.md
+      - file: 00_ai24/cv/infer/0091DeepLearningPreTrainedModels.ipynb
+      - file: 00_ai24/cv/transf/readme.md
+      - file: 00_ai24/cv/transf/compare.md
+      - file: 00_ai24/cv/transf/fineTune.md
+      - file: 00_ai24/cv/transf/freeze.md
+      - file: 00_ai24/cv/transf/0093DeepLearningTransferLearning.ipynb
+      - file: 00_ai24/cv/transf/overfit.md
+      - file: 00_ai24/cv/transf/lab_reducude_demo.ipynb
+      - file: 00_ai24/cv/transf/transformers.md
+      - file: 00_ai24/cv/transf/lab_transofmers_basic.ipynb
+
+
+  
