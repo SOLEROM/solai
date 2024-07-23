@@ -63,6 +63,8 @@
     <script>DOCUMENTATION_OPTIONS.pagename = '00_ai24/cv/convolution/filters';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Common Filters for 2D Convolution" href="filter_laplacian.html" />
+    <link rel="prev" title="demo batch norm" href="lab_batchNorm.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -124,8 +126,6 @@
       
       
       
-        
-      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -173,12 +173,76 @@
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">General</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="cnnFrqExample.html">CNN for Frequency Estimation Problem</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../lossFunc/rmse.html">Root Mean Square Error (RMSE)</a></li>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">AI24</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../readme.html">AI Computer Vision</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="fullyConnectedDrawback.html">Fully Connected Drawbacks</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="cnnFrqExample.html">CNN for Frequency Estimation Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0085DeepLearning1DConvFreqEst.html">Convolution for Frequency Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="readme.html">Convolution in Deep Learning</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="2d.html">2D Convolution</a></li>
 
 
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="layers.html">Layers in Convolutional Neural Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pooling.html">Pooling in Convolutional Neural Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="batchNorm.html">Batch Normalization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lab_batchNorm.html">demo batch norm</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Common Filters for 2D Convolution</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="filter_laplacian.html">Common Filters for 2D Convolution</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../pytorch/common.html">pytorch layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pytorch/custom.html">custom nn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pytorch/microMacro.html">micro macro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torchvis/readme.html">TorchVision</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torchvis/transformVers.html">torchvision.transforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concept/recfield.html">Receptive Field (RF)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concept/recField.html">Calc RF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concept/encodeDecode.html">Encode-Decode Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concept/skipConnections.html">skip connections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../augm/readme.html">Augmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../augm/0094DeepLearningImageAugmentation.html">Image Augmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../augm/cutMethods.html">Cut Effects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../augm/0095DeepLearningImageAugmentation.html">Image Augmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../augm/smoothing.html">Smoothing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../augm/0096DeepLearningLabelSmoothing.html">Label Smoothing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../augm/0097DeepLearningRegularizedTraining.html">Regularized Training</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0086DeepLearningConv2DCifar10.html">cifar10-2d-convolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0087DeepLearningConv2DFashionMNIST.html">Image Classification Fashion MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../arch/readme.html">compare</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../arch/darknet53.html">darknet53</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../arch/alexnet.html">AlexNet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../arch/vgg.html">vgg</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../arch/googleNet.html">googleNet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../arch/inception.html">Inception Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../arch/resnet.html">resnet</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../arch/0092DeepLearningResNet.html">ResNet Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../arch/yolo.html">yolo</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../arch/minirocket.html">minirocket</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../arch/lab_minirocket_basicDemo.html">lab simple minirocket demo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../infer/readme.html">Pre-Defined Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../infer/pyInter.html">pytorch Inference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../infer/sota.html">sota - state-of-the-art</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../infer/zoo.html">zoo(s)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../infer/0091DeepLearningPreTrainedModels.html">Pre Trained Computer Vision Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transf/readme.html">Transfer Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transf/compare.html">compare methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transf/fineTune.html">Fine-Tuning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transf/freeze.html">Freeze Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transf/0093DeepLearningTransferLearning.html">Transfer Learning of resnet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transf/overfit.html">Transfer overfit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transf/transformers.html">transformers</a></li>
+</ul>
+</li>
 </ul>
 
     </div>
@@ -529,6 +593,24 @@ $<span class="math notranslate nohighlight">\(
                 <footer class="prev-next-footer">
                   
 <div class="prev-next-area">
+    <a class="left-prev"
+       href="lab_batchNorm.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">demo batch norm</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="filter_laplacian.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Common Filters for 2D Convolution</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
