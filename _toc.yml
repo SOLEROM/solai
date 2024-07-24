@@ -22,15 +22,19 @@ parts:
       - file: 00_ai24/cv/convolution/lab_batchNorm.ipynb
       - file: 00_ai24/cv/convolution/filters.md
       - file: 00_ai24/cv/convolution/filter_laplacian.md
+      
       - file: 00_ai24/cv/pytorch/common.md
       - file: 00_ai24/cv/pytorch/custom.md
       - file: 00_ai24/cv/pytorch/microMacro.md
+      
       - file: 00_ai24/cv/torchvis/readme.md
       - file: 00_ai24/cv/torchvis/transformVers.md
+      
       - file: 00_ai24/cv/concept/recfield.md
       - file: 00_ai24/cv/concept/recField.ipynb
       - file: 00_ai24/cv/concept/encodeDecode.md
       - file: 00_ai24/cv/concept/skipConnections.md
+      
       - file: 00_ai24/cv/augm/readme.md
       - file: 00_ai24/cv/augm/0094DeepLearningImageAugmentation.ipynb
       - file: 00_ai24/cv/augm/cutMethods.md
@@ -38,9 +42,11 @@ parts:
       - file: 00_ai24/cv/augm/smoothing.md
       - file: 00_ai24/cv/augm/0096DeepLearningLabelSmoothing.ipynb
       - file: 00_ai24/cv/augm/0097DeepLearningRegularizedTraining.ipynb
+      
       - file: 00_ai24/cv/convolution/0086DeepLearningConv2DCifar10.ipynb
       - file: 00_ai24/cv/convolution/0087DeepLearningConv2DFashionMNIST.ipynb
       - file: 00_ai24/cv/concept/studentTeacherDemo.ipynb
+
       - file: 00_ai24/cv/arch/readme.md
       - file: 00_ai24/cv/arch/darknet53.md
       - file: 00_ai24/cv/arch/alexnet.md
@@ -52,11 +58,13 @@ parts:
       - file: 00_ai24/cv/arch/yolo.md
       - file: 00_ai24/cv/arch/minirocket.md
       - file: 00_ai24/cv/arch/lab_minirocket_basicDemo.ipynb
+
       - file: 00_ai24/cv/infer/readme.md
       - file: 00_ai24/cv/infer/pyInter.md
       - file: 00_ai24/cv/infer/sota.md
       - file: 00_ai24/cv/infer/zoo.md
       - file: 00_ai24/cv/infer/0091DeepLearningPreTrainedModels.ipynb
+
       - file: 00_ai24/cv/transf/readme.md
       - file: 00_ai24/cv/transf/compare.md
       - file: 00_ai24/cv/transf/fineTune.md
@@ -66,6 +74,35 @@ parts:
       - file: 00_ai24/cv/transf/lab_reducude_demo.ipynb
       - file: 00_ai24/cv/transf/transformers.md
       - file: 00_ai24/cv/transf/lab_transofmers_basic.ipynb
+      
+      - file: 00_ai24/cv/visualize/readme.md
+
+      - file: 00_ai24/cv/location/location.md
+      - file: 00_ai24/cv/location/lab_pretrain_demo.ipynb
+      - file: 00_ai24/cv/location/localization.md
+      - file: 00_ai24/cv/location/0098DeepLearningObjectLocalization.ipynb
+      - file: 00_ai24/cv/location/detection.md
+      - file: 00_ai24/cv/location/lab_plot_transforms_e2e.ipynb
+      - file: 00_ai24/cv/location/commonArch.md
+      - file: 00_ai24/cv/location/hms.md
+      - file: 00_ai24/cv/location/map.md
+      - file: 00_ai24/cv/wrkshp_yolo/readme.md
+      - file: 00_ai24/cv/wrkshp_yolo/labelme/readme.md
+      - file: 00_ai24/cv/wrkshp_yolo/0001BoundingBoxFormat.ipynb
+      - file: 00_ai24/cv/wrkshp_yolo/0002Dataset.py
+      - file: 00_ai24/cv/wrkshp_yolo/0003PreProcessTiles.py
+      - file: 00_ai24/cv/wrkshp_yolo/0004PreProcessTrainTestSplit.py
+      - file: 00_ai24/cv/wrkshp_yolo/0005TrainYolo.py
+
+      - file: 00_ai24/cv/segmentation/readme.md
+      - file: 00_ai24/cv/segmentation/intro.md
+      - file: 00_ai24/cv/segmentation/data.md
+      - file: 00_ai24/cv/segmentation/models.md
+      - file: 00_ai24/cv/segmentation/unet.md
+      - file: 00_ai24/cv/wrkshp_unet/readme.md
+      - file: 00_ai24/cv/wrkshp_unet/0001Dataset.py
+      - file: 00_ai24/cv/wrkshp_unet/0002TrainModelScript.py
+      - file: 00_ai24/cv/wrkshp_unet/0003InferModel.py
 
 
   

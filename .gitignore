@@ -3,3 +3,12 @@ dwDbs
 dwDbs/*
 _build
 _build/*
+Data
+
+# Folders
+*files*/*
+*_ext*/*
+wandb*/*
+
+# Files
+*.png
