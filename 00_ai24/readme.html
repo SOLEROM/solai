@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title> &#8212; solAiKM</title>
+    <title>ai24 &#8212; solAiKM</title>
   
   
   
@@ -239,6 +239,26 @@
 <li class="toctree-l2"><a class="reference internal" href="cv/transf/0093DeepLearningTransferLearning.html">Transfer Learning of resnet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cv/transf/overfit.html">Transfer overfit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cv/transf/transformers.html">transformers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cv/visualize/readme.html">visualize and debug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cv/location/location.html">Object Location</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cv/location/lab_pretrain_demo.html">pre-trained model for object localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cv/location/localization.html">Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cv/location/0098DeepLearningObjectLocalization.html">Object Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cv/location/detection.html">Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cv/location/lab_plot_transforms_e2e.html">Transforms v2: End-to-end object detection/segmentation example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cv/location/commonArch.html">Common Object Detector Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cv/location/hms.html">Non Maximum Suppression (NMS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cv/location/map.html">Mean Average Precision (mAP)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cv/wrkshp_yolo/readme.html">WorkShop - Object Detection with Yolov8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cv/wrkshp_yolo/labelme/readme.html">label example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cv/wrkshp_yolo/0001BoundingBoxFormat.html">yoloWRKSHP box formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cv/segmentation/readme.html">segmentation workshop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cv/segmentation/intro.html">intro</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="cv/segmentation/data.html">data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cv/segmentation/models.html">models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cv/segmentation/unet.html">UNET</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cv/wrkshp_unet/readme.html">the task</a></li>
 </ul>
 </li>
 </ul>
@@ -413,7 +433,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
 </div></div>
       
     </div>
@@ -424,11 +446,20 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1></h1>
+    <h1>ai24</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topics">topics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-materials">read materials</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -438,8 +469,30 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="id1">
-<h1><a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="ai24">
+<h1>ai24<a class="headerlink" href="#ai24" title="Permalink to this heading">#</a></h1>
+<section id="topics">
+<h2>topics<a class="headerlink" href="#topics" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>cv</p></li>
+</ul>
+</section>
+<section id="read-materials">
+<h2>read materials<a class="headerlink" href="#read-materials" title="Permalink to this heading">#</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>├── lil_forDummy_oct17
+│   ├── Object Detection for Dummies Part 1_ Gradient Vector, HOG, and SS _ Lil&#39;Log.html
+│   ├── Object Detection for Dummies Part 2_ CNN, DPM and Overfeat _ Lil&#39;Log.html
+│   ├── Object Detection for Dummies Part 3_ R-CNN Family _ Lil&#39;Log.html
+│   └── Object Detection Part 4_ Fast Detection Models _ Lil&#39;Log.html
+
+├── oobDeep_ieee_apr23
+    └── Object_Detection_Using_Deep_Learning_CNNs_and_Vision_Transformers_A_Review.pdf
+
+
+
+</pre></div>
+</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -479,7 +532,21 @@ document.write(`
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"></div>
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topics">topics</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-materials">read materials</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

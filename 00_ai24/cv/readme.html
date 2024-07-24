@@ -239,6 +239,26 @@
 <li class="toctree-l2"><a class="reference internal" href="transf/0093DeepLearningTransferLearning.html">Transfer Learning of resnet</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transf/overfit.html">Transfer overfit</a></li>
 <li class="toctree-l2"><a class="reference internal" href="transf/transformers.html">transformers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visualize/readme.html">visualize and debug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="location/location.html">Object Location</a></li>
+<li class="toctree-l2"><a class="reference internal" href="location/lab_pretrain_demo.html">pre-trained model for object localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="location/localization.html">Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="location/0098DeepLearningObjectLocalization.html">Object Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="location/detection.html">Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="location/lab_plot_transforms_e2e.html">Transforms v2: End-to-end object detection/segmentation example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="location/commonArch.html">Common Object Detector Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="location/hms.html">Non Maximum Suppression (NMS)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="location/map.html">Mean Average Precision (mAP)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wrkshp_yolo/readme.html">WorkShop - Object Detection with Yolov8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wrkshp_yolo/labelme/readme.html">label example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wrkshp_yolo/0001BoundingBoxFormat.html">yoloWRKSHP box formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="segmentation/readme.html">segmentation workshop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="segmentation/intro.html">intro</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="segmentation/data.html">data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="segmentation/models.html">models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="segmentation/unet.html">UNET</a></li>
+<li class="toctree-l2"><a class="reference internal" href="wrkshp_unet/readme.html">the task</a></li>
 </ul>
 </li>
 </ul>
@@ -448,9 +468,13 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-arch">common arch</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference">inference</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transfer-learning">transfer learning</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debug">debug</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detection">detection</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#localization">localization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debug-by-visualize">debug by visualize</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#location">location</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#localization">localization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#detection">detection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#segmentation">Segmentation</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -470,7 +494,7 @@ document.write(`
 <li><p>motivation <a class="reference internal" href="convolution/fullyConnectedDrawback.html"><span class="std std-doc">Exploiting Data Structure</span></a></p></li>
 <li><p><a class="reference internal" href="convolution/cnnFrqExample.html"><span class="std std-doc">cnn example for Frequency Estimation</span></a></p>
 <ul>
-<li><p>:green_book: <a class="reference internal" href="convolution/0085DeepLearning1DConvFreqEst.html"><span class="std std-doc">lab Convolution for Frequency Estimation</span></a> show also when model dont learn to generalize</p></li>
+<li><p><a class="reference internal" href="convolution/0085DeepLearning1DConvFreqEst.html"><span class="std std-doc">lab Convolution for Frequency Estimation</span></a> 📔show also when model dont learn to generalize</p></li>
 </ul>
 </li>
 <li><p><a class="reference internal" href="convolution/readme.html"><span class="std std-doc">Basic convulsion</span></a> padding and basic kernel examples</p></li>
@@ -514,7 +538,7 @@ document.write(`
 <ul class="simple">
 <li><p><a class="reference internal" href="concept/recfield.html"><span class="std std-doc">receptive field</span></a></p>
 <ul>
-<li><p>:green_book: <a class="reference internal" href="concept/recField.html"><span class="std std-doc">lab calc RF</span></a></p></li>
+<li><p><a class="reference internal" href="concept/recField.html"><span class="std std-doc">lab calc RF</span></a>📔</p></li>
 </ul>
 </li>
 <li><p><a class="reference internal" href="concept/encodeDecode.html"><span class="std std-doc">encode decode</span></a></p></li>
@@ -525,26 +549,26 @@ document.write(`
 <h2>augmentation<a class="headerlink" href="#augmentation" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="augm/readme.html"><span class="std std-doc">about augmentation</span></a></p></li>
-<li><p>:green_book: <a class="reference internal" href="augm/0094DeepLearningImageAugmentation.html"><span class="std std-doc">basic img effects</span></a></p></li>
+<li><p><a class="reference internal" href="augm/0094DeepLearningImageAugmentation.html"><span class="std std-doc">basic img effects</span></a>📔</p></li>
 <li><p><a class="reference internal" href="augm/cutMethods.html"><span class="std std-doc">cut effects</span></a></p>
 <ul>
-<li><p>:green_book: <a class="reference internal" href="augm/0095DeepLearningImageAugmentation.html"><span class="std std-doc">lab demo cut effects</span></a></p></li>
+<li><p><a class="reference internal" href="augm/0095DeepLearningImageAugmentation.html"><span class="std std-doc">lab demo cut effects</span></a>📔</p></li>
 </ul>
 </li>
 <li><p><a class="reference internal" href="augm/smoothing.html"><span class="std std-doc">smoothing</span></a></p>
 <ul>
-<li><p>:green_book: <a class="reference internal" href="augm/0096DeepLearningLabelSmoothing.html"><span class="std std-doc">lab smoothing demo</span></a></p></li>
+<li><p><a class="reference internal" href="augm/0096DeepLearningLabelSmoothing.html"><span class="std std-doc">lab smoothing demo</span></a>📔</p></li>
 </ul>
 </li>
-<li><p>:green_book: <a class="reference internal" href="augm/0097DeepLearningRegularizedTraining.html"><span class="std std-doc">lab combine cutting with smooth</span></a></p></li>
+<li><p><a class="reference internal" href="augm/0097DeepLearningRegularizedTraining.html"><span class="std std-doc">lab combine cutting with smooth</span></a>📔</p></li>
 </ul>
 </section>
 <section id="demo-arch">
 <h2>demo arch<a class="headerlink" href="#demo-arch" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>:green_book: <a class="reference internal" href="convolution/0086DeepLearningConv2DCifar10.html"><span class="std std-doc">lab cifar</span></a></p></li>
-<li><p>:green_book: <a class="reference internal" href="convolution/0087DeepLearningConv2DFashionMNIST.html"><span class="std std-doc">lab mnist</span></a> - multiple models with tensor board</p></li>
-<li><p>:green_book: <a class="reference internal" href="concept/studentTeacherDemo.html"><span class="std std-doc">lab student model</span></a> - Knowledge Distillation</p></li>
+<li><p><a class="reference internal" href="convolution/0086DeepLearningConv2DCifar10.html"><span class="std std-doc">lab cifar</span></a>📔</p></li>
+<li><p><a class="reference internal" href="convolution/0087DeepLearningConv2DFashionMNIST.html"><span class="std std-doc">lab mnist</span></a> 📔- multiple models with tensor board</p></li>
+<li><p><a class="reference internal" href="concept/studentTeacherDemo.html"><span class="std std-doc">lab student model</span></a> 📔- Knowledge Distillation</p></li>
 </ul>
 </section>
 <section id="common-arch">
@@ -561,13 +585,13 @@ document.write(`
 </li>
 <li><p><a class="reference internal" href="arch/resnet.html"><span class="std std-doc">resnet</span></a></p>
 <ul>
-<li><p>:green_book: <a class="reference internal" href="arch/0092DeepLearningResNet.html"><span class="std std-doc">lab resnet model</span></a></p></li>
+<li><p><a class="reference internal" href="arch/0092DeepLearningResNet.html"><span class="std std-doc">lab resnet model</span></a>📔</p></li>
 </ul>
 </li>
 <li><p><a class="reference internal" href="arch/yolo.html"><span class="std std-doc">yolo</span></a></p></li>
 <li><p><a class="reference internal" href="arch/minirocket.html"><span class="std std-doc">minirocket</span></a></p>
 <ul>
-<li><p>:green_book: <a class="reference internal" href="arch/lab_minirocket_basicDemo.html"><span class="std std-doc">lab minirocket demo</span></a></p></li>
+<li><p><a class="reference internal" href="arch/lab_minirocket_basicDemo.html"><span class="std std-doc">lab minirocket demo</span></a>📔</p></li>
 </ul>
 </li>
 </ul>
@@ -579,7 +603,7 @@ document.write(`
 <li><p><a class="reference internal" href="infer/pyInter.html"><span class="std std-doc">pytorch inference</span></a></p></li>
 <li><p><a class="reference internal" href="infer/sota.html"><span class="std std-doc">sota</span></a></p></li>
 <li><p><a class="reference internal" href="infer/zoo.html"><span class="std std-doc">zoo</span></a></p></li>
-<li><p>:green_book: <a class="reference internal" href="infer/0091DeepLearningPreTrainedModels.html"><span class="std std-doc">lab pre train compare</span></a></p></li>
+<li><p><a class="reference internal" href="infer/0091DeepLearningPreTrainedModels.html"><span class="std std-doc">lab pre train compare</span></a>📔</p></li>
 </ul>
 </section>
 <section id="transfer-learning">
@@ -589,42 +613,99 @@ document.write(`
 <li><p><a class="reference internal" href="transf/compare.html"><span class="std std-doc">compare methods</span></a></p></li>
 <li><p><a class="reference internal" href="transf/fineTune.html"><span class="std std-doc">fineTune</span></a></p></li>
 <li><p><a class="reference internal" href="transf/freeze.html"><span class="std std-doc">freeze</span></a></p></li>
-<li><p>:green_book: <a class="reference internal" href="transf/0093DeepLearningTransferLearning.html"><span class="std std-doc">lab Transfer Learning of resnet</span></a></p></li>
+<li><p><a class="reference internal" href="transf/0093DeepLearningTransferLearning.html"><span class="std std-doc">lab Transfer Learning of resnet</span></a>📔</p></li>
 <li><p><a class="reference internal" href="transf/overfit.html"><span class="std std-doc">overfit</span></a></p>
 <ul>
-<li><p>:green_book: <a class="reference internal" href="transf/lab_reducude_demo.html"><span class="std std-doc">lab reduce demo</span></a>  TBD</p></li>
+<li><p><a class="reference internal" href="transf/lab_reducude_demo.html"><span class="std std-doc">lab reduce demo</span></a>📔  TBD</p></li>
 </ul>
 </li>
 <li><p><a class="reference internal" href="transf/transformers.html"><span class="std std-doc">transformers</span></a></p>
 <ul>
-<li><p>:green_book: <a class="reference internal" href="transf/lab_transofmers_basic.html"><span class="std std-doc">lab transofmers basic</span></a>  TBD</p></li>
+<li><p><a class="reference internal" href="transf/lab_transofmers_basic.html"><span class="std std-doc">lab transofmers basic</span></a>📔   TBD</p></li>
 </ul>
 </li>
 </ul>
 </section>
-<section id="debug">
-<h2>debug<a class="headerlink" href="#debug" title="Permalink to this heading">#</a></h2>
-<p>visualize cnn
-<a class="reference external" href="https://jithinjk.github.io/blog/nn_visualized.md.html">https://jithinjk.github.io/blog/nn_visualized.md.html</a></p>
+<section id="debug-by-visualize">
+<h2>debug by visualize<a class="headerlink" href="#debug-by-visualize" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p><a class="reference internal" href="aaa/location.html"><span class="std std-doc">location</span></a></p></li>
-<li><p><a class="reference internal" href="aaa/lab_pretrain_demo.html"><span class="std std-doc">lab pretrain</span></a></p></li>
-<li><p><a class="reference internal" href="aaa/localization.html"><span class="std std-doc">localization</span></a></p>
+<li><p><a class="reference internal" href="visualize/readme.html"><span class="std std-doc">methods</span></a></p></li>
+</ul>
+</section>
+<section id="location">
+<h2>location<a class="headerlink" href="#location" title="Permalink to this heading">#</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="nb">object</span><span class="p">)</span> <span class="n">location</span>
+    
+    <span class="n">localization</span>                <span class="o">-</span> <span class="n">single</span> <span class="nb">object</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">image</span>
+        <span class="n">classification</span>          <span class="o">-</span> <span class="n">what</span> <span class="n">the</span> <span class="nb">object</span>
+        <span class="n">regression</span>              <span class="o">-</span> <span class="n">where</span> <span class="n">the</span> <span class="nb">object</span>
+    
+    <span class="n">detection</span>                   <span class="o">-</span><span class="n">no</span> <span class="n">knowledge</span> <span class="n">of</span> <span class="n">how</span> <span class="n">many</span> <span class="n">objects</span> <span class="n">are</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">image</span>
+        <span class="n">Segmentation</span>
+            <span class="o">-</span> <span class="n">classification</span>    <span class="o">-</span> <span class="n">what</span> <span class="n">the</span> <span class="nb">object</span>
+            <span class="o">-</span> <span class="n">pixel</span> <span class="n">regression</span>  <span class="o">-</span> <span class="n">where</span> <span class="n">the</span> <span class="nb">object</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><a class="reference internal" href="location/location.html"><span class="std std-doc">about location</span></a></p>
 <ul>
-<li><p><a class="reference internal" href="aaa/0098DeepLearningObjectLocalization.html"><span class="std std-doc">lab localization</span></a></p></li>
+<li><p><a class="reference internal" href="location/lab_pretrain_demo.html"><span class="std std-doc">lab pretrain</span></a>📔</p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="aaa/lab_plot_transforms_e2e.html"><span class="std std-doc">Transforms v2: End-to-end object detection/segmentation example</span></a></p></li>
-<li><p><a class="reference internal" href="aaa/detection.html"><span class="std std-doc">detection</span></a></p></li>
-<li><p><a class="reference internal" href="aaa/hms.html"><span class="std std-doc">NMS</span></a> Non Maximum Suppression</p></li>
-<li><p><a class="reference internal" href="aaa/map.html"><span class="std std-doc">MAP</span></a></p></li>
+</ul>
+<section id="localization">
+<h3>localization<a class="headerlink" href="#localization" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="location/localization.html"><span class="std std-doc">localization</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="location/0098DeepLearningObjectLocalization.html"><span class="std std-doc">lab localization</span></a>📔</p></li>
+</ul>
+</li>
 </ul>
 </section>
 <section id="detection">
-<h2>detection<a class="headerlink" href="#detection" title="Permalink to this heading">#</a></h2>
+<h3>detection<a class="headerlink" href="#detection" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="location/detection.html"><span class="std std-doc">detection</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="location/lab_plot_transforms_e2e.html"><span class="std std-doc">lab pretrain detection demo</span></a>📔</p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="location/commonArch.html"><span class="std std-doc">common arch</span></a></p></li>
+<li><p><a class="reference internal" href="location/hms.html"><span class="std std-doc">NMS</span></a> Non Maximum Suppression</p></li>
+<li><p><a class="reference internal" href="location/map.html"><span class="std std-doc">MAP</span></a></p></li>
+<li><p><a class="reference internal" href="wrkshp_yolo/readme.html"><span class="std std-doc">workshop object Detection with Yolov8</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="wrkshp_yolo/labelme/readme.html"><span class="std std-doc">labelme</span></a></p></li>
+<li><p><a class="reference internal" href="wrkshp_yolo/0001BoundingBoxFormat.html"><span class="std std-doc">0001BoundingBoxFormat</span></a></p></li>
+<li><p><a class="reference download internal" download="" href="../../_downloads/eb3d48001942ecf66231de05eeeac9e8/0002Dataset.py"><span class="xref download myst">0002Dataset</span></a></p></li>
+<li><p><a class="reference download internal" download="" href="../../_downloads/7dbc557034b5159b489c6865edd10852/0003PreProcessTiles.py"><span class="xref download myst">0003PreProcessTiles</span></a></p></li>
+<li><p><a class="reference download internal" download="" href="../../_downloads/7b56a4cebc74d91aee4417df75580edf/0004PreProcessTrainTestSplit.py"><span class="xref download myst">0004PreProcessTrainTestSplit</span></a></p></li>
+<li><p><a class="reference download internal" download="" href="../../_downloads/beebad08177abbabf0c680fea4b7baa6/0005TrainYolo.py"><span class="xref download myst">0005TrainYolo</span></a></p></li>
+</ul>
+</li>
+</ul>
 </section>
-<section id="localization">
-<h2>localization<a class="headerlink" href="#localization" title="Permalink to this heading">#</a></h2>
+<section id="segmentation">
+<h3>Segmentation<a class="headerlink" href="#segmentation" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="segmentation/readme.html"><span class="std std-doc">about Segmentation</span></a></p>
+<ul>
+<li><p><a class="reference internal" href="segmentation/intro.html"><span class="std std-doc">intro</span></a></p></li>
+<li><p><a class="reference internal" href="segmentation/data.html"><span class="std std-doc">data</span></a></p></li>
+<li><p><a class="reference internal" href="segmentation/models.html"><span class="std std-doc">models</span></a></p></li>
+<li><p><a class="reference internal" href="segmentation/unet.html"><span class="std std-doc">unet</span></a></p></li>
+<li><p><a class="reference internal" href="wrkshp_unet/readme.html"><span class="std std-doc">workshop segmentation UNET</span></a></p>
+<ul>
+<li><p><a class="reference download internal" download="" href="../../_downloads/991609729be8c8cfe9d6c864a1692144/0001Dataset.py"><span class="xref download myst">0001Dataset</span></a></p></li>
+<li><p><a class="reference download internal" download="" href="../../_downloads/9eff943b99829a6f7c0469bad194548a/0002TrainModelScript.py"><span class="xref download myst">0002TrainModel</span></a></p></li>
+<li><p><a class="reference download internal" download="" href="../../_downloads/99731983fd78bf8f5f3aedcc0c4e16e6/0003InferModel.py"><span class="xref download myst">0003InferModel</span></a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
 </section>
 <div class="toctree-wrapper compound">
 </div>
@@ -706,9 +787,13 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-arch">common arch</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inference">inference</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transfer-learning">transfer learning</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debug">debug</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detection">detection</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#localization">localization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debug-by-visualize">debug by visualize</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#location">location</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#localization">localization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#detection">detection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#segmentation">Segmentation</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

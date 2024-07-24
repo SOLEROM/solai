@@ -3,7 +3,7 @@
 ## intro
 * motivation [Exploiting Data Structure](./convolution/fullyConnectedDrawback.md)
 * [cnn example for Frequency Estimation](./convolution/cnnFrqExample.ipynb)
-    * :green_book: [lab Convolution for Frequency Estimation](./convolution/0085DeepLearning1DConvFreqEst.ipynb) show also when model dont learn to generalize
+    * [lab Convolution for Frequency Estimation](./convolution/0085DeepLearning1DConvFreqEst.ipynb) 📔show also when model dont learn to generalize
 * [Basic convulsion](./convolution/readme.md) padding and basic kernel examples
 * [2d convolution](./convolution/2d.md)
 
@@ -29,26 +29,26 @@
 
 ## concepts
 * [receptive field](./concept/recfield.md)
-    * :green_book: [lab calc RF](./concept/recField.ipynb)
+    * [lab calc RF](./concept/recField.ipynb)📔
 * [encode decode](./concept/encodeDecode.md)
 * [skip connections](./concept/skipConnections.md)
 
 
 ## augmentation
 * [about augmentation](./augm/readme.md)
-* :green_book: [basic img effects](./augm/0094DeepLearningImageAugmentation.ipynb)
+* [basic img effects](./augm/0094DeepLearningImageAugmentation.ipynb)📔
 * [cut effects](./augm/cutMethods.md)
-    * :green_book: [lab demo cut effects](./augm/0095DeepLearningImageAugmentation.ipynb)
+    * [lab demo cut effects](./augm/0095DeepLearningImageAugmentation.ipynb)📔
 * [smoothing](./augm/smoothing.md)
-    * :green_book: [lab smoothing demo](./augm/0096DeepLearningLabelSmoothing.ipynb)
-* :green_book: [lab combine cutting with smooth](./augm/0097DeepLearningRegularizedTraining.ipynb)
+    * [lab smoothing demo](./augm/0096DeepLearningLabelSmoothing.ipynb)📔
+* [lab combine cutting with smooth](./augm/0097DeepLearningRegularizedTraining.ipynb)📔
 
 
 
 ## demo arch
-* :green_book: [lab cifar](./convolution/0086DeepLearningConv2DCifar10.ipynb)
-* :green_book: [lab mnist](./convolution/0087DeepLearningConv2DFashionMNIST.ipynb) - multiple models with tensor board
-* :green_book: [lab student model](./concept/studentTeacherDemo.ipynb) - Knowledge Distillation
+* [lab cifar](./convolution/0086DeepLearningConv2DCifar10.ipynb)📔
+* [lab mnist](./convolution/0087DeepLearningConv2DFashionMNIST.ipynb) 📔- multiple models with tensor board
+* [lab student model](./concept/studentTeacherDemo.ipynb) 📔- Knowledge Distillation
 
 
 ## common arch
@@ -59,10 +59,10 @@
 * [googleNet](./arch/googleNet.md)
     * [Inception Modules](./arch/inception.md)
 * [resnet](./arch/resnet.md)
-    * :green_book: [lab resnet model](./arch/0092DeepLearningResNet.ipynb)
+    * [lab resnet model](./arch/0092DeepLearningResNet.ipynb)📔
 * [yolo](./arch/yolo.md)
 * [minirocket](./arch/minirocket.md)
-    * :green_book: [lab minirocket demo](./arch/lab_minirocket_basicDemo.ipynb)
+    * [lab minirocket demo](./arch/lab_minirocket_basicDemo.ipynb)📔
 
 
 ## inference
@@ -70,7 +70,7 @@
 * [pytorch inference](./infer/pyInter.md)
 * [sota](./infer/sota.md)
 * [zoo](./infer/zoo.md)
-* :green_book: [lab pre train compare](./infer/0091DeepLearningPreTrainedModels.ipynb)
+* [lab pre train compare](./infer/0091DeepLearningPreTrainedModels.ipynb)📔
 
 
 
@@ -79,33 +79,62 @@
 * [compare methods](./transf/compare.md) 
 * [fineTune](./transf/fineTune.md)
 * [freeze](./transf/freeze.md)
-* :green_book: [lab Transfer Learning of resnet](./transf/0093DeepLearningTransferLearning.ipynb)
+* [lab Transfer Learning of resnet](./transf/0093DeepLearningTransferLearning.ipynb)📔
 * [overfit](./transf/overfit.md)
-    * :green_book: [lab reduce demo](./transf/lab_reducude_demo.ipynb)  TBD
+    * [lab reduce demo](./transf/lab_reducude_demo.ipynb)📔  TBD
 * [transformers](./transf/transformers.md)
-    * :green_book: [lab transofmers basic](./transf/lab_transofmers_basic.ipynb)  TBD
+    * [lab transofmers basic](./transf/lab_transofmers_basic.ipynb)📔   TBD
 
-## debug
-visualize cnn
-https://jithinjk.github.io/blog/nn_visualized.md.html
+## debug by visualize
+
+* [methods](./visualize/readme.md)
+
+## location
+
+```
+(object) location
+    
+    localization                - single object in the image
+        classification          - what the object
+        regression              - where the object
+    
+    detection                   -no knowledge of how many objects are in the image
+        Segmentation
+            - classification    - what the object
+            - pixel regression  - where the object
+```
+
+* [about location](./location/location.md)
+    * [lab pretrain](./location/lab_pretrain_demo.ipynb)📔 
+
+#### localization
+* [localization](./location/localization.md)
+    * [lab localization](./location/0098DeepLearningObjectLocalization.ipynb)📔
+#### detection
+* [detection](./location/detection.md)
+    * [lab pretrain detection demo](./location/lab_plot_transforms_e2e.ipynb)📔
+* [common arch](./location/commonArch.md)
+* [NMS](./location/hms.md) Non Maximum Suppression
+* [MAP](./location/map.md)
+
+* [workshop object Detection with Yolov8](./wrkshp_yolo/readme.md)
+    * [labelme](./wrkshp_yolo/labelme/readme.md)
+    * [0001BoundingBoxFormat](./wrkshp_yolo/0001BoundingBoxFormat.ipynb)
+    * [0002Dataset](./wrkshp_yolo/0002Dataset.py)
+    * [0003PreProcessTiles](./wrkshp_yolo/0003PreProcessTiles.py)
+    * [0004PreProcessTrainTestSplit](./wrkshp_yolo/0004PreProcessTrainTestSplit.py)
+    * [0005TrainYolo](./wrkshp_yolo/0005TrainYolo.py)
+
+#### Segmentation
+
+* [about Segmentation](./segmentation/readme.md)
+    * [intro](./segmentation/intro.md)
+    * [data](./segmentation/data.md)
+    * [models](./segmentation/models.md)
+    * [unet](./segmentation/unet.md)
+    * [workshop segmentation UNET](./wrkshp_unet/readme.md)
+        * [0001Dataset](./wrkshp_unet/0001Dataset.py)
+        * [0002TrainModel](./wrkshp_unet/0002TrainModelScript.py)
+        * [0003InferModel](./wrkshp_unet/0003InferModel.py)
 
 
-
-
-* [location](./aaa/location.md)
-* [lab pretrain](./aaa/lab_pretrain_demo.ipynb)
-
-* [localization](./aaa/localization.md)
-    * [lab localization](./aaa/0098DeepLearningObjectLocalization.ipynb)
-
-* [](./aaa/lab_plot_transforms_e2e.ipynb)
-
-* [detection](./aaa/detection.md)
-* [NMS](./aaa/hms.md) Non Maximum Suppression
-* [MAP](./aaa/map.md)
-
-
-## detection
-
-
-## localization

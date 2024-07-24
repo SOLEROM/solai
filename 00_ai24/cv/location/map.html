@@ -1,0 +1,863 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Mean Average Precision (mAP) &#8212; solAiKM</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '00_ai24/cv/location/map';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="WorkShop - Object Detection with Yolov8" href="../wrkshp_yolo/readme.html" />
+    <link rel="prev" title="Non Maximum Suppression (NMS)" href="hms.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../readme.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">solAiKM</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../readme.html">
+                    solai
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">AI24</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../readme.html">AI Computer Vision</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../convolution/fullyConnectedDrawback.html">Fully Connected Drawbacks</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../convolution/cnnFrqExample.html">CNN for Frequency Estimation Problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../convolution/0085DeepLearning1DConvFreqEst.html">Convolution for Frequency Estimation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../convolution/readme.html">Convolution in Deep Learning</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../convolution/2d.html">2D Convolution</a></li>
+
+
+
+
+
+<li class="toctree-l2"><a class="reference internal" href="../convolution/layers.html">Layers in Convolutional Neural Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../convolution/pooling.html">Pooling in Convolutional Neural Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../convolution/batchNorm.html">Batch Normalization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../convolution/lab_batchNorm.html">demo batch norm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../convolution/filters.html">Common Filters for 2D Convolution</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../convolution/filter_laplacian.html">Common Filters for 2D Convolution</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../pytorch/common.html">pytorch layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pytorch/custom.html">custom nn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pytorch/microMacro.html">micro macro</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torchvis/readme.html">TorchVision</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../torchvis/transformVers.html">torchvision.transforms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concept/recfield.html">Receptive Field (RF)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concept/recField.html">Calc RF</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concept/encodeDecode.html">Encode-Decode Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../concept/skipConnections.html">skip connections</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../augm/readme.html">Augmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../augm/0094DeepLearningImageAugmentation.html">Image Augmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../augm/cutMethods.html">Cut Effects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../augm/0095DeepLearningImageAugmentation.html">Image Augmentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../augm/smoothing.html">Smoothing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../augm/0096DeepLearningLabelSmoothing.html">Label Smoothing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../augm/0097DeepLearningRegularizedTraining.html">Regularized Training</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../convolution/0086DeepLearningConv2DCifar10.html">cifar10-2d-convolution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../convolution/0087DeepLearningConv2DFashionMNIST.html">Image Classification Fashion MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../arch/readme.html">compare</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../arch/darknet53.html">darknet53</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../arch/alexnet.html">AlexNet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../arch/vgg.html">vgg</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../arch/googleNet.html">googleNet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../arch/inception.html">Inception Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../arch/resnet.html">resnet</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../arch/0092DeepLearningResNet.html">ResNet Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../arch/yolo.html">yolo</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../arch/minirocket.html">minirocket</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../arch/lab_minirocket_basicDemo.html">lab simple minirocket demo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../infer/readme.html">Pre-Defined Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../infer/pyInter.html">pytorch Inference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../infer/sota.html">sota - state-of-the-art</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../infer/zoo.html">zoo(s)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../infer/0091DeepLearningPreTrainedModels.html">Pre Trained Computer Vision Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transf/readme.html">Transfer Learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transf/compare.html">compare methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transf/fineTune.html">Fine-Tuning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transf/freeze.html">Freeze Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transf/0093DeepLearningTransferLearning.html">Transfer Learning of resnet</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transf/overfit.html">Transfer overfit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../transf/transformers.html">transformers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../visualize/readme.html">visualize and debug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="location.html">Object Location</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lab_pretrain_demo.html">pre-trained model for object localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="localization.html">Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="0098DeepLearningObjectLocalization.html">Object Localization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="detection.html">Detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lab_plot_transforms_e2e.html">Transforms v2: End-to-end object detection/segmentation example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="commonArch.html">Common Object Detector Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hms.html">Non Maximum Suppression (NMS)</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Mean Average Precision (mAP)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wrkshp_yolo/readme.html">WorkShop - Object Detection with Yolov8</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wrkshp_yolo/labelme/readme.html">label example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wrkshp_yolo/0001BoundingBoxFormat.html">yoloWRKSHP box formats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../segmentation/readme.html">segmentation workshop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../segmentation/intro.html">intro</a></li>
+
+<li class="toctree-l2"><a class="reference internal" href="../segmentation/data.html">data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../segmentation/models.html">models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../segmentation/unet.html">UNET</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../wrkshp_unet/readme.html">the task</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SOLEROM/solai" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SOLEROM/solai/issues/new?title=Issue%20on%20page%20%2F00_ai24/cv/location/map.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/00_ai24/cv/location/map.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Mean Average Precision (mAP)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts">Key Concepts</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#true-positives-tp">True Positives (TP)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#false-positives-fp">False Positives (FP)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#false-negatives-fn">False Negatives (FN)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#true-negatives-tn">True Negatives (TN)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-and-recall">Precision and Recall</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-recall-curve">Precision-Recall Curve</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-to-compute-map">Steps to Compute mAP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#average-precision-ap">Average Precision (AP)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-of-calculating-ap">Example of Calculating AP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Mean Average Precision (mAP)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#real-world-example">Real-World Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importance-in-object-detection">Importance in Object Detection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-calculation-of-tp-fp-fn">Example Calculation of TP, FP, FN</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-and-recall-calculation">Precision and Recall Calculation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-recall-curve-and-ap-calculation">Precision-Recall Curve and AP Calculation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-code-example">Python Code Example</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="mean-average-precision-map">
+<h1>Mean Average Precision (mAP)<a class="headerlink" href="#mean-average-precision-map" title="Permalink to this heading">#</a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
+<p>Mean Average Precision (mAP) is a comprehensive metric used to evaluate the performance of object detection models. It involves calculating precision and recall for each class, plotting precision-recall curves, and then averaging the results to obtain a single score that reflects the model’s ability to detect and localize objects accurately.</p>
+</section>
+<section id="key-concepts">
+<h2>Key Concepts<a class="headerlink" href="#key-concepts" title="Permalink to this heading">#</a></h2>
+<section id="true-positives-tp">
+<h3>True Positives (TP)<a class="headerlink" href="#true-positives-tp" title="Permalink to this heading">#</a></h3>
+<p>A detection is a true positive if it correctly identifies an object and its bounding box sufficiently overlaps with the ground truth bounding box.</p>
+</section>
+<section id="false-positives-fp">
+<h3>False Positives (FP)<a class="headerlink" href="#false-positives-fp" title="Permalink to this heading">#</a></h3>
+<p>A detection is a false positive if it incorrectly identifies an object (either no object is present or it doesn’t overlap sufficiently with any ground truth box).</p>
+</section>
+<section id="false-negatives-fn">
+<h3>False Negatives (FN)<a class="headerlink" href="#false-negatives-fn" title="Permalink to this heading">#</a></h3>
+<p>A ground truth object is considered a false negative if it is not detected by the model.</p>
+</section>
+<section id="true-negatives-tn">
+<h3>True Negatives (TN)<a class="headerlink" href="#true-negatives-tn" title="Permalink to this heading">#</a></h3>
+<p>In the context of object detection, true negatives are usually not considered since the focus is on detecting objects within a region of interest.</p>
+</section>
+</section>
+<section id="precision-and-recall">
+<h2>Precision and Recall<a class="headerlink" href="#precision-and-recall" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Precision</strong>: The ratio of true positive detections to the total number of detections.
+<span class="math notranslate nohighlight">\(
+\text{Precision} = \frac{\text{TP}}{\text{TP} + \text{FP}}
+\)</span></p></li>
+<li><p><strong>Recall</strong>: The ratio of true positive detections to the total number of ground truth objects.
+<span class="math notranslate nohighlight">\(
+\text{Recall} = \frac{\text{TP}}{\text{TP} + \text{FN}}
+\)</span></p></li>
+</ul>
+</section>
+<section id="precision-recall-curve">
+<h2>Precision-Recall Curve<a class="headerlink" href="#precision-recall-curve" title="Permalink to this heading">#</a></h2>
+<p>A precision-recall curve is a graph that plots precision ((y)-axis) against recall ((x)-axis) at various threshold settings. It provides a comprehensive view of the model’s performance across different levels of confidence.</p>
+</section>
+<section id="steps-to-compute-map">
+<h2>Steps to Compute mAP<a class="headerlink" href="#steps-to-compute-map" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Compute Precision and Recall</strong>: For each class, compute precision and recall at various thresholds.</p></li>
+<li><p><strong>Plot Precision-Recall Curve</strong>: Plot the precision against recall for each class.</p></li>
+<li><p><strong>Calculate Average Precision (AP)</strong>: Calculate the area under the precision-recall curve for each class.</p></li>
+<li><p><strong>Mean Average Precision (mAP)</strong>: Average the AP values across all classes.</p></li>
+</ol>
+</section>
+<section id="average-precision-ap">
+<h2>Average Precision (AP)<a class="headerlink" href="#average-precision-ap" title="Permalink to this heading">#</a></h2>
+<p>AP is calculated as the area under the precision-recall curve. One common approach is to use interpolation to ensure that precision does not increase as recall increases.</p>
+</section>
+<section id="example-of-calculating-ap">
+<h2>Example of Calculating AP<a class="headerlink" href="#example-of-calculating-ap" title="Permalink to this heading">#</a></h2>
+<p>Consider precision and recall values at different thresholds:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Threshold</p></th>
+<th class="head"><p>Precision</p></th>
+<th class="head"><p>Recall</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0.9</p></td>
+<td><p>1.0</p></td>
+<td><p>0.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.8</p></td>
+<td><p>0.9</p></td>
+<td><p>0.2</p></td>
+</tr>
+<tr class="row-even"><td><p>0.7</p></td>
+<td><p>0.8</p></td>
+<td><p>0.3</p></td>
+</tr>
+<tr class="row-odd"><td><p>0.6</p></td>
+<td><p>0.7</p></td>
+<td><p>0.4</p></td>
+</tr>
+<tr class="row-even"><td><p>0.5</p></td>
+<td><p>0.6</p></td>
+<td><p>0.5</p></td>
+</tr>
+</tbody>
+</table>
+<p>To calculate AP, you would plot these points on a precision-recall graph and compute the area under the curve.</p>
+</section>
+<section id="id1">
+<h2>Mean Average Precision (mAP)<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p>Once the AP for each class is calculated, the mAP is obtained by averaging these AP values. For ( N ) classes, mAP is given by:</p>
+<p><span class="math notranslate nohighlight">\(
+\text{mAP} = \frac{1}{N} \sum_{i=1}^N \text{AP}_i
+\)</span></p>
+</section>
+<section id="real-world-example">
+<h2>Real-World Example<a class="headerlink" href="#real-world-example" title="Permalink to this heading">#</a></h2>
+<p>Suppose you are evaluating an object detection model on a dataset containing three classes: cars, pedestrians, and bicycles. After running the model, you get the following AP values:</p>
+<ul class="simple">
+<li><p><strong>Cars</strong>: 0.85</p></li>
+<li><p><strong>Pedestrians</strong>: 0.75</p></li>
+<li><p><strong>Bicycles</strong>: 0.65</p></li>
+</ul>
+<p>The mAP for the model would be:</p>
+<p><span class="math notranslate nohighlight">\(
+\text{mAP} = \frac{1}{3} (0.85 + 0.75 + 0.65) = 0.75
+\)</span></p>
+</section>
+<section id="importance-in-object-detection">
+<h2>Importance in Object Detection<a class="headerlink" href="#importance-in-object-detection" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>Comprehensive Evaluation</strong>: mAP provides a comprehensive evaluation of both detection accuracy and localization precision.</p></li>
+<li><p><strong>Class-wise Performance</strong>: By considering AP for each class, mAP helps in understanding the performance of the model across different object categories.</p></li>
+<li><p><strong>Benchmarking</strong>: mAP is widely used for benchmarking object detection models on standard datasets like COCO, PASCAL VOC, etc.</p></li>
+</ul>
+</section>
+<section id="example-calculation-of-tp-fp-fn">
+<h2>Example Calculation of TP, FP, FN<a class="headerlink" href="#example-calculation-of-tp-fp-fn" title="Permalink to this heading">#</a></h2>
+<p>Consider an object detection task with the following results:</p>
+<ul class="simple">
+<li><p><strong>Ground Truth Objects</strong>: 10</p></li>
+<li><p><strong>Detected Objects</strong>: 12</p>
+<ul>
+<li><p><strong>Correctly Detected (TP)</strong>: 8</p></li>
+<li><p><strong>Incorrectly Detected (FP)</strong>: 4</p></li>
+<li><p><strong>Missed Detections (FN)</strong>: 2</p></li>
+</ul>
+</li>
+</ul>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Metric</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>True Positives (TP)</p></td>
+<td><p>8</p></td>
+</tr>
+<tr class="row-odd"><td><p>False Positives (FP)</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-even"><td><p>False Negatives (FN)</p></td>
+<td><p>2</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="precision-and-recall-calculation">
+<h2>Precision and Recall Calculation<a class="headerlink" href="#precision-and-recall-calculation" title="Permalink to this heading">#</a></h2>
+<p><span class="math notranslate nohighlight">\(
+\text{Precision} = \frac{\text{TP}}{\text{TP} + \text{FP}} = \frac{8}{8 + 4} = \frac{8}{12} = 0.67
+\)</span></p>
+<p><span class="math notranslate nohighlight">\(
+\text{Recall} = \frac{\text{TP}}{\text{TP} + \text{FN}} = \frac{8}{8 + 2} = \frac{8}{10} = 0.80
+\)</span></p>
+</section>
+<section id="precision-recall-curve-and-ap-calculation">
+<h2>Precision-Recall Curve and AP Calculation<a class="headerlink" href="#precision-recall-curve-and-ap-calculation" title="Permalink to this heading">#</a></h2>
+<p>The precision-recall curve can be plotted using the precision and recall values at various thresholds. The AP is the area under this curve.</p>
+</section>
+<section id="python-code-example">
+<h2>Python Code Example<a class="headerlink" href="#python-code-example" title="Permalink to this heading">#</a></h2>
+<p>Here’s a basic implementation of the mAP calculation in Python using PyTorch:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">compute_ap</span><span class="p">(</span><span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">):</span>
+    <span class="n">precision</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(([</span><span class="mf">0.</span><span class="p">],</span> <span class="n">precision</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]))</span>
+    <span class="n">recall</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(([</span><span class="mf">0.</span><span class="p">],</span> <span class="n">recall</span><span class="p">,</span> <span class="p">[</span><span class="mf">1.</span><span class="p">]))</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">precision</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">precision</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">precision</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">precision</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    
+    <span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">recall</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">!=</span> <span class="n">recall</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ap</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">recall</span><span class="p">[</span><span class="n">indices</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">recall</span><span class="p">[</span><span class="n">indices</span><span class="p">])</span> <span class="o">*</span> <span class="n">precision</span><span class="p">[</span><span class="n">indices</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">ap</span>
+
+<span class="k">def</span> <span class="nf">compute_map</span><span class="p">(</span><span class="n">detections</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">,</span> <span class="n">iou_threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+    <span class="n">aps</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">class_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_classes</span><span class="p">):</span>
+        <span class="n">class_detections</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">detections</span> <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;class_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">class_id</span><span class="p">]</span>
+        <span class="n">class_ground_truths</span> <span class="o">=</span> <span class="p">[</span><span class="n">g</span> <span class="k">for</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">ground_truths</span> <span class="k">if</span> <span class="n">g</span><span class="p">[</span><span class="s1">&#39;class_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">class_id</span><span class="p">]</span>
+
+        <span class="c1"># Sort detections by confidence</span>
+        <span class="n">class_detections</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;confidence&#39;</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
+        <span class="n">tp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">class_detections</span><span class="p">))</span>
+        <span class="n">fp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">class_detections</span><span class="p">))</span>
+        <span class="n">gt_detected</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">detection</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">class_detections</span><span class="p">):</span>
+            <span class="n">max_iou</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">max_gt_idx</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">gt</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">class_ground_truths</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">gt</span><span class="p">[</span><span class="s1">&#39;image_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">detection</span><span class="p">[</span><span class="s1">&#39;image_id&#39;</span><span class="p">]:</span>
+                    <span class="n">iou</span> <span class="o">=</span> <span class="n">calculate_iou</span><span class="p">(</span><span class="n">detection</span><span class="p">[</span><span class="s1">&#39;bbox&#39;</span><span class="p">],</span> <span class="n">gt</span><span class="p">[</span><span class="s1">&#39;bbox&#39;</span><span class="p">])</span>
+                    <span class="k">if</span> <span class="n">iou</span> <span class="o">&gt;</span> <span class="n">max_iou</span><span class="p">:</span>
+                        <span class="n">max_iou</span> <span class="o">=</span> <span class="n">iou</span>
+                        <span class="n">max_gt_idx</span> <span class="o">=</span> <span class="n">j</span>
+
+            <span class="k">if</span> <span class="n">max_iou</span> <span class="o">&gt;=</span> <span class="n">iou_threshold</span> <span class="ow">and</span> <span class="n">max_gt_idx</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">gt_detected</span><span class="p">:</span>
+                <span class="n">tp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="n">gt_detected</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">max_gt_idx</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="n">precision</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">tp</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">tp</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">fp</span><span class="p">))</span>
+        <span class="n">recall</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">tp</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">class_ground_truths</span><span class="p">)</span>
+        <span class="n">ap</span> <span class="o">=</span> <span class="n">compute_ap</span><span class="p">(</span><span class="n">precision</span><span class="p">,</span> <span class="n">recall</span><span class="p">)</span>
+        <span class="n">aps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ap</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">aps</span><span class="p">)</span>
+
+<span class="c1"># Example usage</span>
+<span class="n">num_classes</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">detections</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s1">&#39;image_id&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;class_id&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;bbox&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span> <span class="s1">&#39;confidence&#39;</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">},</span>
+    <span class="c1"># Add more detections</span>
+<span class="p">]</span>
+<span class="n">ground_truths</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s1">&#39;image_id&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;class_id&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;bbox&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">48</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">102</span><span class="p">,</span> <span class="mi">102</span><span class="p">]},</span>
+    <span class="c1"># Add more ground truths</span>
+<span class="p">]</span>
+
+<span class="n">mAP</span> <span class="o">=</span> <span class="n">compute_map</span><span class="p">(</span><span class="n">detections</span><span class="p">,</span> <span class="n">ground_truths</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;mAP: </span><span class="si">{</span><span class="n">mAP</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./00_ai24/cv/location"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="hms.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Non Maximum Suppression (NMS)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../wrkshp_yolo/readme.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">WorkShop - Object Detection with Yolov8</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overview">Overview</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-concepts">Key Concepts</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#true-positives-tp">True Positives (TP)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#false-positives-fp">False Positives (FP)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#false-negatives-fn">False Negatives (FN)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#true-negatives-tn">True Negatives (TN)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-and-recall">Precision and Recall</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-recall-curve">Precision-Recall Curve</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#steps-to-compute-map">Steps to Compute mAP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#average-precision-ap">Average Precision (AP)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-of-calculating-ap">Example of Calculating AP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Mean Average Precision (mAP)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#real-world-example">Real-World Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importance-in-object-detection">Importance in Object Detection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-calculation-of-tp-fp-fn">Example Calculation of TP, FP, FN</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-and-recall-calculation">Precision and Recall Calculation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#precision-recall-curve-and-ap-calculation">Precision-Recall Curve and AP Calculation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-code-example">Python Code Example</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By 0xsol
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
