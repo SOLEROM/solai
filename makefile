@@ -3,6 +3,9 @@ PHONY: all help build deploy
 # Default target
 all: help
 
+labs:
+	_jupBook/labs_md_script.sh	00_ai24
+
 # Help target
 help:
 	@echo "Makefile for building and deploying the Jupyter book"
@@ -17,7 +20,7 @@ help:
 
 
 # Build target
-build:
+build: labs
 	rm -rf _build
 	jupyter-book build . --toc ./_toc.yml --config _jupBook/_config.yml
 	@firefox _build/html/index.html

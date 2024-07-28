@@ -9,6 +9,7 @@ parts:
   - caption: AI24
     ## cv
     chapters:
+    - file: 00_ai24/labs.md
     - file: 00_ai24/cv/readme.md
       sections:
       - file: 00_ai24/cv/convolution/fullyConnectedDrawback.md

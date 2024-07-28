@@ -1,0 +1,3 @@
+[submodule "00_ai24/utils"]
+	path = 00_ai24/utils
+	url = git@github.com:SOLEROM/aiArmory.git
