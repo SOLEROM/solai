@@ -4,7 +4,9 @@ PHONY: all help build deploy
 all: help
 
 labs:
-	_jupBook/labs_md_script.sh	00_ai24
+	_jupBook/labs_md_script.sh	00_ai24/01_ml
+	_jupBook/labs_md_script.sh	00_ai24/03_cv
+
 
 # Help target
 help:

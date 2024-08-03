@@ -7,103 +7,360 @@ parts:
 
 #########################################################################################################
   - caption: AI24
-    ## cv
     chapters:
-    - file: 00_ai24/labs.md
-    - file: 00_ai24/cv/readme.md
+    - file: 00_ai24/links.md
+    ## ml
+    - file: 00_ai24/01_ml/readme.md
       sections:
-      - file: 00_ai24/cv/convolution/fullyConnectedDrawback.md
-      - file: 00_ai24/cv/convolution/cnnFrqExample.ipynb
-      - file: 00_ai24/cv/convolution/0085DeepLearning1DConvFreqEst.ipynb
-      - file: 00_ai24/cv/convolution/readme.md
-      - file: 00_ai24/cv/convolution/2d.md
-      - file: 00_ai24/cv/convolution/layers.md
-      - file: 00_ai24/cv/convolution/pooling.md
-      - file: 00_ai24/cv/convolution/batchNorm.md
-      - file: 00_ai24/cv/convolution/lab_batchNorm.ipynb
-      - file: 00_ai24/cv/convolution/filters.md
-      - file: 00_ai24/cv/convolution/filter_laplacian.md
-      
-      - file: 00_ai24/cv/pytorch/common.md
-      - file: 00_ai24/cv/pytorch/custom.md
-      - file: 00_ai24/cv/pytorch/microMacro.md
-      
-      - file: 00_ai24/cv/torchvis/readme.md
-      - file: 00_ai24/cv/torchvis/transformVers.md
-      
-      - file: 00_ai24/cv/concept/recfield.md
-      - file: 00_ai24/cv/concept/recField.ipynb
-      - file: 00_ai24/cv/concept/encodeDecode.md
-      - file: 00_ai24/cv/concept/skipConnections.md
-      
-      - file: 00_ai24/cv/augm/readme.md
-      - file: 00_ai24/cv/augm/0094DeepLearningImageAugmentation.ipynb
-      - file: 00_ai24/cv/augm/cutMethods.md
-      - file: 00_ai24/cv/augm/0095DeepLearningImageAugmentation.ipynb
-      - file: 00_ai24/cv/augm/smoothing.md
-      - file: 00_ai24/cv/augm/0096DeepLearningLabelSmoothing.ipynb
-      - file: 00_ai24/cv/augm/0097DeepLearningRegularizedTraining.ipynb
-      
-      - file: 00_ai24/cv/convolution/0086DeepLearningConv2DCifar10.ipynb
-      - file: 00_ai24/cv/convolution/0087DeepLearningConv2DFashionMNIST.ipynb
-      - file: 00_ai24/cv/concept/studentTeacherDemo.ipynb
+      ###  play
+      - file: 00_ai24/01_ml/labs.md
+        sections:
+        - file: 00_ai24/01_ml/play/lab_normolize.ipynb
+        - file: 00_ai24/01_ml/play/gridSearchPipeline.ipynb
+        - file: 00_ai24/01_ml/play/scaler_normalization.ipynb
+        - file: 00_ai24/01_ml/play/missing_values_fill.ipynb
+        - file: 00_ai24/01_ml/play/pps.ipynb
+      ###  intro
+      - file: 00_ai24/01_ml/00_intro/readme.md
+        sections:
+        - file: 00_ai24/01_ml/00_intro/aboutML.md
+        - file: 00_ai24/01_ml/00_intro/types.md
+        - file: 00_ai24/01_ml/00_intro/applications.md
+        - file: 00_ai24/01_ml/00_intro/hyperparams.md
+        - file: 00_ai24/01_ml/00_intro/pipeline.md
+        - file: 00_ai24/01_ml/00_intro/xorChallengeExample.md
+      ###  general
+      - file: 00_ai24/01_ml/general/readme.md
+        sections:
+        - file: 00_ai24/01_ml/general/classVsRegr.md
+        - file: 00_ai24/01_ml/general/complexStepDiff.md
+        - file: 00_ai24/01_ml/general/featureProcessing.md
+        - file: 00_ai24/01_ml/general/treeEnsemble.md
+        - file: 00_ai24/01_ml/general/wodoTricks.md
+      ###  scikit
+      - file: 00_ai24/01_ml/scikit/readme.md
+        sections:
+        - file: 00_ai24/01_ml/scikit/about.md
+        - file: 00_ai24/01_ml/scikit/fetch_openml.md
+        - file: 00_ai24/01_ml/scikit/svc.md
+        - file: 00_ai24/01_ml/scikit/knn.md
+        - file: 00_ai24/01_ml/scikit/crossVal.md
+        - file: 00_ai24/01_ml/scikit/classificationReport.md
+        - file: 00_ai24/01_ml/scikit/decisionFunction.md
+        - file: 00_ai24/01_ml/scikit/fscoreSupport.md
+        - file: 00_ai24/01_ml/scikit/plot_conf_mat.md
+        - file: 00_ai24/01_ml/scikit/roc.md
+        - file: 00_ai24/01_ml/scikit/preprocessing.md
+        - file: 00_ai24/01_ml/scikit/pipe.md
+        - file: 00_ai24/01_ml/scikit/DecisionTreeClassifier.md
+        - file: 00_ai24/01_ml/scikit/CalibratedClassifierCV.md
+        - file: 00_ai24/01_ml/scikit/checkEstim.md
+        - file: 00_ai24/01_ml/scikit/logiReg.md
+        - file: 00_ai24/01_ml/scikit/classMetrics.md
+        - file: 00_ai24/01_ml/textAnal/readme.md
+        - file: 00_ai24/01_ml/textAnal/lab_textOpt.ipynb
+        - file: 00_ai24/01_ml/scikit/speedup.md
+      ###  classification  
+      - file: 00_ai24/01_ml/01_classification/readme.md
+        ###  basic
+        sections:
+        - file: 00_ai24/01_ml/01_classification/binary/readme.md
+        - file: 00_ai24/01_ml/01_classification/linear/readme.md
+          sections:
+          - file: 00_ai24/01_ml/01_classification/linear/classifiers.md
+          - file: 00_ai24/01_ml/01_classification/linear/reparametrization.md
+          - file: 00_ai24/01_ml/01_classification/linear/0026LinearClassifier.ipynb
+          - file: 00_ai24/01_ml/01_classification/linear/0027LinearClassifierTraining.ipynb
+          - file: 00_ai24/01_ml/01_classification/linear/0028LinearClassifier_RealCaseExample.ipynb
+        ###  svm
+        - file: 00_ai24/01_ml/01_classification/svm/readme.md
+          sections:
+          - file: 00_ai24/01_ml/01_classification/svm/intro.md
+          - file: 00_ai24/01_ml/01_classification/svm/0029LinearClassifierSVM.ipynb
+          - file: 00_ai24/01_ml/01_classification/svm/0030LinearClassifierSVM.ipynb
+        ###  knn
+        - file: 00_ai24/01_ml/01_classification/kNear/readme.md
+          sections:
+          - file: 00_ai24/01_ml/01_classification/kNear/knn.md
+          - file: 00_ai24/01_ml/01_classification/kNear/dimensionality.md   
+          - file: 00_ai24/01_ml/01_classification/kNear/0031ClassifierKNN.ipynb 
+          - file: 00_ai24/01_ml/01_classification/kNear/0032ClassifierKNN.ipynb 
+          - file: 00_ai24/01_ml/01_classification/kNear/lab_Curse_of_Dimensionality.ipynb
+        ###  train
+        - file: 00_ai24/01_ml/01_classification/training/readme.md
+          sections:
+          - file: 00_ai24/01_ml/01_classification/training/mnist.md
+          - file: 00_ai24/01_ml/01_classification/training/kfold.md
+          - file: 00_ai24/01_ml/01_classification/training/dataDivide.md
+          - file: 00_ai24/01_ml/01_classification/training/fitProcessCompare.md
+          - file: 00_ai24/01_ml/01_classification/resample/readme.md
+        ###  Performance Scores
+        - file: 00_ai24/01_ml/01_classification/decFunc/readme.md
+        - file: 00_ai24/01_ml/01_classification/recall/readme.md
+        - file: 00_ai24/01_ml/01_classification/recall/BalAcc.md
+        - file: 00_ai24/01_ml/01_classification/roc/readme.md
+        - file: 00_ai24/01_ml/01_classification/cost/readme.md
+        ###  labs
+        - file: 00_ai24/01_ml/01_classification/labs/readme.md
+          sections:
+          - file: 00_ai24/01_ml/01_classification/labs/scoreDemo.ipynb
+          - file: 00_ai24/01_ml/01_classification/labs/0033ConfMatCrossValidation.ipynb
+          - file: 00_ai24/01_ml/01_classification/labs/0034ConfMatCrossValidation.ipynb
+          - file: 00_ai24/01_ml/01_classification/labs/decFunc.ipynb
+          - file: 00_ai24/01_ml/01_classification/labs/0035PerformanceScoreMetrics.ipynb
+          - file: 00_ai24/01_ml/01_classification/labs/0036PerformanceScoreMetrics.ipynb
+          - file: 00_ai24/01_ml/01_classification/roc/auc_demo.ipynb
+          - file: 00_ai24/01_ml/01_classification/labs/TensorBoard.ipynb
+      ###  featureEng  
+      - file: 00_ai24/01_ml/02_featureEng/readme.md
+        sections:
+        - file: 00_ai24/01_ml/02_featureEng/transforms/normStd.md
+        - file: 00_ai24/01_ml/02_featureEng/transforms/nonSepr.md
+        - file: 00_ai24/01_ml/02_featureEng/transforms/techList.md
+        - file: 00_ai24/01_ml/02_featureEng/transforms/0037FeaturesTransform.ipynb
+        - file: 00_ai24/01_ml/02_featureEng/transforms/0038FeaturesTransform.ipynb
+        - file: 00_ai24/01_ml/02_featureEng/kernelTrick/outline.md
+        - file: 00_ai24/01_ml/02_featureEng/kernelTrick/dual.md
+        - file: 00_ai24/01_ml/02_featureEng/kernelTrick/0039ClassifierKernelSVM.ipynb
+        - file: 00_ai24/01_ml/02_featureEng/mnist/readme.md
+        - file: 00_ai24/01_ml/02_featureEng/mnist/0040ClassifierKernelSVM.ipynb
+        - file: 00_ai24/01_ml/02_featureEng/autouml/readme.md
+        
+      ###  statistical
+      - file: 00_ai24/01_ml/03_Statistical/readme.md
+        sections:
+        - file: 00_ai24/01_ml/03_Statistical/logisticReg/readme.md
+        - file: 00_ai24/01_ml/03_Statistical/logisticReg/demo_LogisticRegression.ipynb
+        - file: 00_ai24/01_ml/03_Statistical/logisticReg/crossEntropy.md
+        - file: 00_ai24/01_ml/03_Statistical/logisticReg/0041ClassifierLogisticRegression.ipynb
+        - file: 00_ai24/01_ml/03_Statistical/mapClassifier/readme.md
+        - file: 00_ai24/01_ml/03_Statistical/mapClassifier/naive.md
+        - file: 00_ai24/01_ml/03_Statistical/mapClassifier/0042ClassifierNaiveBayes.ipynb
+      ###  Tree
+      - file: 00_ai24/01_ml/04_tree/readme.md
+        sections:
+        - file: 00_ai24/01_ml/04_tree/treeClassifier/readme.md
+        - file: 00_ai24/01_ml/04_tree/0043ClassifierDecisionTree.ipynb
+        - file: 00_ai24/01_ml/04_tree/0044HeartDecisionTree.ipynb
+      ###  regression
+      - file: 00_ai24/01_ml/05_regression/readme.md
+        sections:
+        - file: 00_ai24/01_ml/05_regression/linear/readme.md
+        - file: 00_ai24/01_ml/05_regression/poly/readme.md
+        - file: 00_ai24/01_ml/05_regression/phase/readme.md
+        - file: 00_ai24/01_ml/05_regression/poly/0045RegressorPolynomialFit.ipynb
+        - file: 00_ai24/01_ml/05_regression/poly/0046RegressorPolynomialFit.ipynb
+        - file: 00_ai24/01_ml/05_regression/regularization/ridge.md
+        - file: 00_ai24/01_ml/05_regression/regularization/score.md
+        - file: 00_ai24/01_ml/05_regression/regularization/0047RegressorL1L2Regularization.ipynb
+        - file: 00_ai24/01_ml/05_regression/regularization/0048RegressorPolynomialFitLasso.ipynb
+        - file: 00_ai24/01_ml/05_regression/ransac/readme.md
+        - file: 00_ai24/01_ml/05_regression/ransac/huber.md
+        - file: 00_ai24/01_ml/05_regression/ransac/outiner.md
+        - file: 00_ai24/01_ml/05_regression/ransac/ransac.md
+        - file: 00_ai24/01_ml/05_regression/ransac/0049RegressorRobust.ipynb
+        - file: 00_ai24/01_ml/05_regression/wighetedLSQ/readme.md
+        - file: 00_ai24/01_ml/05_regression/nonLinSrt/readme.md
+        - file: 00_ai24/01_ml/05_regression/elasticNet/readme.md
+      ###  nonParam
+      - file: 00_ai24/01_ml/06_nonParam/readme.md
+        sections:
+        - file: 00_ai24/01_ml/06_nonParam/kernelReg/readme.md
+        - file: 00_ai24/01_ml/06_nonParam/kernelReg/multivar.md
+        - file: 00_ai24/01_ml/06_nonParam/kernelReg/0050RegressorKernel.ipynb
+        - file: 00_ai24/01_ml/06_nonParam/kernelReg/0051RegressorKernel.ipynb
+        - file: 00_ai24/01_ml/06_nonParam/polyReg/readme.md
+        - file: 00_ai24/01_ml/06_nonParam/polyReg/0052RegressorLocalPolynomial.ipynb
+        - file: 00_ai24/01_ml/06_nonParam/spline/readme.md
+        - file: 00_ai24/01_ml/06_nonParam/regTree/readme.md
+        - file: 00_ai24/01_ml/06_nonParam/regTree/0053RegressorDecisionTree.ipynb
+      ### ensemble
+      - file: 00_ai24/01_ml/07_ensemble/readme.md
+        sections:
+        - file: 00_ai24/01_ml/07_ensemble/tradeoff/readme.md
+        - file: 00_ai24/01_ml/07_ensemble/tradeoff/bagging.md
+        - file: 00_ai24/01_ml/07_ensemble/tradeoff/oob.md
+        - file: 00_ai24/01_ml/07_ensemble/tradeoff/lab_tradeoff_Demo.ipynb
+        - file: 00_ai24/01_ml/07_ensemble/randomForest/readme.md
+        - file: 00_ai24/01_ml/07_ensemble/randomForest/importances.md
+        - file: 00_ai24/01_ml/07_ensemble/randomForest/mdi.md
+        - file: 00_ai24/01_ml/07_ensemble/randomForest/permutation.md
+        - file: 00_ai24/01_ml/07_ensemble/randomForest/0054EnsembleRandomForests.ipynb
+        - file: 00_ai24/01_ml/07_ensemble/boosting/readme.md
+        - file: 00_ai24/01_ml/07_ensemble/boosting/0055EnsembleGradientBoosting.ipynb
+        - file: 00_ai24/01_ml/07_ensemble/boosting/adaBoost.md
+        - file: 00_ai24/01_ml/07_ensemble/boosting/0056EnsembleAdaptiveBoosting.ipynb
+        - file: 00_ai24/01_ml/07_ensemble/optimizedLib/lightgbm/readme.md
+        - file: 00_ai24/01_ml/07_ensemble/optimizedLib/xgboost/readme.md
+      ###  clustering
+      - file: 00_ai24/01_ml/08_clustering/readme.md
+        sections:
+        - file: 00_ai24/01_ml/08_clustering/clustering.md
+        - file: 00_ai24/01_ml/08_clustering/kmean/readme.md
+        - file: 00_ai24/01_ml/08_clustering/kmean/0057ClusteringKMeans.ipynb
+        - file: 00_ai24/01_ml/08_clustering/kmean/colorSpaceExample.md
+        - file: 00_ai24/01_ml/08_clustering/kmean/0058ClusteringKMeans.ipynb
+        - file: 00_ai24/01_ml/08_clustering/gmm/readme.md
+        - file: 00_ai24/01_ml/08_clustering/gmm/0059ClusteringGMM.ipynb
+        - file: 00_ai24/01_ml/08_clustering/hierarchical/readme.md
+        - file: 00_ai24/01_ml/08_clustering/hierarchical/0060ClusteringHierarchical.ipynb
+        - file: 00_ai24/01_ml/08_clustering/density/readme.md
+        - file: 00_ai24/01_ml/08_clustering/density/0061ClusteringDBSCAN.ipynb
+        - file: 00_ai24/01_ml/08_clustering/hdbscan/readme.md
+        - file: 00_ai24/01_ml/08_clustering/hdbscan/0062ClusteringHDBSCAN.ipynb
+      ### Dimensionality Reduction
+      - file: 00_ai24/01_ml/09_dimred/readme.md
+        sections:
+        - file: 00_ai24/01_ml/09_dimred/pca/readme.md
+        - file: 00_ai24/01_ml/09_dimred/pca/rotation.md
+        - file: 00_ai24/01_ml/09_dimred/pca/eigDecom.md
+        - file: 00_ai24/01_ml/09_dimred/pca/fullPCA.md
+        - file: 00_ai24/01_ml/09_dimred/pca/oose.md
+        - file: 00_ai24/01_ml/09_dimred/pca/svd.md
+        - file: 00_ai24/01_ml/09_dimred/pca/lab_PCA_gene_demo.ipynb
+        - file: 00_ai24/01_ml/09_dimred/pca/0063DimensionalityReductionPCA.ipynb
+        - file: 00_ai24/01_ml/09_dimred/pca/0064DimensionalityReductionPCA.ipynb
+        - file: 00_ai24/01_ml/09_dimred/nonLinPCA/readme.md
+        - file: 00_ai24/01_ml/09_dimred/nonLinPCA/kenrelPCA.md
+        - file: 00_ai24/01_ml/09_dimred/nonLinPCA/dualPCA.md
+        - file: 00_ai24/01_ml/09_dimred/nonLinPCA/0065DimensionalityReductionKPCA.ipynb
+        - file: 00_ai24/01_ml/09_dimred/mds/readme.md
+        - file: 00_ai24/01_ml/09_dimred/mds/0066DimensionalityReductionMDS.ipynb
+      ### manifold
+      - file: 00_ai24/01_ml/10_manifold/readme.md
+        sections:
+        - file: 00_ai24/01_ml/10_manifold/isomap/readme.md
+        - file: 00_ai24/01_ml/10_manifold/isomap/0067ManifoldLearningIsoMap.ipynb
+        - file: 00_ai24/01_ml/10_manifold/spectral/readme.md
+        - file: 00_ai24/01_ml/10_manifold/tsne/readme.md
+        - file: 00_ai24/01_ml/10_manifold/tsne/0068ManifoldLearningTSNE.ipynb
+        - file: 00_ai24/01_ml/10_manifold/entropy/readme.md
+        - file: 00_ai24/01_ml/10_manifold/umap/readme.md
+        - file: 00_ai24/01_ml/10_manifold/umap/paramEmbed.md
+        - file: 00_ai24/01_ml/10_manifold/umap/demo1.ipynb
+        - file: 00_ai24/01_ml/10_manifold/demo.ipynb
+        - file: 00_ai24/01_ml/10_manifold/0069ManifoldLearning.ipynb
+      ### anomaly detection
+      - file: 00_ai24/01_ml/11_anomDet/readme.md
+        sections:
+        - file: 00_ai24/01_ml/11_anomDet/scores/zscore.md
+        - file: 00_ai24/01_ml/11_anomDet/scores/mahalanobis.md
+        - file: 00_ai24/01_ml/11_anomDet/scores/timeSeries.md
+        - file: 00_ai24/01_ml/11_anomDet/lof/readme.md
+        - file: 00_ai24/01_ml/11_anomDet/lof/0070AnomalyDetectionLocalOutlierFactor.ipynb
+        - file: 00_ai24/01_ml/11_anomDet/lof/0071AnomalyDetectionLocalOutlierFactor.ipynb
+        - file: 00_ai24/01_ml/11_anomDet/isoForest/readme.md
+        - file: 00_ai24/01_ml/11_anomDet/isoForest/0072AnomalyDetectionIsolationForest.ipynb
+        - file: 00_ai24/01_ml/11_anomDet/isoForest/0073AnomalyDetectionIsolationForest.ipynb
+      - file: 00_ai24/01_ml/12_textAnal/readme.md
+        sections:
+        - file: 00_ai24/01_ml/12_textAnal/lab_textOpt.ipynb
 
-      - file: 00_ai24/cv/arch/readme.md
-      - file: 00_ai24/cv/arch/darknet53.md
-      - file: 00_ai24/cv/arch/alexnet.md
-      - file: 00_ai24/cv/arch/vgg.md
-      - file: 00_ai24/cv/arch/googleNet.md
-      - file: 00_ai24/cv/arch/inception.md
-      - file: 00_ai24/cv/arch/resnet.md
-      - file: 00_ai24/cv/arch/0092DeepLearningResNet.ipynb
-      - file: 00_ai24/cv/arch/yolo.md
-      - file: 00_ai24/cv/arch/minirocket.md
-      - file: 00_ai24/cv/arch/lab_minirocket_basicDemo.ipynb
-
-      - file: 00_ai24/cv/infer/readme.md
-      - file: 00_ai24/cv/infer/pyInter.md
-      - file: 00_ai24/cv/infer/sota.md
-      - file: 00_ai24/cv/infer/zoo.md
-      - file: 00_ai24/cv/infer/0091DeepLearningPreTrainedModels.ipynb
-
-      - file: 00_ai24/cv/transf/readme.md
-      - file: 00_ai24/cv/transf/compare.md
-      - file: 00_ai24/cv/transf/fineTune.md
-      - file: 00_ai24/cv/transf/freeze.md
-      - file: 00_ai24/cv/transf/0093DeepLearningTransferLearning.ipynb
-      - file: 00_ai24/cv/transf/overfit.md
-      - file: 00_ai24/cv/transf/lab_reducude_demo.ipynb
-      - file: 00_ai24/cv/transf/transformers.md
-      - file: 00_ai24/cv/transf/lab_transofmers_basic.ipynb
-      
-      - file: 00_ai24/cv/visualize/readme.md
-
-      - file: 00_ai24/cv/location/location.md
-      - file: 00_ai24/cv/location/lab_pretrain_demo.ipynb
-      - file: 00_ai24/cv/location/localization.md
-      - file: 00_ai24/cv/location/0098DeepLearningObjectLocalization.ipynb
-      - file: 00_ai24/cv/location/detection.md
-      - file: 00_ai24/cv/location/lab_plot_transforms_e2e.ipynb
-      - file: 00_ai24/cv/location/commonArch.md
-      - file: 00_ai24/cv/location/hms.md
-      - file: 00_ai24/cv/location/map.md
-      - file: 00_ai24/cv/wrkshp_yolo/readme.md
-      - file: 00_ai24/cv/wrkshp_yolo/labelme/readme.md
-      - file: 00_ai24/cv/wrkshp_yolo/0001BoundingBoxFormat.ipynb
-      - file: 00_ai24/cv/wrkshp_yolo/0002Dataset.py
-      - file: 00_ai24/cv/wrkshp_yolo/0003PreProcessTiles.py
-      - file: 00_ai24/cv/wrkshp_yolo/0004PreProcessTrainTestSplit.py
-      - file: 00_ai24/cv/wrkshp_yolo/0005TrainYolo.py
-
-      - file: 00_ai24/cv/segmentation/readme.md
-      - file: 00_ai24/cv/segmentation/intro.md
-      - file: 00_ai24/cv/segmentation/data.md
-      - file: 00_ai24/cv/segmentation/models.md
-      - file: 00_ai24/cv/segmentation/unet.md
-      - file: 00_ai24/cv/wrkshp_unet/readme.md
-      - file: 00_ai24/cv/wrkshp_unet/0001Dataset.py
-      - file: 00_ai24/cv/wrkshp_unet/0002TrainModelScript.py
-      - file: 00_ai24/cv/wrkshp_unet/0003InferModel.py
+    ## cv
+    - file: 00_ai24/03_cv/readme.md
+      sections:
+      ### labs and play
+      - file: 00_ai24/03_cv/labs.md
+      ### concepts
+      - file: 00_ai24/03_cv/convolution/readme.md
+        sections:
+        - file: 00_ai24/03_cv/convolution/fullyConnectedDrawback.md
+        - file: 00_ai24/03_cv/convolution/cnnFrqExample.ipynb
+        - file: 00_ai24/03_cv/convolution/0085DeepLearning1DConvFreqEst.ipynb
+        - file: 00_ai24/03_cv/convolution/2d.md
+        - file: 00_ai24/03_cv/convolution/layers.md
+        - file: 00_ai24/03_cv/convolution/pooling.md
+        - file: 00_ai24/03_cv/convolution/batchNorm.md
+        - file: 00_ai24/03_cv/convolution/lab_batchNorm.ipynb
+        - file: 00_ai24/03_cv/convolution/filters.md
+        - file: 00_ai24/03_cv/convolution/filter_laplacian.md
+        - file: 00_ai24/03_cv/concept/recfield.md
+        - file: 00_ai24/03_cv/concept/recField.ipynb
+        - file: 00_ai24/03_cv/concept/encodeDecode.md
+        - file: 00_ai24/03_cv/concept/skipConnections.md
+        - file: 00_ai24/03_cv/convolution/0086DeepLearningConv2DCifar10.ipynb
+        - file: 00_ai24/03_cv/convolution/0087DeepLearningConv2DFashionMNIST.ipynb
+        - file: 00_ai24/03_cv/concept/studentTeacherDemo.ipynb
+      ### pytorch
+      - file: 00_ai24/03_cv/pytorch/readme.md
+        sections:
+        - file: 00_ai24/03_cv/pytorch/common.md
+        - file: 00_ai24/03_cv/pytorch/custom.md
+        - file: 00_ai24/03_cv/pytorch/microMacro.md
+        - file: 00_ai24/03_cv/torchvis/readme.md
+        - file: 00_ai24/03_cv/torchvis/transformVers.md
+      ### augmentation
+      - file: 00_ai24/03_cv/augm/readme.md
+        sections:
+        - file: 00_ai24/03_cv/augm/0094DeepLearningImageAugmentation.ipynb
+        - file: 00_ai24/03_cv/augm/cutMethods.md
+        - file: 00_ai24/03_cv/augm/0095DeepLearningImageAugmentation.ipynb
+        - file: 00_ai24/03_cv/augm/smoothing.md
+        - file: 00_ai24/03_cv/augm/0096DeepLearningLabelSmoothing.ipynb
+        - file: 00_ai24/03_cv/augm/0097DeepLearningRegularizedTraining.ipynb
+      ### arch
+      - file: 00_ai24/03_cv/arch/readme.md
+        sections:
+        - file: 00_ai24/03_cv/arch/darknet53.md
+        - file: 00_ai24/03_cv/arch/alexnet.md
+        - file: 00_ai24/03_cv/arch/vgg.md
+        - file: 00_ai24/03_cv/arch/googleNet.md
+        - file: 00_ai24/03_cv/arch/inception.md
+        - file: 00_ai24/03_cv/arch/resnet.md
+        - file: 00_ai24/03_cv/arch/0092DeepLearningResNet.ipynb
+        - file: 00_ai24/03_cv/arch/yolo.md
+        - file: 00_ai24/03_cv/arch/minirocket.md
+        - file: 00_ai24/03_cv/arch/lab_minirocket_basicDemo.ipynb
+      ### infer
+      - file: 00_ai24/03_cv/infer/readme.md
+        sections:
+        - file: 00_ai24/03_cv/infer/pyInter.md
+        - file: 00_ai24/03_cv/infer/sota.md
+        - file: 00_ai24/03_cv/infer/zoo.md
+        - file: 00_ai24/03_cv/infer/0091DeepLearningPreTrainedModels.ipynb
+      ### transf
+      - file: 00_ai24/03_cv/transf/readme.md
+        sections:
+        - file: 00_ai24/03_cv/transf/compare.md
+        - file: 00_ai24/03_cv/transf/fineTune.md
+        - file: 00_ai24/03_cv/transf/freeze.md
+        - file: 00_ai24/03_cv/transf/0093DeepLearningTransferLearning.ipynb
+        - file: 00_ai24/03_cv/transf/overfit.md
+        - file: 00_ai24/03_cv/transf/lab_reducude_demo.ipynb
+        - file: 00_ai24/03_cv/transf/transformers.md
+        - file: 00_ai24/03_cv/transf/lab_transofmers_basic.ipynb
+        - file: 00_ai24/03_cv/transf/adaptation.md
+      ### debug
+      - file: 00_ai24/03_cv/visualize/readme.md
+      ### location
+      - file: 00_ai24/03_cv/location/readme.md
+        sections:
+        - file: 00_ai24/03_cv/location/lab_pretrain_demo.ipynb
+        - file: 00_ai24/03_cv/location/localization.md
+        - file: 00_ai24/03_cv/location/0098DeepLearningObjectLocalization.ipynb
+        - file: 00_ai24/03_cv/location/detection.md
+        - file: 00_ai24/03_cv/location/lab_plot_transforms_e2e.ipynb
+        - file: 00_ai24/03_cv/location/commonArch.md
+        - file: 00_ai24/03_cv/location/hms.md
+        - file: 00_ai24/03_cv/location/map.md
+        - file: 00_ai24/03_cv/wrkshp_yolo/readme.md
+        - file: 00_ai24/03_cv/wrkshp_yolo/labelme/readme.md
+        - file: 00_ai24/03_cv/wrkshp_yolo/0001BoundingBoxFormat.ipynb
+        - file: 00_ai24/03_cv/wrkshp_yolo/0002Dataset.py
+        - file: 00_ai24/03_cv/wrkshp_yolo/0003PreProcessTiles.py
+        - file: 00_ai24/03_cv/wrkshp_yolo/0004PreProcessTrainTestSplit.py
+        - file: 00_ai24/03_cv/wrkshp_yolo/0005TrainYolo.py
+      ### segmentation
+      - file: 00_ai24/03_cv/segmentation/readme.md
+        sections:
+        - file: 00_ai24/03_cv/segmentation/intro.md
+        - file: 00_ai24/03_cv/segmentation/data.md
+        - file: 00_ai24/03_cv/segmentation/models.md
+        - file: 00_ai24/03_cv/segmentation/unet.md
+        - file: 00_ai24/03_cv/wrkshp_unet/readme.md
+        - file: 00_ai24/03_cv/wrkshp_unet/0001Dataset.py
+        - file: 00_ai24/03_cv/wrkshp_unet/0002TrainModelScript.py
+        - file: 00_ai24/03_cv/wrkshp_unet/0003InferModel.py
 
 
   

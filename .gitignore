@@ -4,6 +4,9 @@ dwDbs/*
 _build
 _build/*
 Data
+logs
+Logs
+
 
 # Folders
 *files*/*
