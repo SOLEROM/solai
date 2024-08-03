@@ -1,0 +1,2268 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Heart Disease Tree Classifier &#8212; solAiKM</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '00_ai24/01_ml/04_tree/0044HeartDecisionTree';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Linear Regression" href="../05_regression/readme.html" />
+    <link rel="prev" title="Circles Decision Tree Classifier" href="0043ClassifierDecisionTree.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../readme.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">solAiKM</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../readme.html">
+                    solai
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">AI24</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../links.html">links</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../readme.html">Machine Learning</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../labs.html">Labs</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../play/lab_normolize.html">normalize or not to normalize</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../play/gridSearchPipeline.html">grid search pipe</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../play/scaler_normalization.html">scaler normalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../play/missing_values_fill.html">missing values handeling</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../play/pps.html">PPS -  Predictive Power Score</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../00_intro/readme.html">Intro</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../00_intro/aboutML.html">About ML</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../00_intro/types.html">ML types</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../00_intro/applications.html">applications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../00_intro/hyperparams.html">hyperparams</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../00_intro/pipeline.html">pipeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../00_intro/xorChallengeExample.html">human intuition</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../general/readme.html">General topics</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../general/classVsRegr.html">Classification vs Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../general/complexStepDiff.html">Complex Step Differentiation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../general/featureProcessing.html">feature processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../general/treeEnsemble.html">Tree Ensemble vs Random Forest</a></li>
+
+
+<li class="toctree-l3"><a class="reference internal" href="../general/wodoTricks.html">representation tricks</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../scikit/readme.html">Scikit</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../scikit/about.html">about scikit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scikit/fetch_openml.html">fetch_openml</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scikit/svc.html">SVC</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../scikit/knn.html">knn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scikit/crossVal.html">cross validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scikit/classificationReport.html">classification_report</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scikit/decisionFunction.html">Decision function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scikit/fscoreSupport.html">fscoreSupport</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scikit/plot_conf_mat.html">PlotConfusionMatrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scikit/roc.html">roc curve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scikit/preprocessing.html">preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scikit/pipe.html">pipeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scikit/DecisionTreeClassifier.html">DecisionTreeClassifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scikit/CalibratedClassifierCV.html">CalibratedClassifierCV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scikit/checkEstim.html">check_estimator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scikit/logiReg.html">logistics regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scikit/classMetrics.html">classification metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../scikit/speedup.html">Speeding up scikit-learn</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../01_classification/readme.html">Classification</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../01_classification/binary/readme.html">Binary Classification</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../01_classification/linear/readme.html">linear classifiers</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../01_classification/linear/classifiers.html">Linear Classifier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../01_classification/linear/reparametrization.html">ReParametrization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../01_classification/linear/0026LinearClassifier.html">Linear Classifier Random</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../01_classification/linear/0027LinearClassifierTraining.html">Linear Classifier MOONs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../01_classification/linear/0028LinearClassifier_RealCaseExample.html">Linear Classifier breast</a></li>
+
+
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../01_classification/svm/readme.html">SVM - support vector machine</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../01_classification/svm/intro.html">Support Vector Machines (SVM)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../01_classification/svm/0029LinearClassifierSVM.html">SVM Rand classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../01_classification/svm/0030LinearClassifierSVM.html">SVM breast classification</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../01_classification/kNear/readme.html">k nearest neighbors</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../01_classification/kNear/knn.html">KNN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../01_classification/kNear/dimensionality.html">curse of dimensionality</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../01_classification/kNear/0031ClassifierKNN.html">KNN random circles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../01_classification/kNear/0032ClassifierKNN.html">KNN brest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../01_classification/kNear/lab_Curse_of_Dimensionality.html">Curse lab</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../01_classification/training/readme.html">training</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../01_classification/training/mnist.html">mnist multicalass example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../01_classification/training/kfold.html">K FOLD</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../01_classification/training/dataDivide.html">Data Split</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../01_classification/training/fitProcessCompare.html">Training Process Comparison</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../01_classification/resample/readme.html">resampling</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../01_classification/decFunc/readme.html">multi-class</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../01_classification/recall/readme.html">precision and recall</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../01_classification/recall/BalAcc.html">Balanced Accuracy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../01_classification/roc/readme.html">Roc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../01_classification/cost/readme.html">cost</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../01_classification/labs/readme.html">classification labs</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../01_classification/labs/scoreDemo.html">Performance Scores demo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../01_classification/labs/0033ConfMatCrossValidation.html">MNIST KNN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../01_classification/labs/0034ConfMatCrossValidation.html">MNIST SVM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../01_classification/labs/decFunc.html">Decision Functions Demos</a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="../01_classification/labs/0035PerformanceScoreMetrics.html">Performance Scores</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../01_classification/labs/0036PerformanceScoreMetrics.html">Calibrating Imbalanced</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../01_classification/roc/auc_demo.html">Understanding the AUC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../01_classification/labs/TensorBoard.html">TensorBoard</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../02_featureEng/readme.html">Feature Engineering</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../02_featureEng/transforms/normStd.html">Normalizing and Standardizing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02_featureEng/transforms/nonSepr.html">Non Separable Problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02_featureEng/transforms/techList.html">technics list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02_featureEng/transforms/0037FeaturesTransform.html">Features Transform case1</a></li>
+
+
+<li class="toctree-l3"><a class="reference internal" href="../02_featureEng/transforms/0038FeaturesTransform.html">Features Transform case2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02_featureEng/kernelTrick/outline.html">Outline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02_featureEng/kernelTrick/dual.html">Kernel Tricks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02_featureEng/kernelTrick/0039ClassifierKernelSVM.html">Kernel SVM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02_featureEng/mnist/readme.html">mnist example with kernel trick</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02_featureEng/mnist/0040ClassifierKernelSVM.html">fashion-mnist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../02_featureEng/autouml/readme.html">AutoML</a></li>
+
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../03_Statistical/readme.html">Statistical Classification</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../03_Statistical/logisticReg/readme.html">logistic regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../03_Statistical/logisticReg/demo_LogisticRegression.html">Demo Lab Logistic Regression</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../03_Statistical/logisticReg/crossEntropy.html">Cross Entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../03_Statistical/logisticReg/0041ClassifierLogisticRegression.html">Mnist Logistic Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../03_Statistical/mapClassifier/readme.html">MAP Classifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../03_Statistical/mapClassifier/naive.html">Naive Bayes Classifier</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../03_Statistical/mapClassifier/0042ClassifierNaiveBayes.html">Naive Bayes Classifier</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="readme.html">Decision Trees</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="treeClassifier/readme.html">Decision Trees</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0043ClassifierDecisionTree.html">Circles Decision Tree Classifier</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Heart Disease Tree Classifier</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../05_regression/readme.html">Linear Regression</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../05_regression/linear/readme.html">Linear Regression: Model Imperfection and Steps to Implement Regression</a></li>
+
+
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="../05_regression/poly/readme.html">Polynomial regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../05_regression/phase/readme.html">Phase Estimation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../05_regression/poly/0045RegressorPolynomialFit.html">Polynomial Fit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../05_regression/poly/0046RegressorPolynomialFit.html">AI Program</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../05_regression/regularization/ridge.html">Ridge Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../05_regression/regularization/score.html">R2 Score</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../05_regression/regularization/0047RegressorL1L2Regularization.html">Least Squares with <span class="math notranslate nohighlight">\({L}^{1}\)</span> / <span class="math notranslate nohighlight">\({L}^{2}\)</span> Regularization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../05_regression/regularization/0048RegressorPolynomialFitLasso.html">Polynomial Fit with LASSO Regularization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../05_regression/ransac/readme.html">outliers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../05_regression/ransac/huber.html">huber</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../05_regression/ransac/outiner.html">LS outiner</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../05_regression/ransac/ransac.html">RANSAC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../05_regression/ransac/0049RegressorRobust.html">Polynomial Fit with RANSAC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../05_regression/wighetedLSQ/readme.html">Weighted Least Squares</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../05_regression/nonLinSrt/readme.html">Non-Linear Least Squares (NLLS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../05_regression/elasticNet/readme.html">ElasticNet</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../06_nonParam/readme.html">Non parametric regression</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-16"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../06_nonParam/kernelReg/readme.html">kernel regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../06_nonParam/kernelReg/multivar.html">Multivariate Kernel Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../06_nonParam/kernelReg/0050RegressorKernel.html">Kernel Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../06_nonParam/kernelReg/0051RegressorKernel.html">boston house Kernel Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../06_nonParam/polyReg/readme.html">Polynomial Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../06_nonParam/polyReg/0052RegressorLocalPolynomial.html">Polynomial Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../06_nonParam/spline/readme.html">Spline Interpolation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../06_nonParam/regTree/readme.html">Regression Tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../06_nonParam/regTree/0053RegressorDecisionTree.html">Regression - Decision Tree</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../07_ensemble/readme.html">Ensemble Methods</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-17"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../07_ensemble/tradeoff/readme.html">Bias Variance Tradeoff</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../07_ensemble/tradeoff/bagging.html">Bagging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../07_ensemble/tradeoff/oob.html">Out-of-Bag Error (OOB)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../07_ensemble/tradeoff/lab_tradeoff_Demo.html">Variance and Bias Trade-off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../07_ensemble/randomForest/readme.html">Random Forest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../07_ensemble/randomForest/importances.html">feature importances</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../07_ensemble/randomForest/mdi.html">MDI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../07_ensemble/randomForest/permutation.html">permutation importance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../07_ensemble/randomForest/0054EnsembleRandomForests.html">Random Forests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../07_ensemble/boosting/readme.html">Gradient boosting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../07_ensemble/boosting/0055EnsembleGradientBoosting.html">Gradient Boosting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../07_ensemble/boosting/adaBoost.html">ada boost</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../07_ensemble/boosting/0056EnsembleAdaptiveBoosting.html">Adaptive Boosting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../07_ensemble/optimizedLib/lightgbm/readme.html">LightGBM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../07_ensemble/optimizedLib/xgboost/readme.html">XGBoost</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../08_clustering/readme.html">Clustering</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-18"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../08_clustering/clustering.html">clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../08_clustering/kmean/readme.html">K-Means</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../08_clustering/kmean/0057ClusteringKMeans.html">K-Means</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../08_clustering/kmean/colorSpaceExample.html">color space quantization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../08_clustering/kmean/0058ClusteringKMeans.html">K-Means super pixcel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../08_clustering/gmm/readme.html">GMM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../08_clustering/gmm/0059ClusteringGMM.html">Gaussian Mixture Models (GMM)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../08_clustering/hierarchical/readme.html">Hierarchical clustering</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../08_clustering/hierarchical/0060ClusteringHierarchical.html">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../08_clustering/density/readme.html">Density</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../08_clustering/density/0061ClusteringDBSCAN.html">DBSCAN Demo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../08_clustering/hdbscan/readme.html">HDBSCAN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../08_clustering/hdbscan/0062ClusteringHDBSCAN.html">HDBSCAN Demo</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../09_dimred/readme.html">Dimensionality Reduction</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-19"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../09_dimred/pca/readme.html">pca</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../09_dimred/pca/rotation.html">Rotation</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../09_dimred/pca/eigDecom.html">Eigen Decomposition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../09_dimred/pca/fullPCA.html">Full PCA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../09_dimred/pca/oose.html">oose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../09_dimred/pca/svd.html">svd (pca)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../09_dimred/pca/lab_PCA_gene_demo.html">Gene PCA DEMO LAB</a></li>
+
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="../09_dimred/pca/0063DimensionalityReductionPCA.html">PCA DEMO FACES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../09_dimred/pca/0064DimensionalityReductionPCA.html">PCA Brest Cancer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../09_dimred/nonLinPCA/readme.html">non Linear PCA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../09_dimred/nonLinPCA/kenrelPCA.html">Kernel PCA</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../09_dimred/nonLinPCA/dualPCA.html">Dual PCA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../09_dimred/nonLinPCA/0065DimensionalityReductionKPCA.html">Dimensionality Reduction - Kernel PCA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../09_dimred/mds/readme.html">MDS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../09_dimred/mds/0066DimensionalityReductionMDS.html">MultiDimensional Scaling (MDS)</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../10_manifold/readme.html">Manifold Learning</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-20"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../10_manifold/isomap/readme.html">isoMap</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../10_manifold/isomap/0067ManifoldLearningIsoMap.html">Manifold Learning - IsoMap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../10_manifold/spectral/readme.html">Spectral Clustering</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../10_manifold/tsne/readme.html">TSNE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../10_manifold/tsne/0068ManifoldLearningTSNE.html">t-SNE Demo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../10_manifold/entropy/readme.html">Entropy</a></li>
+
+
+<li class="toctree-l3"><a class="reference internal" href="../10_manifold/umap/readme.html">Umap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../10_manifold/umap/paramEmbed.html">parametric Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../10_manifold/umap/demo1.html">umap demo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../10_manifold/demo.html">manifold concepts demo</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../10_manifold/0069ManifoldLearning.html">Manifold Learning - multi model compare</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../11_anomDet/readme.html">Anomaly detection</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-21"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../11_anomDet/scores/zscore.html">zscore</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../11_anomDet/scores/mahalanobis.html">Mahalanobis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../11_anomDet/scores/timeSeries.html">Time Series</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../11_anomDet/lof/readme.html">Local Outlier Factor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../11_anomDet/lof/0070AnomalyDetectionLocalOutlierFactor.html">Local Outlier Factor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../11_anomDet/lof/0071AnomalyDetectionLocalOutlierFactor.html">LOF Exercise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../11_anomDet/isoForest/readme.html">Isolation forest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../11_anomDet/isoForest/0072AnomalyDetectionIsolationForest.html">Anomaly Detection - Isolation Forest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../11_anomDet/isoForest/0073AnomalyDetectionIsolationForest.html">Isolation Forest - Exercise</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../12_textAnal/readme.html">text Analysis</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-22"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../12_textAnal/lab_textOpt.html">text opts</a></li>
+
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../03_cv/readme.html">AI Computer Vision</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-23"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../03_cv/labs.html">Labs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../03_cv/convolution/readme.html">Convolution in Deep Learning</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-24"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/convolution/fullyConnectedDrawback.html">Fully Connected Drawbacks</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/convolution/cnnFrqExample.html">CNN for Frequency Estimation Problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/convolution/0085DeepLearning1DConvFreqEst.html">Convolution for Frequency Estimation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/convolution/2d.html">2D Convolution</a></li>
+
+
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/convolution/layers.html">Layers in Convolutional Neural Networks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/convolution/pooling.html">Pooling in Convolutional Neural Networks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/convolution/batchNorm.html">Batch Normalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/convolution/lab_batchNorm.html">demo batch norm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/convolution/filters.html">Common Filters for 2D Convolution</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/convolution/filter_laplacian.html">Common Filters for 2D Convolution</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/concept/recfield.html">Receptive Field (RF)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/concept/recField.html">Calc RF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/concept/encodeDecode.html">Encode-Decode Networks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/concept/skipConnections.html">skip connections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/convolution/0086DeepLearningConv2DCifar10.html">cifar10-2d-convolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/convolution/0087DeepLearningConv2DFashionMNIST.html">Image Classification Fashion MNIST</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/concept/studentTeacherDemo.html">studentTeacherDemo</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../03_cv/pytorch/readme.html">pytorch for CV</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-25"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/pytorch/common.html">pytorch layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/pytorch/custom.html">custom nn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/pytorch/microMacro.html">micro macro</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/torchvis/readme.html">TorchVision</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/torchvis/transformVers.html">torchvision.transforms</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../03_cv/augm/readme.html">Augmentation</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-26"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/augm/0094DeepLearningImageAugmentation.html">Image Augmentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/augm/cutMethods.html">Cut Effects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/augm/0095DeepLearningImageAugmentation.html">Image Augmentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/augm/smoothing.html">Smoothing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/augm/0096DeepLearningLabelSmoothing.html">Label Smoothing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/augm/0097DeepLearningRegularizedTraining.html">Regularized Training</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../03_cv/arch/readme.html">compare</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-27"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/arch/darknet53.html">darknet53</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/arch/alexnet.html">AlexNet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/arch/vgg.html">vgg</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/arch/googleNet.html">googleNet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/arch/inception.html">Inception Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/arch/resnet.html">resnet</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/arch/0092DeepLearningResNet.html">ResNet Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/arch/yolo.html">yolo</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/arch/minirocket.html">minirocket</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/arch/lab_minirocket_basicDemo.html">lab simple minirocket demo</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../03_cv/infer/readme.html">Pre-Defined Models</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-28"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/infer/pyInter.html">pytorch Inference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/infer/sota.html">sota - state-of-the-art</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/infer/zoo.html">zoo(s)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/infer/0091DeepLearningPreTrainedModels.html">Pre Trained Computer Vision Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../03_cv/transf/readme.html">Transfer Learning</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-29"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/transf/compare.html">compare methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/transf/fineTune.html">Fine-Tuning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/transf/freeze.html">Freeze Layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/transf/0093DeepLearningTransferLearning.html">Transfer Learning of resnet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/transf/overfit.html">Transfer overfit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/transf/lab_reducude_demo.html">lab reduce demo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/transf/transformers.html">transformers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/transf/lab_transofmers_basic.html">lab transform basic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/transf/adaptation.html">adaptation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../03_cv/visualize/readme.html">visualize and debug</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../03_cv/location/readme.html">Object Location</a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-30"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/location/lab_pretrain_demo.html">pre-trained model for object localization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/location/localization.html">Localization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/location/0098DeepLearningObjectLocalization.html">Object Localization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/location/detection.html">Detection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/location/lab_plot_transforms_e2e.html">Transforms v2: End-to-end object detection/segmentation example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/location/commonArch.html">Common Object Detector Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/location/hms.html">Non Maximum Suppression (NMS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/location/map.html">Mean Average Precision (mAP)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/wrkshp_yolo/readme.html">WorkShop - Object Detection with Yolov8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/wrkshp_yolo/labelme/readme.html">label example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/wrkshp_yolo/0001BoundingBoxFormat.html">yoloWRKSHP box formats</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../03_cv/segmentation/readme.html">segmentation workshop</a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-31"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/segmentation/intro.html">intro</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/segmentation/data.html">data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/segmentation/models.html">models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/segmentation/unet.html">UNET</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_cv/wrkshp_unet/readme.html">the task</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SOLEROM/solai" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SOLEROM/solai/issues/new?title=Issue%20on%20page%20%2F00_ai24/01_ml/04_tree/0044HeartDecisionTree.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../_sources/00_ai24/01_ml/04_tree/0044HeartDecisionTree.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Heart Disease Tree Classifier</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-decision-tree-classifier">Classification - Decision Tree Classifier</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revision-history">Revision History</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notations">Notations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-exercise">Code Exercise</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-decision-tree">Exercise - Decision Tree</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-load-data">Generate / Load Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-data">Plot Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-process-data">Pre Process Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remove-missing-undefined-values">Remove Missing / Undefined Values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-data-into-numeric-values">Convert Data into Numeric Values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exploratory-data-analysis-eda">Exploratory Data Analysis (EDA)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#train-a-decision-tree-model-and-optimize-hyper-parameters">Train a Decision Tree Model and Optimize Hyper Parameters</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimal-model">Optimal Model</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-significance">Feature Significance</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <p><a class="reference external" href="https://fixelalgorithms.gitlab.io/"><img alt="Fixel Algorithms" src="https://i.imgur.com/AqKHVZ0.png" /></a></p>
+<section class="tex2jax_ignore mathjax_ignore" id="heart-disease-tree-classifier">
+<h1>Heart Disease Tree Classifier<a class="headerlink" href="#heart-disease-tree-classifier" title="Permalink to this heading">#</a></h1>
+<section id="classification-decision-tree-classifier">
+<h2>Classification - Decision Tree Classifier<a class="headerlink" href="#classification-decision-tree-classifier" title="Permalink to this heading">#</a></h2>
+<blockquote>
+<div><p>Notebook by:</p>
+<ul class="simple">
+<li><p>Royi Avital <a class="reference external" href="mailto:RoyiAvital&#37;&#52;&#48;fixelalgorithms&#46;com">RoyiAvital<span>&#64;</span>fixelalgorithms<span>&#46;</span>com</a></p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="revision-history">
+<h2>Revision History<a class="headerlink" href="#revision-history" title="Permalink to this heading">#</a></h2>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Version</p></th>
+<th class="head"><p>Date</p></th>
+<th class="head"><p>User</p></th>
+<th class="head"><p>Content / Changes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1.0.000</p></td>
+<td><p>23/03/2024</p></td>
+<td><p>Royi Avital</p></td>
+<td><p>First version</p></td>
+</tr>
+</tbody>
+</table>
+<p><a class="reference external" href="https://colab.research.google.com/github/FixelAlgorithmsTeam/FixelCourses/blob/master/AIProgram/2024_02/0043ClassifierDecisionTree.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import Packages</span>
+
+<span class="c1"># General Tools</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Machine Learning</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_openml</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">f1_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_predict</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span>
+
+
+<span class="c1"># Miscellaneous</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">platform</span> <span class="kn">import</span> <span class="n">python_version</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">timeit</span>
+
+<span class="c1"># Typing</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="c1"># Visualization</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="kn">import</span> <span class="n">LogNorm</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="c1"># Jupyter</span>
+<span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">get_ipython</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">Dropdown</span><span class="p">,</span> <span class="n">FloatSlider</span><span class="p">,</span> <span class="n">interact</span><span class="p">,</span> <span class="n">IntSlider</span><span class="p">,</span> <span class="n">Layout</span><span class="p">,</span> <span class="n">SelectionSlider</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="notations">
+<h2>Notations<a class="headerlink" href="#notations" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><font color='red'>(<strong>?</strong>)</font> Question to answer interactively.</p></li>
+<li><p><font color='blue'>(<strong>!</strong>)</font> Simple task to add code for the notebook.</p></li>
+<li><p><font color='green'>(<strong>&#64;</strong>)</font> Optional / Extra self practice.</p></li>
+<li><p><font color='brown'>(<strong>#</strong>)</font> Note / Useful resource / Food for thought.</p></li>
+</ul>
+<p>Code Notations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">someVar</span>    <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">#&lt;! Notation for a variable</span>
+<span class="n">vVector</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="c1">#&lt;! Notation for 1D array</span>
+<span class="n">mMatrix</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1">#&lt;! Notation for 2D array</span>
+<span class="n">tTensor</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1">#&lt;! Notation for nD array (Tensor)</span>
+<span class="n">tuTuple</span>    <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1">#&lt;! Notation for a tuple</span>
+<span class="n">lList</span>      <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="c1">#&lt;! Notation for a list</span>
+<span class="n">dDict</span>      <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span> <span class="c1">#&lt;! Notation for a dictionary</span>
+<span class="n">oObj</span>       <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span> <span class="c1">#&lt;! Notation for an object</span>
+<span class="n">dfData</span>     <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span> <span class="c1">#&lt;! Notation for a data frame</span>
+<span class="n">dsData</span>     <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">()</span> <span class="c1">#&lt;! Notation for a series</span>
+<span class="n">hObj</span>       <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">()</span> <span class="c1">#&lt;! Notation for an object / handler / function handler</span>
+</pre></div>
+</div>
+<section id="code-exercise">
+<h3>Code Exercise<a class="headerlink" href="#code-exercise" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Single line fill</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>vallToFill = ???
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Multi Line to Fill (At least one)</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span># You need to start writing
+????
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Section to Fill</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>#===========================Fill This===========================#
+# 1. Explanation about what to do.
+# !! Remarks to follow / take under consideration.
+mX = ???
+
+???
+#===============================================================#
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configuration</span>
+<span class="c1"># %matplotlib inline</span>
+
+<span class="n">seedNum</span> <span class="o">=</span> <span class="mi">512</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seedNum</span><span class="p">)</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seedNum</span><span class="p">)</span>
+
+<span class="c1"># Matplotlib default color palette</span>
+<span class="n">lMatPltLibclr</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#1f77b4&#39;</span><span class="p">,</span> <span class="s1">&#39;#ff7f0e&#39;</span><span class="p">,</span> <span class="s1">&#39;#2ca02c&#39;</span><span class="p">,</span> <span class="s1">&#39;#d62728&#39;</span><span class="p">,</span> <span class="s1">&#39;#9467bd&#39;</span><span class="p">,</span> <span class="s1">&#39;#8c564b&#39;</span><span class="p">,</span> <span class="s1">&#39;#e377c2&#39;</span><span class="p">,</span> <span class="s1">&#39;#7f7f7f&#39;</span><span class="p">,</span> <span class="s1">&#39;#bcbd22&#39;</span><span class="p">,</span> <span class="s1">&#39;#17becf&#39;</span><span class="p">]</span>
+<span class="c1"># sns.set_theme() #&gt;! Apply SeaBorn theme</span>
+
+<span class="n">runInGoogleColab</span> <span class="o">=</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Constants</span>
+
+<span class="n">FIG_SIZE_DEF</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">ELM_SIZE_DEF</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">CLASS_COLOR</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Courses Packages</span>
+<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span><span class="nn">os</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../&#39;</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../../&#39;</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../../../&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">utils.DataVisualization</span> <span class="kn">import</span> <span class="n">PlotConfusionMatrix</span><span class="p">,</span> <span class="n">PlotLabelsHistogram</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># General Auxiliary Functions</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="exercise-decision-tree">
+<h2>Exercise - Decision Tree<a class="headerlink" href="#exercise-decision-tree" title="Permalink to this heading">#</a></h2>
+<p>In this exercise we’ll use the <em>Decision Tree</em> model as a classifier.<br />
+The SciKit Learn library implement it with the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html"><code class="docutils literal notranslate"><span class="pre">DecisionTreeClassifier</span></code></a> class.</p>
+<p>We’ll use the <a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/Heart+Disease">Heart Disease Data Set</a> (Also known as Cleveland Heard Disease).<br />
+The data set contains binary and categorical features which Decision Trees excel utilizing.</p>
+<p>The data set has the following columns:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">age</span></code>: Age in years.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sex</span></code>: Sex (<code class="docutils literal notranslate"><span class="pre">1</span></code>: male; <code class="docutils literal notranslate"><span class="pre">0</span></code>: female).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cp</span></code>: Chest pain type: {<code class="docutils literal notranslate"><span class="pre">0</span></code>: typical angina, <code class="docutils literal notranslate"><span class="pre">1</span></code>: atypical angina, <code class="docutils literal notranslate"><span class="pre">2</span></code>: non-anginal pain, <code class="docutils literal notranslate"><span class="pre">3</span></code>: asymptomatic}.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">trestbps</span></code>: Resting blood pressure (in mm Hg on admission to the hospital).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">chol</span></code>: Serum cholestoral in mg/dl.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fbs</span></code>: Check fasting blood sugar: {<code class="docutils literal notranslate"><span class="pre">1</span></code>: Above 120 mg/dl, <code class="docutils literal notranslate"><span class="pre">0</span></code>: Below 120 mg/dl}.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">restecg</span></code>: Resting electrocardiographic results: {<code class="docutils literal notranslate"><span class="pre">0</span></code>: normal, <code class="docutils literal notranslate"><span class="pre">1</span></code>: having ST-T wave abnormality (T wave inversions and/or ST elevation or depression of &gt; 0.05 mV), <code class="docutils literal notranslate"><span class="pre">2</span></code>: showing probable or definite left ventricular hypertrophy by Estes’ criteria}.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">thalach</span></code>: Maximum heart rate achieved.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">exang</span></code>: Exercise induced angina: {<code class="docutils literal notranslate"><span class="pre">1</span></code>: yes, <code class="docutils literal notranslate"><span class="pre">0</span></code>: no}.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">oldpeak</span></code> = ST depression induced by exercise relative to rest.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">slope</span></code>: The slope of the peak exercise ST segment: {<code class="docutils literal notranslate"><span class="pre">0</span></code>: upsloping, <code class="docutils literal notranslate"><span class="pre">1</span></code>: flat, <code class="docutils literal notranslate"><span class="pre">2</span></code>: downsloping}.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ca</span></code>: Number of major vessels (0-3) colored by flourosopy.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">thal</span></code>: {<code class="docutils literal notranslate"><span class="pre">0</span></code>: normal, <code class="docutils literal notranslate"><span class="pre">1</span></code>: fixed defect, <code class="docutils literal notranslate"><span class="pre">2</span></code>: reversable defect}.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">num</span></code>: The target variable: {<code class="docutils literal notranslate"><span class="pre">0</span></code>: <code class="docutils literal notranslate"><span class="pre">&lt;50</span></code> (No disease), <code class="docutils literal notranslate"><span class="pre">1</span></code>: <code class="docutils literal notranslate"><span class="pre">&gt;50_1</span></code> (disease)}.</p></li>
+</ul>
+<p>The exercise will also show the process of handling real world data: Removing invalid data, mapping values, etc…</p>
+<p>I this exercise we’ll do the following:</p>
+<ol class="arabic simple">
+<li><p>Load the <a class="reference external" href="https://archive.ics.uci.edu/ml/datasets/Heart+Disease">Heart Disease Data Set</a> using <code class="docutils literal notranslate"><span class="pre">fetch_openml()</span></code> with id .</p></li>
+<li><p>Validate data.</p></li>
+<li><p>Convert text to numerical data (Though still as categorical data).</p></li>
+<li><p>Train a decision tree.</p></li>
+<li><p>Optimize the parameters: <code class="docutils literal notranslate"><span class="pre">criterion</span></code> and <code class="docutils literal notranslate"><span class="pre">max_leaf_nodes</span></code> by the <code class="docutils literal notranslate"><span class="pre">f1</span></code> score.</p></li>
+<li><p>Train the optimal model on all data.</p></li>
+<li><p>Display the Confusion Matrix and extract the different types of predictions.</p></li>
+<li><p>Show the feature importance rank of the model.</p></li>
+</ol>
+<ul class="simple">
+<li><p><font color='brown'>(<strong>#</strong>)</font> In order to let the classifier know the data is binary / categorical we’ll use a <strong>Data Frame</strong> as the data structure.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Parameters</span>
+
+<span class="c1">#===========================Fill This===========================#</span>
+<span class="c1"># 1. Set the options for the `criterion` parameter (Use all options).</span>
+<span class="c1"># 2. Set the options for the `max_leaf_nodes` parameter.</span>
+<span class="n">lCriterion</span>   <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;gini&#39;</span><span class="p">,</span> <span class="s1">&#39;entropy&#39;</span><span class="p">,</span> <span class="s1">&#39;log_loss&#39;</span><span class="p">]</span> <span class="c1">#&lt;! List</span>
+<span class="n">lMaxLeaf</span>     <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span> <span class="c1">#&lt;! List</span>
+<span class="c1">#===============================================================#</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="generate-load-data">
+<h2>Generate / Load Data<a class="headerlink" href="#generate-load-data" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load Data</span>
+
+<span class="n">dfData</span><span class="p">,</span> <span class="n">dsY</span> <span class="o">=</span> <span class="n">fetch_openml</span><span class="p">(</span><span class="s1">&#39;heart-c&#39;</span><span class="p">,</span> <span class="n">version</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">return_X_y</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">as_frame</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">parser</span> <span class="o">=</span> <span class="s1">&#39;auto&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The data shape: </span><span class="si">{</span><span class="n">dfData</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The labels shape: </span><span class="si">{</span><span class="n">dsY</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The unique values of the labels: </span><span class="si">{</span><span class="n">dsY</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The data shape: (303, 13)
+The labels shape: (303,)
+The unique values of the labels: [&#39;&lt;50&#39;, &#39;&gt;50_1&#39;]
+Categories (2, object): [&#39;&lt;50&#39;, &#39;&gt;50_1&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<section id="plot-data">
+<h3>Plot Data<a class="headerlink" href="#plot-data" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Distribution of Labels</span>
+
+<span class="n">hA</span> <span class="o">=</span> <span class="n">PlotLabelsHistogram</span><span class="p">(</span><span class="n">dsY</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/7918b3e36056e72e19500b6f9c6901cbc0a0dea0151a9fe4f4cf6547b444f75e.png" src="../../../_images/7918b3e36056e72e19500b6f9c6901cbc0a0dea0151a9fe4f4cf6547b444f75e.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p><font color='red'>(<strong>?</strong>)</font> Is the data balanced?</p></li>
+</ul>
+</section>
+</section>
+<section id="pre-process-data">
+<h2>Pre Process Data<a class="headerlink" href="#pre-process-data" title="Permalink to this heading">#</a></h2>
+<p>In this section we’ll transform the data into features which the algorithms can work with.</p>
+<section id="remove-missing-undefined-values">
+<h3>Remove Missing / Undefined Values<a class="headerlink" href="#remove-missing-undefined-values" title="Permalink to this heading">#</a></h3>
+<p>There are 3 main strategies with dealing with missing values:</p>
+<ol class="arabic simple">
+<li><p>A model to interpolate them.</p></li>
+<li><p>Remove the sample.</p></li>
+<li><p>Remove the feature.</p></li>
+</ol>
+<p>The choice between (2) and (3) depends on the occurrence of the missing values.<br />
+If there is a feature which is dominated by missing values, we might want to consider remove it.<br />
+Otherwise, we’ll remove samples with missing values.</p>
+<ul class="simple">
+<li><p><font color='brown'>(<strong>#</strong>)</font> In case of large data set we might even build different models to different combinations of features.</p></li>
+<li><p><font color='brown'>(<strong>#</strong>)</font> If missing values can happen in production, we need to think of a strategy that holds in that case as well.</p></li>
+<li><p><font color='brown'>(<strong>#</strong>)</font> In practice, another factor to take into account is the importance of the feature.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Null / NA / NaN Matrix</span>
+
+<span class="n">dfData</span><span class="p">[</span><span class="s1">&#39;Positive&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dsY</span> <span class="c1">#&lt;! Merge data</span>
+
+<span class="c1">#===========================Fill This===========================#</span>
+<span class="c1"># 1. Calculate the logical map of invalid values using the method `isna()`.</span>
+<span class="n">dfInvData</span> <span class="o">=</span> <span class="n">dfData</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span> <span class="c1">#&lt;! The logical matrix (DF) of invalid values</span>
+<span class="c1">#===============================================================#</span>
+
+<span class="n">hF</span><span class="p">,</span> <span class="n">hA</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="n">FIG_SIZE_DEF</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">dfInvData</span><span class="p">,</span> <span class="n">square</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">hA</span><span class="p">)</span>
+<span class="n">hA</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Invalid Data Map&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The features data shape: </span><span class="si">{</span><span class="n">dfData</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/5d094a902a1b38160a1be31bc4be921d15065af0003212fc0c4f623e638f4ad4.png" src="../../../_images/5d094a902a1b38160a1be31bc4be921d15065af0003212fc0c4f623e638f4ad4.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The features data shape: (303, 14)
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><font color='red'>(<strong>?</strong>)</font> Given the results above, would you remove a feature or few samples?</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Remove NaN / Null Values</span>
+
+<span class="c1">#===========================Fill This===========================#</span>
+<span class="c1"># 1. Remove the NaN / Null values. Use `dropna()`.</span>
+<span class="c1"># !! Choose the correct policy (Remove samples or features) by `axis`.</span>
+<span class="n">dfX</span> <span class="o">=</span> <span class="n">dfData</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="c1">#&lt;! Remove samples</span>
+<span class="c1">#===============================================================#</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The features data shape: </span><span class="si">{</span><span class="n">dfX</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The features data shape: (296, 14)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Drop Duplicate Rows</span>
+
+<span class="c1">#===========================Fill This===========================#</span>
+<span class="c1"># 1. Drop duplicate rows (Samples) using the method `drop_duplicates()`.</span>
+<span class="c1"># 2. Reset index using the method `reset_index()` .</span>
+<span class="n">dfX</span> <span class="o">=</span> <span class="n">dfX</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;dfX shape after drop: </span><span class="si">{</span><span class="n">dfX</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">dfX</span> <span class="o">=</span> <span class="n">dfX</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;dfX shape after reset_index: </span><span class="si">{</span><span class="n">dfX</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="c1">#===============================================================#</span>
+<span class="n">dfX</span> <span class="o">=</span> <span class="n">dfX</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">dtype</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ca&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">})</span> <span class="c1">#&lt;! It&#39;s integer mistyped as Float64</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dfX shape after drop: (296, 14)
+dfX shape after reset_index: (296, 14)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Split Data &amp; Labels</span>
+<span class="c1"># Create the X, y data.</span>
+
+<span class="n">dsY</span> <span class="o">=</span> <span class="n">dfX</span><span class="p">[</span><span class="s1">&#39;Positive&#39;</span><span class="p">]</span>
+<span class="n">dfX</span> <span class="o">=</span> <span class="n">dfX</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Positive&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Distribution of Labels</span>
+
+<span class="n">hA</span> <span class="o">=</span> <span class="n">PlotLabelsHistogram</span><span class="p">(</span><span class="n">dsY</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/964efefa064dee5a6d1da37c9e19606f0e203f364461ca042ad0ab92eabc4106.png" src="../../../_images/964efefa064dee5a6d1da37c9e19606f0e203f364461ca042ad0ab92eabc4106.png" />
+</div>
+</div>
+</section>
+<section id="convert-data-into-numeric-values">
+<h3>Convert Data into Numeric Values<a class="headerlink" href="#convert-data-into-numeric-values" title="Permalink to this heading">#</a></h3>
+<p>Some of the categorical and binary data is given by text values.<br />
+It is better to convert them into numerical values (Though some models can work with them as is).<br />
+For some visualizations, the textual data is great, hence we keep it.</p>
+<ul class="simple">
+<li><p><font color='brown'>(<strong>#</strong>)</font> Usually this is done as part of the pipeline. See <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OneHotEncoder.html"><code class="docutils literal notranslate"><span class="pre">OneHotEncoder</span></code></a>, <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.Binarizer.html"><code class="docutils literal notranslate"><span class="pre">Binarizer</span></code></a> and <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.OrdinalEncoder.html"><code class="docutils literal notranslate"><span class="pre">OrdinalEncoder</span></code></a> in the <a class="reference external" href="https://scikit-learn.org/stable/modules/classes.html#module-sklearn.preprocessing"><code class="docutils literal notranslate"><span class="pre">sklearn.preprocessing</span></code></a> module.</p></li>
+<li><p><font color='brown'>(<strong>#</strong>)</font> Currently, the implementation of <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html"><code class="docutils literal notranslate"><span class="pre">DecisionTreeClassifier</span></code></a> doesn’t support categorical values which are not ordinal (As it treats them as numeric). Hence we must use <code class="docutils literal notranslate"><span class="pre">OneHotEncoder</span></code>.<br />
+See status at <a class="github reference external" href="https://github.com/scikit-learn/scikit-learn/pull/12866">scikit-learn/scikit-learn#12866</a>.</p></li>
+<li><p><font color='brown'>(<strong>#</strong>)</font> The <em>One Hot Encoding</em> is not perfect. See <a class="reference external" href="https://web.archive.org/web/20200307172925/https://roamanalytics.com/2016/10/28/are-categorical-variables-getting-lost-in-your-random-forests/">Are Categorical Variables Getting Lost in Your Random Forests</a> (Also <a class="reference external" href="https://notebook.community/roaminsight/roamresearch/BlogPosts/Categorical_variables_in_tree_models/categorical_variables_post">Notebook - Are Categorical Variables Getting Lost in Your Random Forests</a>).</p></li>
+<li><p><font color='brown'>(<strong>#</strong>)</font> The SciKit Learn has support for categorical features in the <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.HistGradientBoostingClassifier.html"><code class="docutils literal notranslate"><span class="pre">HistGradientBoostingClassifier</span></code></a> class.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Features Type</span>
+
+<span class="c1"># See the Type of the Features</span>
+<span class="n">dfX</span><span class="o">.</span><span class="n">info</span><span class="p">()</span> <span class="c1">#&lt;! Look at `dfX.dtypes`</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 296 entries, 0 to 295
+Data columns (total 13 columns):
+ #   Column    Non-Null Count  Dtype   
+---  ------    --------------  -----   
+ 0   age       296 non-null    int64   
+ 1   sex       296 non-null    category
+ 2   cp        296 non-null    category
+ 3   trestbps  296 non-null    int64   
+ 4   chol      296 non-null    int64   
+ 5   fbs       296 non-null    category
+ 6   restecg   296 non-null    category
+ 7   thalach   296 non-null    int64   
+ 8   exang     296 non-null    category
+ 9   oldpeak   296 non-null    float64 
+ 10  slope     296 non-null    category
+ 11  ca        296 non-null    int64   
+ 12  thal      296 non-null    category
+dtypes: category(7), float64(1), int64(5)
+memory usage: 17.0 KB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Lists of the Features Type</span>
+
+<span class="n">lBinaryFeature</span>  <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;fbs&#39;</span><span class="p">,</span> <span class="s1">&#39;exang&#39;</span><span class="p">]</span>
+<span class="n">lCatFeature</span>     <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;cp&#39;</span><span class="p">,</span> <span class="s1">&#39;restecg&#39;</span><span class="p">,</span> <span class="s1">&#39;slope&#39;</span><span class="p">,</span> <span class="s1">&#39;thal&#39;</span><span class="p">]</span>
+<span class="n">lNumFeature</span>     <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;trestbps&#39;</span><span class="p">,</span> <span class="s1">&#39;chol&#39;</span><span class="p">,</span> <span class="s1">&#39;thalach&#39;</span><span class="p">,</span> <span class="s1">&#39;oldpeak&#39;</span><span class="p">,</span> <span class="s1">&#39;ca&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Creating a Copy (Numerical)</span>
+
+<span class="c1">#===========================Fill This===========================#</span>
+<span class="c1"># 1. Create a copy (Not a view) using the method `copy()`.</span>
+<span class="n">dfXNum</span> <span class="o">=</span> <span class="n">dfX</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="c1">#===============================================================#</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Encode Binary Categorical Features</span>
+<span class="c1"># Usually this is done using `Binarizer` and `OrdinalEncoder`.</span>
+<span class="c1"># Yet there is a defined mapping in the data description which will be used.</span>
+
+<span class="n">dSex</span>        <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;female&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;male&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="n">dCp</span>         <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;typ_angina&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;atyp_angina&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;non_anginal&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;asympt&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+<span class="n">dFbs</span>        <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;f&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="n">dRestEcg</span>    <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;normal&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;st_t_wave_abnormality&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;left_vent_hyper&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="n">dExAng</span>      <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;no&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;yes&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="n">dSlope</span>      <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;up&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;flat&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;down&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="n">dThal</span>       <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;normal&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;fixed_defect&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;reversable_defect&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+
+<span class="n">dMapper</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sex&#39;</span><span class="p">:</span> <span class="n">dSex</span><span class="p">,</span> <span class="s1">&#39;fbs&#39;</span><span class="p">:</span> <span class="n">dFbs</span><span class="p">,</span> <span class="s1">&#39;exang&#39;</span><span class="p">:</span> <span class="n">dExAng</span><span class="p">,</span> <span class="s1">&#39;cp&#39;</span><span class="p">:</span> <span class="n">dCp</span><span class="p">,</span> <span class="s1">&#39;restecg&#39;</span><span class="p">:</span> <span class="n">dRestEcg</span><span class="p">,</span> <span class="s1">&#39;slope&#39;</span><span class="p">:</span> <span class="n">dSlope</span><span class="p">,</span> <span class="s1">&#39;thal&#39;</span><span class="p">:</span> <span class="n">dThal</span><span class="p">}</span>
+
+<span class="k">for</span> <span class="n">colName</span> <span class="ow">in</span> <span class="p">(</span><span class="n">lBinaryFeature</span> <span class="o">+</span> <span class="n">lCatFeature</span><span class="p">):</span>
+    <span class="c1"># dMapping = dMapper[colName]</span>
+    <span class="n">dfXNum</span><span class="p">[</span><span class="n">colName</span><span class="p">]</span> <span class="o">=</span> <span class="n">dfXNum</span><span class="p">[</span><span class="n">colName</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">dMapper</span><span class="p">[</span><span class="n">colName</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dfXNum</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>age</th>
+      <th>sex</th>
+      <th>cp</th>
+      <th>trestbps</th>
+      <th>chol</th>
+      <th>fbs</th>
+      <th>restecg</th>
+      <th>thalach</th>
+      <th>exang</th>
+      <th>oldpeak</th>
+      <th>slope</th>
+      <th>ca</th>
+      <th>thal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>63</td>
+      <td>1</td>
+      <td>0</td>
+      <td>145</td>
+      <td>233</td>
+      <td>1</td>
+      <td>2</td>
+      <td>150</td>
+      <td>0</td>
+      <td>2.3</td>
+      <td>2</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>67</td>
+      <td>1</td>
+      <td>3</td>
+      <td>160</td>
+      <td>286</td>
+      <td>0</td>
+      <td>2</td>
+      <td>108</td>
+      <td>1</td>
+      <td>1.5</td>
+      <td>1</td>
+      <td>3</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>67</td>
+      <td>1</td>
+      <td>3</td>
+      <td>120</td>
+      <td>229</td>
+      <td>0</td>
+      <td>2</td>
+      <td>129</td>
+      <td>1</td>
+      <td>2.6</td>
+      <td>1</td>
+      <td>2</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>37</td>
+      <td>1</td>
+      <td>2</td>
+      <td>130</td>
+      <td>250</td>
+      <td>0</td>
+      <td>0</td>
+      <td>187</td>
+      <td>0</td>
+      <td>3.5</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>41</td>
+      <td>0</td>
+      <td>1</td>
+      <td>130</td>
+      <td>204</td>
+      <td>0</td>
+      <td>2</td>
+      <td>172</td>
+      <td>0</td>
+      <td>1.4</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Encode the Labels</span>
+
+<span class="c1">#===========================Fill This===========================#</span>
+<span class="c1"># 1. Create a dictionary which maps the string `&lt;50` to 0 and `&gt;50_1` to 1.</span>
+<span class="c1"># 2. Apply a mapping on `dsY` using the method `map()`.</span>
+<span class="n">dMapY</span>   <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;&lt;50&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;&gt;50_1&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span> <span class="c1">#&lt;! Mapping dictionary</span>
+<span class="n">dsY</span>     <span class="o">=</span> <span class="n">dsY</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">dMapY</span><span class="p">)</span>
+<span class="c1">#===============================================================#</span>
+
+<span class="n">dsY</span> <span class="o">=</span> <span class="n">dsY</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;Positive&#39;</span><span class="p">)</span>
+<span class="n">dsY</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    0
+1    1
+2    1
+3    0
+4    0
+Name: Positive, dtype: category
+Categories (2, int64): [0, 1]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exploratory-data-analysis-eda">
+<h3>Exploratory Data Analysis (EDA)<a class="headerlink" href="#exploratory-data-analysis-eda" title="Permalink to this heading">#</a></h3>
+<p>This is the stage we’re trying to infer insights on the data using visualizations.<br />
+This is a skill which requires experience and creativity.</p>
+<p>We’ll do some very basic operations for this data set.<br />
+We’ll see the distribution of each feature for the 2 values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Binary Data</span>
+
+<span class="n">numFeatures</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lBinaryFeature</span><span class="p">)</span>
+<span class="n">hF</span><span class="p">,</span> <span class="n">hA</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">numFeatures</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">hA</span> <span class="o">=</span> <span class="n">hA</span><span class="o">.</span><span class="n">flat</span>
+
+<span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">colName</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lBinaryFeature</span><span class="p">):</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">dfX</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">colName</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="n">dsY</span><span class="p">,</span> <span class="n">discrete</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">multiple</span> <span class="o">=</span> <span class="s1">&#39;dodge&#39;</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">hA</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/26b2c725a081b322df54bb3dd9dffd8c6f5c423ddb616ffddf5f70d71db6da95.png" src="../../../_images/26b2c725a081b322df54bb3dd9dffd8c6f5c423ddb616ffddf5f70d71db6da95.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Categorical Data</span>
+
+<span class="n">numFeatures</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lCatFeature</span><span class="p">)</span>
+<span class="n">hF</span><span class="p">,</span> <span class="n">hA</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">numFeatures</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">hA</span> <span class="o">=</span> <span class="n">hA</span><span class="o">.</span><span class="n">flat</span>
+
+<span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">colName</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lCatFeature</span><span class="p">):</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">dfX</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">colName</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="n">dsY</span><span class="p">,</span> <span class="n">discrete</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">multiple</span> <span class="o">=</span> <span class="s1">&#39;dodge&#39;</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">hA</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/5fdb741351e8839ea41f550ad0e174793ad62d35a0843ff716c29d70c157a502.png" src="../../../_images/5fdb741351e8839ea41f550ad0e174793ad62d35a0843ff716c29d70c157a502.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Numerical Data</span>
+
+<span class="n">lDiscreteData</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">numFeatures</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lNumFeature</span><span class="p">)</span>
+<span class="n">hF</span><span class="p">,</span> <span class="n">hA</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">numFeatures</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">hA</span> <span class="o">=</span> <span class="n">hA</span><span class="o">.</span><span class="n">flat</span>
+
+<span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">colName</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lNumFeature</span><span class="p">):</span>
+    <span class="c1"># if pd.api.types.is_integer_dtype(dfX[colName]):</span>
+    <span class="c1">#     sns.histplot(data = dfX, x = colName, hue = dsY, discrete = True, multiple = &#39;dodge&#39;, ax = hA[ii])</span>
+    <span class="k">if</span> <span class="n">colName</span> <span class="o">==</span> <span class="s1">&#39;ca&#39;</span><span class="p">:</span>
+        <span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">dfX</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">colName</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="n">dsY</span><span class="p">,</span> <span class="n">discrete</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">multiple</span> <span class="o">=</span> <span class="s1">&#39;dodge&#39;</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">hA</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">dfX</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">colName</span><span class="p">,</span> <span class="n">hue</span> <span class="o">=</span> <span class="n">dsY</span><span class="p">,</span> <span class="n">fill</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">common_norm</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">hA</span><span class="p">[</span><span class="n">ii</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/eac61ab5d2867cccce8df1c6788280d37ddd18a9dbf35dfa6a4f98e9aba63d06.png" src="../../../_images/eac61ab5d2867cccce8df1c6788280d37ddd18a9dbf35dfa6a4f98e9aba63d06.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p><font color='red'>(<strong>?</strong>)</font> How would you handle the case where a feature has a single value? Look at <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.VarianceThreshold.html#sklearn.feature_selection.VarianceThreshold"><code class="docutils literal notranslate"><span class="pre">VarianceThreshold</span></code></a>.</p></li>
+<li><p><font color='brown'>(<strong>#</strong>)</font> Usually part of the work on feature includes a process to select the best of them. For example a brute force method is given by <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.SelectKBest.html"><code class="docutils literal notranslate"><span class="pre">SelectKBest</span></code></a>.</p></li>
+</ul>
+</section>
+</section>
+<section id="train-a-decision-tree-model-and-optimize-hyper-parameters">
+<h2>Train a Decision Tree Model and Optimize Hyper Parameters<a class="headerlink" href="#train-a-decision-tree-model-and-optimize-hyper-parameters" title="Permalink to this heading">#</a></h2>
+<p>In this section we’ll optimize the model according to the <code class="docutils literal notranslate"><span class="pre">F1</span></code> score.<br />
+The <code class="docutils literal notranslate"><span class="pre">F1</span></code> score is the geometric mean of the <em>precision</em> and <em>recall</em>.<br />
+Hence it can handle pretty well imbalanced data as well (Though this case is not really that imbalanced).</p>
+<p>We’ll use the <code class="docutils literal notranslate"><span class="pre">f1_score()</span></code> function to calculate the measure.<br />
+The process to optimize the <em>Hyper Parameters</em> will be as following:</p>
+<ol class="arabic simple">
+<li><p>Build a data frame to keep the scoring of the different hyper parameters combination.</p></li>
+<li><p>Optimize the model:</p></li>
+</ol>
+<ul class="simple">
+<li><p>Construct a model using the current combination of <em>hyper parameters</em>.</p></li>
+<li><p>Apply a cross validation process to predict the data using <code class="docutils literal notranslate"><span class="pre">cross_val_predict()</span></code>.</p></li>
+<li><p>As the cross validation iterator (The <code class="docutils literal notranslate"><span class="pre">cv</span></code> parameter) use <code class="docutils literal notranslate"><span class="pre">KFold</span></code> to implement <em>Leave One Out</em> policy.</p></li>
+</ul>
+<ol class="arabic simple" start="3">
+<li><p>Calculate the <code class="docutils literal notranslate"><span class="pre">F1</span></code> score of the predicted classes.</p></li>
+<li><p>Store the result in the performance data frame.</p></li>
+</ol>
+<ul class="simple">
+<li><p><font color='brown'>(<strong>#</strong>)</font> Pay attention that while we optimize the hyper parameters according to the <code class="docutils literal notranslate"><span class="pre">F1</span></code> score, the model itself has a different <em>loss</em> function.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Creating the Data Frame</span>
+
+<span class="c1">#===========================Fill This===========================#</span>
+<span class="c1"># 1. Calculate the number of combinations.</span>
+<span class="c1"># 2. Create a nested loop to create the combinations between the parameters.</span>
+<span class="c1"># 3. Store the combinations as the columns of a data frame.</span>
+
+<span class="c1"># For Advanced Python users: Use iteration tools for create the cartesian product</span>
+<span class="n">numComb</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lCriterion</span><span class="p">)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">lMaxLeaf</span><span class="p">)</span>  <span class="c1">#&lt;! Number combinations</span>
+<span class="n">dData</span>   <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Criterion&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;Max Leaves&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;F1&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="n">numComb</span><span class="p">}</span>  <span class="c1">#&lt;! Dictionary (To create the DF from)</span>
+
+<span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">paramCriteria</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lCriterion</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">jj</span><span class="p">,</span> <span class="n">maxLeaf</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lMaxLeaf</span><span class="p">):</span>
+        <span class="n">dData</span><span class="p">[</span><span class="s1">&#39;Criterion&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">paramCriteria</span><span class="p">)</span>
+        <span class="n">dData</span><span class="p">[</span><span class="s1">&#39;Max Leaves&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">maxLeaf</span><span class="p">)</span>
+        
+<span class="c1">#===============================================================#</span>
+
+<span class="c1"># The DF: Each row is a combination to evaluate.</span>
+<span class="c1"># The columns are the parameters and the F1 score.</span>
+<span class="n">dfModelScore</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">dData</span><span class="p">)</span>
+
+<span class="c1"># Display the DF</span>
+<span class="n">dfModelScore</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Criterion</th>
+      <th>Max Leaves</th>
+      <th>F1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>gini</td>
+      <td>2.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>gini</td>
+      <td>4.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>gini</td>
+      <td>6.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>gini</td>
+      <td>8.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>gini</td>
+      <td>10.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>gini</td>
+      <td>12.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>gini</td>
+      <td>14.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>gini</td>
+      <td>16.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>gini</td>
+      <td>18.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>gini</td>
+      <td>20.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>entropy</td>
+      <td>2.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>entropy</td>
+      <td>4.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>entropy</td>
+      <td>6.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>entropy</td>
+      <td>8.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>entropy</td>
+      <td>10.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>entropy</td>
+      <td>12.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>entropy</td>
+      <td>14.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>entropy</td>
+      <td>16.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>entropy</td>
+      <td>18.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>entropy</td>
+      <td>20.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>log_loss</td>
+      <td>2.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>log_loss</td>
+      <td>4.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>log_loss</td>
+      <td>6.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>log_loss</td>
+      <td>8.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>log_loss</td>
+      <td>10.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>log_loss</td>
+      <td>12.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>log_loss</td>
+      <td>14.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>log_loss</td>
+      <td>16.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>log_loss</td>
+      <td>18.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>log_loss</td>
+      <td>20.0</td>
+      <td>0.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Optimize the Model</span>
+
+<span class="c1">#===========================Fill This===========================#</span>
+<span class="c1"># 1. Iterate over each row of the data frame `dfModelScore`. Each row defines the hyper parameters.</span>
+<span class="c1"># 2. Construct the model.</span>
+<span class="c1"># 3. Train it on the Train Data Set.</span>
+<span class="c1"># 4. Calculate the score.</span>
+<span class="c1"># 5. Store the score into the data frame column.</span>
+
+<span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">numComb</span><span class="p">):</span>
+    <span class="n">paramCriteria</span>    <span class="o">=</span> <span class="n">dfModelScore</span><span class="p">[</span><span class="s1">&#39;Criterion&#39;</span><span class="p">][</span><span class="n">ii</span><span class="p">]</span>
+    <span class="n">maxLeaf</span>          <span class="o">=</span> <span class="n">dfModelScore</span><span class="p">[</span><span class="s1">&#39;Max Leaves&#39;</span><span class="p">][</span><span class="n">ii</span><span class="p">]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Processing model </span><span class="si">{</span><span class="n">ii</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">:</span><span class="s1">03d</span><span class="si">}</span><span class="s1"> out of </span><span class="si">{</span><span class="n">numComb</span><span class="si">}</span><span class="s1"> with `criterion` = </span><span class="si">{</span><span class="n">paramCriteria</span><span class="si">}</span><span class="s1"> and `max_leaf_nodes` = </span><span class="si">{</span><span class="n">maxLeaf</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
+
+    <span class="n">oDecTreeCls</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">criterion</span> <span class="o">=</span> <span class="n">paramCriteria</span><span class="p">,</span> <span class="n">max_leaf_nodes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">maxLeaf</span><span class="p">),</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="c1">#&lt;! The model with the hyper parameters of the current combination</span>
+    
+    <span class="n">vYPred</span> <span class="o">=</span> <span class="n">cross_val_predict</span><span class="p">(</span><span class="n">oDecTreeCls</span><span class="p">,</span> <span class="n">dfXNum</span><span class="p">,</span> <span class="n">dsY</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span> <span class="o">=</span> <span class="n">dfXNum</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="c1">#&lt;! Predict by cross validation</span>
+
+    <span class="n">f1Score</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">dsY</span><span class="p">,</span> <span class="n">vYPred</span><span class="p">)</span>
+    <span class="n">dfModelScore</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span> <span class="s1">&#39;F1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">f1Score</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Finished processing model </span><span class="si">{</span><span class="n">ii</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">:</span><span class="s1">03d</span><span class="si">}</span><span class="s1"> with `f1 = </span><span class="si">{</span><span class="n">f1Score</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
+<span class="c1">#===============================================================#</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Processing model 001 out of 30 with `criterion` = gini and `max_leaf_nodes` = 2.0.
+Finished processing model 001 with `f1 = 0.7434944237918215.
+Processing model 002 out of 30 with `criterion` = gini and `max_leaf_nodes` = 4.0.
+Finished processing model 002 with `f1 = 0.6899563318777293.
+Processing model 003 out of 30 with `criterion` = gini and `max_leaf_nodes` = 6.0.
+Finished processing model 003 with `f1 = 0.7984496124031008.
+Processing model 004 out of 30 with `criterion` = gini and `max_leaf_nodes` = 8.0.
+Finished processing model 004 with `f1 = 0.7380952380952381.
+Processing model 005 out of 30 with `criterion` = gini and `max_leaf_nodes` = 10.0.
+Finished processing model 005 with `f1 = 0.7330677290836654.
+Processing model 006 out of 30 with `criterion` = gini and `max_leaf_nodes` = 12.0.
+Finished processing model 006 with `f1 = 0.728.
+Processing model 007 out of 30 with `criterion` = gini and `max_leaf_nodes` = 14.0.
+Finished processing model 007 with `f1 = 0.7193675889328063.
+Processing model 008 out of 30 with `criterion` = gini and `max_leaf_nodes` = 16.0.
+Finished processing model 008 with `f1 = 0.7159533073929961.
+Processing model 009 out of 30 with `criterion` = gini and `max_leaf_nodes` = 18.0.
+Finished processing model 009 with `f1 = 0.7315175097276264.
+Processing model 010 out of 30 with `criterion` = gini and `max_leaf_nodes` = 20.0.
+Finished processing model 010 with `f1 = 0.7315175097276264.
+Processing model 011 out of 30 with `criterion` = entropy and `max_leaf_nodes` = 2.0.
+Finished processing model 011 with `f1 = 0.7434944237918215.
+Processing model 012 out of 30 with `criterion` = entropy and `max_leaf_nodes` = 4.0.
+Finished processing model 012 with `f1 = 0.6796875.
+Processing model 013 out of 30 with `criterion` = entropy and `max_leaf_nodes` = 6.0.
+Finished processing model 013 with `f1 = 0.7346938775510204.
+Processing model 014 out of 30 with `criterion` = entropy and `max_leaf_nodes` = 8.0.
+Finished processing model 014 with `f1 = 0.7295081967213115.
+Processing model 015 out of 30 with `criterion` = entropy and `max_leaf_nodes` = 10.0.
+Finished processing model 015 with `f1 = 0.7107438016528925.
+Processing model 016 out of 30 with `criterion` = entropy and `max_leaf_nodes` = 12.0.
+Finished processing model 016 with `f1 = 0.7228915662650602.
+Processing model 017 out of 30 with `criterion` = entropy and `max_leaf_nodes` = 14.0.
+Finished processing model 017 with `f1 = 0.749034749034749.
+Processing model 018 out of 30 with `criterion` = entropy and `max_leaf_nodes` = 16.0.
+Finished processing model 018 with `f1 = 0.7193675889328063.
+Processing model 019 out of 30 with `criterion` = entropy and `max_leaf_nodes` = 18.0.
+Finished processing model 019 with `f1 = 0.7294117647058823.
+Processing model 020 out of 30 with `criterion` = entropy and `max_leaf_nodes` = 20.0.
+Finished processing model 020 with `f1 = 0.7244094488188977.
+Processing model 021 out of 30 with `criterion` = log_loss and `max_leaf_nodes` = 2.0.
+Finished processing model 021 with `f1 = 0.7434944237918215.
+Processing model 022 out of 30 with `criterion` = log_loss and `max_leaf_nodes` = 4.0.
+Finished processing model 022 with `f1 = 0.6796875.
+Processing model 023 out of 30 with `criterion` = log_loss and `max_leaf_nodes` = 6.0.
+Finished processing model 023 with `f1 = 0.7346938775510204.
+Processing model 024 out of 30 with `criterion` = log_loss and `max_leaf_nodes` = 8.0.
+Finished processing model 024 with `f1 = 0.7295081967213115.
+Processing model 025 out of 30 with `criterion` = log_loss and `max_leaf_nodes` = 10.0.
+Finished processing model 025 with `f1 = 0.7107438016528925.
+Processing model 026 out of 30 with `criterion` = log_loss and `max_leaf_nodes` = 12.0.
+Finished processing model 026 with `f1 = 0.7228915662650602.
+Processing model 027 out of 30 with `criterion` = log_loss and `max_leaf_nodes` = 14.0.
+Finished processing model 027 with `f1 = 0.749034749034749.
+Processing model 028 out of 30 with `criterion` = log_loss and `max_leaf_nodes` = 16.0.
+Finished processing model 028 with `f1 = 0.7193675889328063.
+Processing model 029 out of 30 with `criterion` = log_loss and `max_leaf_nodes` = 18.0.
+Finished processing model 029 with `f1 = 0.7294117647058823.
+Processing model 030 out of 30 with `criterion` = log_loss and `max_leaf_nodes` = 20.0.
+Finished processing model 030 with `f1 = 0.7244094488188977.
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><font color='red'>(<strong>?</strong>)</font> Should we use <em>Stratified K Fold</em> above? Why?</p></li>
+<li><p><font color='brown'>(<strong>#</strong>)</font> Pay attention to the speed of the process. This is one of the main advantages of models based on trees.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Display Sorted Results (Descending)</span>
+<span class="c1"># Pandas allows sorting data by any column using the `sort_values()` method.</span>
+<span class="c1"># The `head()` allows us to see only the the first values.</span>
+<span class="n">dfModelScore</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;F1&#39;</span><span class="p">],</span> <span class="n">ascending</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Criterion</th>
+      <th>Max Leaves</th>
+      <th>F1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>gini</td>
+      <td>6.0</td>
+      <td>0.798450</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>entropy</td>
+      <td>14.0</td>
+      <td>0.749035</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>log_loss</td>
+      <td>14.0</td>
+      <td>0.749035</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>log_loss</td>
+      <td>2.0</td>
+      <td>0.743494</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>entropy</td>
+      <td>2.0</td>
+      <td>0.743494</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>gini</td>
+      <td>2.0</td>
+      <td>0.743494</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>gini</td>
+      <td>8.0</td>
+      <td>0.738095</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>log_loss</td>
+      <td>6.0</td>
+      <td>0.734694</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>entropy</td>
+      <td>6.0</td>
+      <td>0.734694</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>gini</td>
+      <td>10.0</td>
+      <td>0.733068</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<ul class="simple">
+<li><p><font color='red'>(<strong>?</strong>)</font> Do you find results satisfactory? How would you answer this?<br />
+See the <em>Code 001</em> below.</p></li>
+<li><p><font color='green'>(<strong>&#64;</strong>)</font> Since the class <code class="docutils literal notranslate"><span class="pre">DecisionTreeClassifier</span></code> doesn’t really support categorical features, you may use <em>One Hot Encoding</em>.<br />
+See <a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.get_dummies.html">Pandas’ <code class="docutils literal notranslate"><span class="pre">get_dummies()</span></code></a>. You may use <em>Code 002</em> below.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Code 001</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span>
+
+<span class="n">oCls</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span> <span class="o">=</span> <span class="mi">10_000</span><span class="p">)</span>
+<span class="n">oCls</span> <span class="o">=</span> <span class="n">oCls</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dfXNum</span><span class="p">,</span> <span class="n">dsY</span><span class="p">)</span>
+<span class="n">f1_score</span><span class="p">(</span><span class="n">dsY</span><span class="p">,</span> <span class="n">oCls</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dfXNum</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Code 002</span>
+<span class="n">dfXCat</span> <span class="o">=</span> <span class="n">dfXNum</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">colName</span> <span class="ow">in</span> <span class="n">lCatFeature</span><span class="p">:</span>
+    <span class="n">dfTmp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">dfXNum</span><span class="p">[</span><span class="n">colName</span><span class="p">],</span> <span class="n">prefix</span> <span class="o">=</span> <span class="n">colName</span><span class="p">)</span>
+    <span class="n">dfXCat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">dfXCat</span><span class="p">,</span> <span class="n">dfTmp</span><span class="p">),</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">dfXCat</span> <span class="o">=</span> <span class="n">dfXCat</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="n">colName</span><span class="p">)</span>
+
+<span class="n">dfXCat</span>
+</pre></div>
+</div>
+<!-- from sklearn.ensemble import HistGradientBoostingClassifier
+
+oCls = HistGradientBoostingClassifier(max_iter = 100, max_leaf_nodes = 20, categorical_features = lBinaryFeature + lCatFeature)
+oCls = oCls.fit(dfXNum, dsY)
+f1_score(dsY, oCls.predict(dfXNum)) --><div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plotting the Train Data F1 as a Heat Map</span>
+<span class="c1"># We can pivot the data set created to have a 2D matrix of the `F1` as a function of `Criterion` and the `Max Leaves`.</span>
+
+<span class="n">hA</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">dfModelScore</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="s1">&#39;Max Leaves&#39;</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="s1">&#39;Criterion&#39;</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="s1">&#39;F1&#39;</span><span class="p">),</span> <span class="n">robust</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">linewidths</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">annot</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span> <span class="o">=</span> <span class="s1">&#39;0.2%&#39;</span><span class="p">,</span> <span class="n">norm</span> <span class="o">=</span> <span class="n">LogNorm</span><span class="p">())</span>
+<span class="n">hA</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;F1 of the Cross Validation&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/d01dc578808f0f7469f217d6498c985e44e1e7a1b262ad9cbf1cfb13446067c8.png" src="../../../_images/d01dc578808f0f7469f217d6498c985e44e1e7a1b262ad9cbf1cfb13446067c8.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract the Optimal Hyper Parameters</span>
+
+<span class="c1">#===========================Fill This===========================#</span>
+<span class="c1"># 1. Extract the index of row which maximizes the score.</span>
+<span class="c1"># 2. Use the index of the row to extract the hyper parameters which were optimized.</span>
+<span class="c1"># !! You may find the `idxmax()` method of a Pandas data frame useful.</span>
+
+<span class="n">idxArgMax</span> <span class="o">=</span> <span class="n">dfModelScore</span><span class="p">[</span><span class="s1">&#39;F1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">idxmax</span><span class="p">()</span>
+<span class="c1">#===============================================================#</span>
+
+<span class="n">optimalCriterion</span> <span class="o">=</span> <span class="n">dfModelScore</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idxArgMax</span><span class="p">,</span> <span class="s1">&#39;Criterion&#39;</span><span class="p">]</span>
+<span class="n">optimalMaxLeaf</span>   <span class="o">=</span> <span class="n">dfModelScore</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">idxArgMax</span><span class="p">,</span> <span class="s1">&#39;Max Leaves&#39;</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The optimal hyper parameters are: `criterion` = </span><span class="si">{</span><span class="n">optimalCriterion</span><span class="si">}</span><span class="s1">, `max_leaf_nodes` = </span><span class="si">{</span><span class="n">optimalMaxLeaf</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The optimal hyper parameters are: `criterion` = gini, `max_leaf_nodes` = 6.0
+</pre></div>
+</div>
+</div>
+</div>
+<section id="optimal-model">
+<h3>Optimal Model<a class="headerlink" href="#optimal-model" title="Permalink to this heading">#</a></h3>
+<p>In this section we’ll extract the best model an retrain it on the whole data (<code class="docutils literal notranslate"><span class="pre">dfXNum</span></code>).<br />
+We need to export the model which has the best Test values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Construct the Optimal Model &amp; Train on the Whole Data</span>
+
+<span class="c1">#===========================Fill This===========================#</span>
+<span class="c1"># 1. Construct the model with the optimal hyper parameters.</span>
+<span class="c1"># 2. Fit the model on the whole data set.</span>
+<span class="n">oDecTreeCls</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">criterion</span> <span class="o">=</span> <span class="n">optimalCriterion</span><span class="p">,</span> <span class="n">max_leaf_nodes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">optimalMaxLeaf</span><span class="p">))</span>
+<span class="n">oDecTreeCls</span> <span class="o">=</span> <span class="n">oDecTreeCls</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">dfXNum</span><span class="p">,</span> <span class="n">dsY</span><span class="p">)</span>
+<span class="c1">#===============================================================#</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Model Score (Accuracy)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The model score (Accuracy) is: </span><span class="si">{</span><span class="n">oDecTreeCls</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">dfXNum</span><span class="p">,</span><span class="w"> </span><span class="n">dsY</span><span class="p">)</span><span class="si">:</span><span class="s1">0.2%</span><span class="si">}</span><span class="s1">.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The model score (Accuracy) is: 85.14%.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the Confusion Matrix</span>
+<span class="n">hF</span><span class="p">,</span> <span class="n">hA</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="c1">#===========================Fill This===========================#</span>
+<span class="c1"># 1. Plot the confusion matrix using the `PlotConfusionMatrix()` function.</span>
+<span class="n">hA</span><span class="p">,</span> <span class="n">mConfMat</span> <span class="o">=</span> <span class="n">PlotConfusionMatrix</span><span class="p">(</span><span class="n">dsY</span><span class="p">,</span> <span class="n">oDecTreeCls</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">dfXNum</span><span class="p">),</span> <span class="n">hA</span> <span class="o">=</span> <span class="n">hA</span><span class="p">)</span>
+<span class="c1">#===============================================================#</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/f9f85a497b93a3eb54c9dbe04392473fcfb98d7f42f2173ebe7dc2dfd84acdd8.png" src="../../../_images/f9f85a497b93a3eb54c9dbe04392473fcfb98d7f42f2173ebe7dc2dfd84acdd8.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p><font color='red'>(<strong>?</strong>)</font> Calculate the TP, TN, FP and FN rates.</p></li>
+<li><p><font color='red'>(<strong>?</strong>)</font> Calculate the <em>precision</em> and <em>recall</em>.</p></li>
+<li><p><font color='red'>(<strong>?</strong>)</font> Calculate the <em>precision</em> and <em>recall</em> assuming the labels <code class="docutils literal notranslate"><span class="pre">0</span></code> is the positive label.</p></li>
+</ul>
+</section>
+</section>
+<section id="feature-significance">
+<h2>Feature Significance<a class="headerlink" href="#feature-significance" title="Permalink to this heading">#</a></h2>
+<p>One advantage of the decision tree based models is having access to the significance of each feature during training.<br />
+We can access it using the <code class="docutils literal notranslate"><span class="pre">feature_importances_</span></code> attribute (Only after a applying training by the <code class="docutils literal notranslate"><span class="pre">fit()</span></code> method).</p>
+<ul class="simple">
+<li><p><font color='brown'>(<strong>#</strong>)</font> This ability is useful as a pre processing of data for any model with no restriction to trees.</p></li>
+<li><p><font color='brown'>(<strong>#</strong>)</font> The idea is measuring the total contribution of the feature to the reduction in loss.</p></li>
+<li><p><font color='brown'>(<strong>#</strong>)</font> This is a good metric for importance mainly for categorical features. For features with high number of unique values (Continuous), it might be not as accurate.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract the Importance of the Features</span>
+
+<span class="c1">#===========================Fill This===========================#</span>
+<span class="c1"># 1. Extract the feature importance using the `feature_importances_` attribute.</span>
+<span class="n">vFeatImportance</span> <span class="o">=</span> <span class="n">oDecTreeCls</span><span class="o">.</span><span class="n">feature_importances_</span>
+<span class="c1">#===============================================================#</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The feature importance is normalized, hence we can display it like a discrete probability mass function.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the Feature Importance</span>
+
+<span class="n">hF</span><span class="p">,</span> <span class="n">hA</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">hA</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="n">dfXNum</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="n">vFeatImportance</span><span class="p">)</span>
+<span class="n">hA</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Features Importance of the Model&#39;</span><span class="p">)</span>
+<span class="n">hA</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Feature Name&#39;</span><span class="p">)</span>
+<span class="n">hA</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Importance&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../_images/b99cf8147c512fa9f801ef1944c363cd49091986511e7c536f4fe985420292e2.png" src="../../../_images/b99cf8147c512fa9f801ef1944c363cd49091986511e7c536f4fe985420292e2.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p><font color='red'>(<strong>?</strong>)</font> How many non zero values could we have? Look at the number of splits.</p></li>
+<li><p><font color='red'>(<strong>?</strong>)</font> What can be done with the features with low value?</p></li>
+<li><p><font color='brown'>(<strong>#</strong>)</font> Can you explain what you see with the EDA phase plots?</p></li>
+<li><p><font color='brown'>(<strong>#</strong>)</font> Pay attention, in the context of feature importance we may choose high number of splits even if it means overfit. It won’t be a model for production, but will give a better view of the features.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./00_ai24/01_ml/04_tree"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="0043ClassifierDecisionTree.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Circles Decision Tree Classifier</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../05_regression/readme.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Linear Regression</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-decision-tree-classifier">Classification - Decision Tree Classifier</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revision-history">Revision History</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notations">Notations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-exercise">Code Exercise</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-decision-tree">Exercise - Decision Tree</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-load-data">Generate / Load Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-data">Plot Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-process-data">Pre Process Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#remove-missing-undefined-values">Remove Missing / Undefined Values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convert-data-into-numeric-values">Convert Data into Numeric Values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exploratory-data-analysis-eda">Exploratory Data Analysis (EDA)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#train-a-decision-tree-model-and-optimize-hyper-parameters">Train a Decision Tree Model and Optimize Hyper Parameters</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#optimal-model">Optimal Model</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-significance">Feature Significance</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By 0xsol
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

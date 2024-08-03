@@ -1,0 +1,1717 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>fashion-mnist &#8212; solAiKM</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/clipboard.min.js"></script>
+    <script src="../../../../_static/copybutton.js"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '00_ai24/01_ml/02_featureEng/mnist/0040ClassifierKernelSVM';</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="AutoML" href="../autouml/readme.html" />
+    <link rel="prev" title="mnist example with kernel trick" href="readme.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../../readme.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">solAiKM</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../../readme.html">
+                    solai
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">AI24</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../links.html">links</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../readme.html">Machine Learning</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../labs.html">Labs</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../play/lab_normolize.html">normalize or not to normalize</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../play/gridSearchPipeline.html">grid search pipe</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../play/scaler_normalization.html">scaler normalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../play/missing_values_fill.html">missing values handeling</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../play/pps.html">PPS -  Predictive Power Score</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../00_intro/readme.html">Intro</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../00_intro/aboutML.html">About ML</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../00_intro/types.html">ML types</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../00_intro/applications.html">applications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../00_intro/hyperparams.html">hyperparams</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../00_intro/pipeline.html">pipeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../00_intro/xorChallengeExample.html">human intuition</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../general/readme.html">General topics</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../general/classVsRegr.html">Classification vs Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../general/complexStepDiff.html">Complex Step Differentiation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../general/featureProcessing.html">feature processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../general/treeEnsemble.html">Tree Ensemble vs Random Forest</a></li>
+
+
+<li class="toctree-l3"><a class="reference internal" href="../../general/wodoTricks.html">representation tricks</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../scikit/readme.html">Scikit</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/about.html">about scikit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/fetch_openml.html">fetch_openml</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/svc.html">SVC</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/knn.html">knn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/crossVal.html">cross validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/classificationReport.html">classification_report</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/decisionFunction.html">Decision function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/fscoreSupport.html">fscoreSupport</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/plot_conf_mat.html">PlotConfusionMatrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/roc.html">roc curve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/preprocessing.html">preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/pipe.html">pipeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/DecisionTreeClassifier.html">DecisionTreeClassifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/CalibratedClassifierCV.html">CalibratedClassifierCV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/checkEstim.html">check_estimator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/logiReg.html">logistics regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/classMetrics.html">classification metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/speedup.html">Speeding up scikit-learn</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01_classification/readme.html">Classification</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01_classification/binary/readme.html">Binary Classification</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../01_classification/linear/readme.html">linear classifiers</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/linear/classifiers.html">Linear Classifier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/linear/reparametrization.html">ReParametrization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/linear/0026LinearClassifier.html">Linear Classifier Random</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/linear/0027LinearClassifierTraining.html">Linear Classifier MOONs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/linear/0028LinearClassifier_RealCaseExample.html">Linear Classifier breast</a></li>
+
+
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../01_classification/svm/readme.html">SVM - support vector machine</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/svm/intro.html">Support Vector Machines (SVM)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/svm/0029LinearClassifierSVM.html">SVM Rand classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/svm/0030LinearClassifierSVM.html">SVM breast classification</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../01_classification/kNear/readme.html">k nearest neighbors</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/kNear/knn.html">KNN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/kNear/dimensionality.html">curse of dimensionality</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/kNear/0031ClassifierKNN.html">KNN random circles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/kNear/0032ClassifierKNN.html">KNN brest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/kNear/lab_Curse_of_Dimensionality.html">Curse lab</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../01_classification/training/readme.html">training</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/training/mnist.html">mnist multicalass example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/training/kfold.html">K FOLD</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/training/dataDivide.html">Data Split</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/training/fitProcessCompare.html">Training Process Comparison</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/resample/readme.html">resampling</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../01_classification/decFunc/readme.html">multi-class</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../01_classification/recall/readme.html">precision and recall</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01_classification/recall/BalAcc.html">Balanced Accuracy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01_classification/roc/readme.html">Roc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01_classification/cost/readme.html">cost</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../01_classification/labs/readme.html">classification labs</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/labs/scoreDemo.html">Performance Scores demo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/labs/0033ConfMatCrossValidation.html">MNIST KNN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/labs/0034ConfMatCrossValidation.html">MNIST SVM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/labs/decFunc.html">Decision Functions Demos</a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/labs/0035PerformanceScoreMetrics.html">Performance Scores</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/labs/0036PerformanceScoreMetrics.html">Calibrating Imbalanced</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/roc/auc_demo.html">Understanding the AUC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/labs/TensorBoard.html">TensorBoard</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../readme.html">Feature Engineering</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../transforms/normStd.html">Normalizing and Standardizing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../transforms/nonSepr.html">Non Separable Problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../transforms/techList.html">technics list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../transforms/0037FeaturesTransform.html">Features Transform case1</a></li>
+
+
+<li class="toctree-l3"><a class="reference internal" href="../transforms/0038FeaturesTransform.html">Features Transform case2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../kernelTrick/outline.html">Outline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../kernelTrick/dual.html">Kernel Tricks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../kernelTrick/0039ClassifierKernelSVM.html">Kernel SVM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="readme.html">mnist example with kernel trick</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">fashion-mnist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../autouml/readme.html">AutoML</a></li>
+
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../03_Statistical/readme.html">Statistical Classification</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../03_Statistical/logisticReg/readme.html">logistic regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_Statistical/logisticReg/demo_LogisticRegression.html">Demo Lab Logistic Regression</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../03_Statistical/logisticReg/crossEntropy.html">Cross Entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_Statistical/logisticReg/0041ClassifierLogisticRegression.html">Mnist Logistic Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_Statistical/mapClassifier/readme.html">MAP Classifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_Statistical/mapClassifier/naive.html">Naive Bayes Classifier</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../03_Statistical/mapClassifier/0042ClassifierNaiveBayes.html">Naive Bayes Classifier</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../04_tree/readme.html">Decision Trees</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../04_tree/treeClassifier/readme.html">Decision Trees</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../04_tree/0043ClassifierDecisionTree.html">Circles Decision Tree Classifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../04_tree/0044HeartDecisionTree.html">Heart Disease Tree Classifier</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../05_regression/readme.html">Linear Regression</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/linear/readme.html">Linear Regression: Model Imperfection and Steps to Implement Regression</a></li>
+
+
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/poly/readme.html">Polynomial regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/phase/readme.html">Phase Estimation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/poly/0045RegressorPolynomialFit.html">Polynomial Fit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/poly/0046RegressorPolynomialFit.html">AI Program</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/regularization/ridge.html">Ridge Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/regularization/score.html">R2 Score</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/regularization/0047RegressorL1L2Regularization.html">Least Squares with <span class="math notranslate nohighlight">\({L}^{1}\)</span> / <span class="math notranslate nohighlight">\({L}^{2}\)</span> Regularization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/regularization/0048RegressorPolynomialFitLasso.html">Polynomial Fit with LASSO Regularization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/ransac/readme.html">outliers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/ransac/huber.html">huber</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/ransac/outiner.html">LS outiner</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/ransac/ransac.html">RANSAC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/ransac/0049RegressorRobust.html">Polynomial Fit with RANSAC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/wighetedLSQ/readme.html">Weighted Least Squares</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/nonLinSrt/readme.html">Non-Linear Least Squares (NLLS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/elasticNet/readme.html">ElasticNet</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../06_nonParam/readme.html">Non parametric regression</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-16"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../06_nonParam/kernelReg/readme.html">kernel regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_nonParam/kernelReg/multivar.html">Multivariate Kernel Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_nonParam/kernelReg/0050RegressorKernel.html">Kernel Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_nonParam/kernelReg/0051RegressorKernel.html">boston house Kernel Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_nonParam/polyReg/readme.html">Polynomial Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_nonParam/polyReg/0052RegressorLocalPolynomial.html">Polynomial Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_nonParam/spline/readme.html">Spline Interpolation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_nonParam/regTree/readme.html">Regression Tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_nonParam/regTree/0053RegressorDecisionTree.html">Regression - Decision Tree</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../07_ensemble/readme.html">Ensemble Methods</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-17"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/tradeoff/readme.html">Bias Variance Tradeoff</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/tradeoff/bagging.html">Bagging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/tradeoff/oob.html">Out-of-Bag Error (OOB)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/tradeoff/lab_tradeoff_Demo.html">Variance and Bias Trade-off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/randomForest/readme.html">Random Forest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/randomForest/importances.html">feature importances</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/randomForest/mdi.html">MDI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/randomForest/permutation.html">permutation importance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/randomForest/0054EnsembleRandomForests.html">Random Forests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/boosting/readme.html">Gradient boosting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/boosting/0055EnsembleGradientBoosting.html">Gradient Boosting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/boosting/adaBoost.html">ada boost</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/boosting/0056EnsembleAdaptiveBoosting.html">Adaptive Boosting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/optimizedLib/lightgbm/readme.html">LightGBM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/optimizedLib/xgboost/readme.html">XGBoost</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../08_clustering/readme.html">Clustering</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-18"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/clustering.html">clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/kmean/readme.html">K-Means</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/kmean/0057ClusteringKMeans.html">K-Means</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/kmean/colorSpaceExample.html">color space quantization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/kmean/0058ClusteringKMeans.html">K-Means super pixcel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/gmm/readme.html">GMM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/gmm/0059ClusteringGMM.html">Gaussian Mixture Models (GMM)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/hierarchical/readme.html">Hierarchical clustering</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/hierarchical/0060ClusteringHierarchical.html">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/density/readme.html">Density</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/density/0061ClusteringDBSCAN.html">DBSCAN Demo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/hdbscan/readme.html">HDBSCAN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/hdbscan/0062ClusteringHDBSCAN.html">HDBSCAN Demo</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../09_dimred/readme.html">Dimensionality Reduction</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-19"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/pca/readme.html">pca</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/pca/rotation.html">Rotation</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/pca/eigDecom.html">Eigen Decomposition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/pca/fullPCA.html">Full PCA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/pca/oose.html">oose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/pca/svd.html">svd (pca)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/pca/lab_PCA_gene_demo.html">Gene PCA DEMO LAB</a></li>
+
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/pca/0063DimensionalityReductionPCA.html">PCA DEMO FACES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/pca/0064DimensionalityReductionPCA.html">PCA Brest Cancer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/nonLinPCA/readme.html">non Linear PCA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/nonLinPCA/kenrelPCA.html">Kernel PCA</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/nonLinPCA/dualPCA.html">Dual PCA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/nonLinPCA/0065DimensionalityReductionKPCA.html">Dimensionality Reduction - Kernel PCA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/mds/readme.html">MDS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/mds/0066DimensionalityReductionMDS.html">MultiDimensional Scaling (MDS)</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../10_manifold/readme.html">Manifold Learning</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-20"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/isomap/readme.html">isoMap</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/isomap/0067ManifoldLearningIsoMap.html">Manifold Learning - IsoMap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/spectral/readme.html">Spectral Clustering</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/tsne/readme.html">TSNE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/tsne/0068ManifoldLearningTSNE.html">t-SNE Demo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/entropy/readme.html">Entropy</a></li>
+
+
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/umap/readme.html">Umap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/umap/paramEmbed.html">parametric Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/umap/demo1.html">umap demo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/demo.html">manifold concepts demo</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/0069ManifoldLearning.html">Manifold Learning - multi model compare</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../11_anomDet/readme.html">Anomaly detection</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-21"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../11_anomDet/scores/zscore.html">zscore</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_anomDet/scores/mahalanobis.html">Mahalanobis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_anomDet/scores/timeSeries.html">Time Series</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_anomDet/lof/readme.html">Local Outlier Factor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_anomDet/lof/0070AnomalyDetectionLocalOutlierFactor.html">Local Outlier Factor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_anomDet/lof/0071AnomalyDetectionLocalOutlierFactor.html">LOF Exercise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_anomDet/isoForest/readme.html">Isolation forest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_anomDet/isoForest/0072AnomalyDetectionIsolationForest.html">Anomaly Detection - Isolation Forest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_anomDet/isoForest/0073AnomalyDetectionIsolationForest.html">Isolation Forest - Exercise</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../12_textAnal/readme.html">text Analysis</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-22"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../12_textAnal/lab_textOpt.html">text opts</a></li>
+
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../03_cv/readme.html">AI Computer Vision</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-23"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../03_cv/labs.html">Labs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../03_cv/convolution/readme.html">Convolution in Deep Learning</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-24"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/fullyConnectedDrawback.html">Fully Connected Drawbacks</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/cnnFrqExample.html">CNN for Frequency Estimation Problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/0085DeepLearning1DConvFreqEst.html">Convolution for Frequency Estimation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/2d.html">2D Convolution</a></li>
+
+
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/layers.html">Layers in Convolutional Neural Networks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/pooling.html">Pooling in Convolutional Neural Networks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/batchNorm.html">Batch Normalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/lab_batchNorm.html">demo batch norm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/filters.html">Common Filters for 2D Convolution</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/filter_laplacian.html">Common Filters for 2D Convolution</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/concept/recfield.html">Receptive Field (RF)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/concept/recField.html">Calc RF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/concept/encodeDecode.html">Encode-Decode Networks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/concept/skipConnections.html">skip connections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/0086DeepLearningConv2DCifar10.html">cifar10-2d-convolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/0087DeepLearningConv2DFashionMNIST.html">Image Classification Fashion MNIST</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/concept/studentTeacherDemo.html">studentTeacherDemo</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../03_cv/pytorch/readme.html">pytorch for CV</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-25"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/pytorch/common.html">pytorch layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/pytorch/custom.html">custom nn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/pytorch/microMacro.html">micro macro</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/torchvis/readme.html">TorchVision</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/torchvis/transformVers.html">torchvision.transforms</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../03_cv/augm/readme.html">Augmentation</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-26"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/augm/0094DeepLearningImageAugmentation.html">Image Augmentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/augm/cutMethods.html">Cut Effects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/augm/0095DeepLearningImageAugmentation.html">Image Augmentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/augm/smoothing.html">Smoothing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/augm/0096DeepLearningLabelSmoothing.html">Label Smoothing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/augm/0097DeepLearningRegularizedTraining.html">Regularized Training</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../03_cv/arch/readme.html">compare</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-27"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/darknet53.html">darknet53</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/alexnet.html">AlexNet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/vgg.html">vgg</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/googleNet.html">googleNet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/inception.html">Inception Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/resnet.html">resnet</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/0092DeepLearningResNet.html">ResNet Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/yolo.html">yolo</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/minirocket.html">minirocket</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/lab_minirocket_basicDemo.html">lab simple minirocket demo</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../03_cv/infer/readme.html">Pre-Defined Models</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-28"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/infer/pyInter.html">pytorch Inference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/infer/sota.html">sota - state-of-the-art</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/infer/zoo.html">zoo(s)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/infer/0091DeepLearningPreTrainedModels.html">Pre Trained Computer Vision Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../03_cv/transf/readme.html">Transfer Learning</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-29"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/transf/compare.html">compare methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/transf/fineTune.html">Fine-Tuning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/transf/freeze.html">Freeze Layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/transf/0093DeepLearningTransferLearning.html">Transfer Learning of resnet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/transf/overfit.html">Transfer overfit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/transf/lab_reducude_demo.html">lab reduce demo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/transf/transformers.html">transformers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/transf/lab_transofmers_basic.html">lab transform basic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/transf/adaptation.html">adaptation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../03_cv/visualize/readme.html">visualize and debug</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../03_cv/location/readme.html">Object Location</a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-30"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/location/lab_pretrain_demo.html">pre-trained model for object localization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/location/localization.html">Localization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/location/0098DeepLearningObjectLocalization.html">Object Localization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/location/detection.html">Detection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/location/lab_plot_transforms_e2e.html">Transforms v2: End-to-end object detection/segmentation example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/location/commonArch.html">Common Object Detector Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/location/hms.html">Non Maximum Suppression (NMS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/location/map.html">Mean Average Precision (mAP)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/wrkshp_yolo/readme.html">WorkShop - Object Detection with Yolov8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/wrkshp_yolo/labelme/readme.html">label example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/wrkshp_yolo/0001BoundingBoxFormat.html">yoloWRKSHP box formats</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../03_cv/segmentation/readme.html">segmentation workshop</a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-31"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/segmentation/intro.html">intro</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/segmentation/data.html">data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/segmentation/models.html">models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/segmentation/unet.html">UNET</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/wrkshp_unet/readme.html">the task</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SOLEROM/solai" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SOLEROM/solai/issues/new?title=Issue%20on%20page%20%2F00_ai24/01_ml/02_featureEng/mnist/0040ClassifierKernelSVM.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../../_sources/00_ai24/01_ml/02_featureEng/mnist/0040ClassifierKernelSVM.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>fashion-mnist</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revision-history">Revision History</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notations">Notations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-exercise">Code Exercise</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-parameter-optimization-with-kernel-svm">Model Parameter Optimization with Kernel SVM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-load-data">Generate / Load Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-process-data">Pre Process Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-data">Plot Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#train-linear-svm-classifier">Train Linear SVM Classifier</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#train-kernel-svm">Train Kernel SVM</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also-using-parametergrid">see also using ParameterGrid</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run">run</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#train-the-best-model-on-the-train-data-set">Train the Best Model on the Train Data Set</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-metrics-scores">Performance Metrics / Scores</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-confusion-matrix">Plot the Confusion Matrix</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <p><a class="reference external" href="https://fixelalgorithms.gitlab.io/"><img alt="Fixel Algorithms" src="https://i.imgur.com/AqKHVZ0.png" /></a></p>
+<section class="tex2jax_ignore mathjax_ignore" id="fashion-mnist">
+<h1>fashion-mnist<a class="headerlink" href="#fashion-mnist" title="Permalink to this heading">#</a></h1>
+<blockquote>
+<div><p>Notebook by:</p>
+<ul class="simple">
+<li><p>Royi Avital <a class="reference external" href="mailto:RoyiAvital&#37;&#52;&#48;fixelalgorithms&#46;com">RoyiAvital<span>&#64;</span>fixelalgorithms<span>&#46;</span>com</a></p></li>
+</ul>
+</div></blockquote>
+<section id="revision-history">
+<h2>Revision History<a class="headerlink" href="#revision-history" title="Permalink to this heading">#</a></h2>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Version</p></th>
+<th class="head"><p>Date</p></th>
+<th class="head"><p>User</p></th>
+<th class="head"><p>Content / Changes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1.0.000</p></td>
+<td><p>17/03/2024</p></td>
+<td><p>Royi Avital</p></td>
+<td><p>First version</p></td>
+</tr>
+</tbody>
+</table>
+<p><a class="reference external" href="https://colab.research.google.com/github/FixelAlgorithmsTeam/FixelCourses/blob/master/AIProgram/2024_02/0040ClassifierKernelSVM.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import Packages</span>
+
+<span class="c1"># General Tools</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Machine Learning</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+
+<span class="c1"># Image Processing</span>
+
+<span class="c1"># Machine Learning</span>
+
+<span class="c1"># Miscellaneous</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">platform</span> <span class="kn">import</span> <span class="n">python_version</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="c1"># Typing</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="c1"># Visualization</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="c1"># Jupyter</span>
+<span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">get_ipython</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="notations">
+<h2>Notations<a class="headerlink" href="#notations" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><font color='red'>(<strong>?</strong>)</font> Question to answer interactively.</p></li>
+<li><p><font color='blue'>(<strong>!</strong>)</font> Simple task to add code for the notebook.</p></li>
+<li><p><font color='green'>(<strong>&#64;</strong>)</font> Optional / Extra self practice.</p></li>
+<li><p><font color='brown'>(<strong>#</strong>)</font> Note / Useful resource / Food for thought.</p></li>
+</ul>
+<p>Code Notations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">someVar</span>    <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">#&lt;! Notation for a variable</span>
+<span class="n">vVector</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="c1">#&lt;! Notation for 1D array</span>
+<span class="n">mMatrix</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1">#&lt;! Notation for 2D array</span>
+<span class="n">tTensor</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1">#&lt;! Notation for nD array (Tensor)</span>
+<span class="n">tuTuple</span>    <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1">#&lt;! Notation for a tuple</span>
+<span class="n">lList</span>      <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="c1">#&lt;! Notation for a list</span>
+<span class="n">dDict</span>      <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span> <span class="c1">#&lt;! Notation for a dictionary</span>
+<span class="n">oObj</span>       <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span> <span class="c1">#&lt;! Notation for an object</span>
+<span class="n">dfData</span>     <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span> <span class="c1">#&lt;! Notation for a data frame</span>
+<span class="n">dsData</span>     <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">()</span> <span class="c1">#&lt;! Notation for a series</span>
+<span class="n">hObj</span>       <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">()</span> <span class="c1">#&lt;! Notation for an object / handler / function handler</span>
+</pre></div>
+</div>
+<section id="code-exercise">
+<h3>Code Exercise<a class="headerlink" href="#code-exercise" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Single line fill</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>vallToFill = ???
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Multi Line to Fill (At least one)</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span># You need to start writing
+????
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Section to Fill</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>#===========================Fill This===========================#
+# 1. Explanation about what to do.
+# !! Remarks to follow / take under consideration.
+mX = ???
+
+???
+#===============================================================#
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configuration</span>
+<span class="c1"># %matplotlib inline</span>
+
+<span class="n">seedNum</span> <span class="o">=</span> <span class="mi">512</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seedNum</span><span class="p">)</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seedNum</span><span class="p">)</span>
+
+<span class="c1"># Matplotlib default color palette</span>
+<span class="n">lMatPltLibclr</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#1f77b4&#39;</span><span class="p">,</span> <span class="s1">&#39;#ff7f0e&#39;</span><span class="p">,</span> <span class="s1">&#39;#2ca02c&#39;</span><span class="p">,</span> <span class="s1">&#39;#d62728&#39;</span><span class="p">,</span> <span class="s1">&#39;#9467bd&#39;</span><span class="p">,</span> <span class="s1">&#39;#8c564b&#39;</span><span class="p">,</span> <span class="s1">&#39;#e377c2&#39;</span><span class="p">,</span> <span class="s1">&#39;#7f7f7f&#39;</span><span class="p">,</span> <span class="s1">&#39;#bcbd22&#39;</span><span class="p">,</span> <span class="s1">&#39;#17becf&#39;</span><span class="p">]</span>
+<span class="c1"># sns.set_theme() #&gt;! Apply SeaBorn theme</span>
+
+<span class="n">runInGoogleColab</span> <span class="o">=</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Constants</span>
+
+<span class="n">FIG_SIZE_DEF</span>    <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">ELM_SIZE_DEF</span>    <span class="o">=</span> <span class="mi">50</span>
+<span class="n">CLASS_COLOR</span>     <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">EDGE_COLOR</span>      <span class="o">=</span> <span class="s1">&#39;k&#39;</span>
+<span class="n">MARKER_SIZE_DEF</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">LINE_WIDTH_DEF</span>  <span class="o">=</span> <span class="mi">2</span>
+
+<span class="c1"># Fashion MNIST</span>
+<span class="n">TRAIN_DATA_SET_IMG_URL</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/zalandoresearch/fashion-mnist/raw/master/data/fashion/train-images-idx3-ubyte.gz&#39;</span>
+<span class="n">TRAIN_DATA_SET_LBL_URL</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/zalandoresearch/fashion-mnist/raw/master/data/fashion/train-labels-idx1-ubyte.gz&#39;</span>
+<span class="n">TEST_DATA_SET_IMG_URL</span>  <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/zalandoresearch/fashion-mnist/raw/master/data/fashion/t10k-images-idx3-ubyte.gz&#39;</span>
+<span class="n">TEST_DATA_SET_LBL_URL</span>  <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;https://github.com/zalandoresearch/fashion-mnist/raw/master/data/fashion/t10k-labels-idx1-ubyte.gz&#39;</span>
+
+<span class="n">TRAIN_DATA_IMG_FILE_NAME</span> <span class="o">=</span> <span class="s1">&#39;TrainImgFile&#39;</span>
+<span class="n">TRAIN_DATA_LBL_FILE_NAME</span> <span class="o">=</span> <span class="s1">&#39;TrainLblFile&#39;</span>
+<span class="n">TEST_DATA_IMG_FILE_NAME</span>  <span class="o">=</span> <span class="s1">&#39;TestImgFile&#39;</span>
+<span class="n">TEST_DATA_LBL_FILE_NAME</span>  <span class="o">=</span> <span class="s1">&#39;TestLblFile&#39;</span>
+
+<span class="n">TRAIN_DATA_SET_FILE_NAME</span> <span class="o">=</span> <span class="s1">&#39;FashionMnistTrainDataSet.npz&#39;</span>
+<span class="n">TEST_DATA_SET_FILE_NAME</span>  <span class="o">=</span> <span class="s1">&#39;FashionMnistTestDataSet.npz&#39;</span>
+
+<span class="n">TRAIN_DATA_NUM_IMG</span>  <span class="o">=</span> <span class="mi">60_000</span>
+<span class="n">TEST_DATA_NUM_IMG</span>   <span class="o">=</span> <span class="mi">10_000</span>
+
+<span class="n">D_CLASSES</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;T-Shirt&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;Trouser&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;Pullover&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s1">&#39;Dress&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s1">&#39;Coat&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="s1">&#39;Sandal&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span> <span class="s1">&#39;Shirt&#39;</span><span class="p">,</span> <span class="mi">7</span><span class="p">:</span> <span class="s1">&#39;Sneaker&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">:</span> <span class="s1">&#39;Bag&#39;</span><span class="p">,</span> <span class="mi">9</span><span class="p">:</span> <span class="s1">&#39;Boots&#39;</span><span class="p">}</span>
+<span class="n">L_CLASSES</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;T-Shirt&#39;</span><span class="p">,</span> <span class="s1">&#39;Trouser&#39;</span><span class="p">,</span> <span class="s1">&#39;Pullover&#39;</span><span class="p">,</span> <span class="s1">&#39;Dress&#39;</span><span class="p">,</span> <span class="s1">&#39;Coat&#39;</span><span class="p">,</span> <span class="s1">&#39;Sandal&#39;</span><span class="p">,</span> <span class="s1">&#39;Shirt&#39;</span><span class="p">,</span> <span class="s1">&#39;Sneaker&#39;</span><span class="p">,</span> <span class="s1">&#39;Bag&#39;</span><span class="p">,</span> <span class="s1">&#39;Boots&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Courses Packages</span>
+<span class="kn">import</span> <span class="nn">sys</span><span class="o">,</span><span class="nn">os</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../&#39;</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../../&#39;</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../../../&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">utils.DataVisualization</span> <span class="kn">import</span> <span class="n">PlotConfusionMatrix</span><span class="p">,</span> <span class="n">PlotLabelsHistogram</span><span class="p">,</span> <span class="n">PlotMnistImages</span>
+<span class="kn">from</span> <span class="nn">utils.DataManipulation</span> <span class="kn">import</span> <span class="n">DownloadDecompressGzip</span><span class="p">,</span> <span class="n">ConvertMnistDataDf</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># General Auxiliary Functions</span>
+
+<span class="k">def</span> <span class="nf">IsStrFloat</span><span class="p">(</span><span class="n">inStr</span><span class="p">:</span> <span class="nb">any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="c1">#Support None input</span>
+    <span class="k">if</span> <span class="n">inStr</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> 
+        <span class="k">return</span> <span class="kc">False</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="nb">float</span><span class="p">(</span><span class="n">inStr</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="model-parameter-optimization-with-kernel-svm">
+<h2>Model Parameter Optimization with Kernel SVM<a class="headerlink" href="#model-parameter-optimization-with-kernel-svm" title="Permalink to this heading">#</a></h2>
+<p>In this exercise we’ll apply the Cross Validation automatically to find the optimal hyper parameters for the Kernel SVM Model.<br />
+In order to achieve this we’ll do a <a class="reference external" href="https://en.wikipedia.org/wiki/Hyperparameter_optimization">Grid Search for Hyper Parameters Optimization</a>.</p>
+<ol class="arabic simple">
+<li><p>Load the <a class="reference external" href="https://github.com/zalandoresearch/fashion-mnist">Fashion MNIST Data Set</a> manually (Done by the notebook).</p></li>
+<li><p>Train a baseline Linear SVM model.</p></li>
+<li><p>Find the optimal Kernel SVM model using Grid Search.</p></li>
+<li><p>Extract the optimal model.</p></li>
+<li><p>Plot the Confusion Matrix of the best model on the training data.</p></li>
+</ol>
+<ul class="simple">
+<li><p><font color='brown'>(<strong>#</strong>)</font> You may and should use the functions in the <code class="docutils literal notranslate"><span class="pre">Auxiliary</span> <span class="pre">Functions</span></code> section.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Parameters</span>
+
+<span class="n">numSamplesTrain</span> <span class="o">=</span> <span class="mi">4_000</span>
+<span class="n">numSamplesTest</span>  <span class="o">=</span> <span class="mi">1_000</span>
+<span class="n">numImg</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="c1"># Linear SVM (Baseline Model)</span>
+<span class="n">paramC</span>      <span class="o">=</span> <span class="mi">1</span>
+<span class="n">kernelType</span>  <span class="o">=</span> <span class="s1">&#39;linear&#39;</span>
+
+<span class="c1">#===========================Fill This===========================#</span>
+<span class="c1"># 1. Think of the parameters to optimize.</span>
+<span class="c1"># 2. Select the set to optimize over.</span>
+<span class="c1"># 3. Set the number of folds in the cross validation.</span>
+<span class="n">numFold</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="c1">#===============================================================#</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="generate-load-data">
+<h2>Generate / Load Data<a class="headerlink" href="#generate-load-data" title="Permalink to this heading">#</a></h2>
+<p>Load the <a class="reference external" href="https://github.com/zalandoresearch/fashion-mnist">Fashion MNIST Data Set</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load Data </span>
+
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">TRAIN_DATA_SET_FILE_NAME</span><span class="p">):</span>
+    <span class="n">dData</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">TRAIN_DATA_SET_FILE_NAME</span><span class="p">)</span>
+    <span class="n">mXTrain</span><span class="p">,</span> <span class="n">vYTrain</span> <span class="o">=</span> <span class="n">dData</span><span class="p">[</span><span class="s1">&#39;mXTrain&#39;</span><span class="p">],</span> <span class="n">dData</span><span class="p">[</span><span class="s1">&#39;vYTrain&#39;</span><span class="p">]</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">TRAIN_DATA_IMG_FILE_NAME</span><span class="p">):</span>
+        <span class="n">DownloadDecompressGzip</span><span class="p">(</span><span class="n">TRAIN_DATA_SET_IMG_URL</span><span class="p">,</span> <span class="n">TRAIN_DATA_IMG_FILE_NAME</span><span class="p">)</span> <span class="c1">#&lt;! Download Data (GZip File)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">TRAIN_DATA_LBL_FILE_NAME</span><span class="p">):</span>
+        <span class="n">DownloadDecompressGzip</span><span class="p">(</span><span class="n">TRAIN_DATA_SET_LBL_URL</span><span class="p">,</span> <span class="n">TRAIN_DATA_LBL_FILE_NAME</span><span class="p">)</span> <span class="c1">#&lt;! Download Data (GZip File)</span>
+    <span class="n">mXTrain</span><span class="p">,</span> <span class="n">vYTrain</span> <span class="o">=</span> <span class="n">ConvertMnistDataDf</span><span class="p">(</span><span class="n">TRAIN_DATA_IMG_FILE_NAME</span><span class="p">,</span> <span class="n">TRAIN_DATA_LBL_FILE_NAME</span><span class="p">)</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">savez_compressed</span><span class="p">(</span><span class="n">TRAIN_DATA_SET_FILE_NAME</span><span class="p">,</span> <span class="n">mXTrain</span>  <span class="o">=</span> <span class="n">mXTrain</span><span class="p">,</span> <span class="n">vYTrain</span> <span class="o">=</span> <span class="n">vYTrain</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">TRAIN_DATA_IMG_FILE_NAME</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">TRAIN_DATA_IMG_FILE_NAME</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">TRAIN_DATA_LBL_FILE_NAME</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">TRAIN_DATA_LBL_FILE_NAME</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">TEST_DATA_SET_FILE_NAME</span><span class="p">):</span>
+    <span class="n">dData</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">TEST_DATA_SET_FILE_NAME</span><span class="p">)</span>
+    <span class="n">mXTest</span><span class="p">,</span> <span class="n">vYTest</span> <span class="o">=</span> <span class="n">dData</span><span class="p">[</span><span class="s1">&#39;mXTest&#39;</span><span class="p">],</span> <span class="n">dData</span><span class="p">[</span><span class="s1">&#39;vYTest&#39;</span><span class="p">]</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">TEST_DATA_IMG_FILE_NAME</span><span class="p">):</span>
+        <span class="n">DownloadDecompressGzip</span><span class="p">(</span><span class="n">TEST_DATA_SET_IMG_URL</span><span class="p">,</span> <span class="n">TEST_DATA_IMG_FILE_NAME</span><span class="p">)</span> <span class="c1">#&lt;! Download Data (GZip File)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">TEST_DATA_LBL_FILE_NAME</span><span class="p">):</span>
+        <span class="n">DownloadDecompressGzip</span><span class="p">(</span><span class="n">TEST_DATA_SET_LBL_URL</span><span class="p">,</span> <span class="n">TEST_DATA_LBL_FILE_NAME</span><span class="p">)</span> <span class="c1">#&lt;! Download Data (GZip File)</span>
+    <span class="n">mXTest</span><span class="p">,</span> <span class="n">vYTest</span> <span class="o">=</span> <span class="n">ConvertMnistDataDf</span><span class="p">(</span><span class="n">TEST_DATA_IMG_FILE_NAME</span><span class="p">,</span> <span class="n">TEST_DATA_LBL_FILE_NAME</span><span class="p">)</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">savez_compressed</span><span class="p">(</span><span class="n">TEST_DATA_SET_FILE_NAME</span><span class="p">,</span> <span class="n">mXTest</span> <span class="o">=</span> <span class="n">mXTest</span><span class="p">,</span> <span class="n">vYTest</span> <span class="o">=</span> <span class="n">vYTest</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">TEST_DATA_IMG_FILE_NAME</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">TEST_DATA_IMG_FILE_NAME</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">TEST_DATA_LBL_FILE_NAME</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">TEST_DATA_LBL_FILE_NAME</span><span class="p">)</span>
+
+
+<span class="n">vSampleIdx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">mXTrain</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">numSamplesTrain</span><span class="p">)</span>
+<span class="n">mXTrain</span> <span class="o">=</span> <span class="n">mXTrain</span><span class="p">[</span><span class="n">vSampleIdx</span><span class="p">,</span> <span class="p">:]</span>
+<span class="n">vYTrain</span> <span class="o">=</span> <span class="n">vYTrain</span><span class="p">[</span><span class="n">vSampleIdx</span><span class="p">]</span>
+
+<span class="n">vSampleIdx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">mXTest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">numSamplesTest</span><span class="p">)</span>
+<span class="n">mXTest</span> <span class="o">=</span> <span class="n">mXTest</span><span class="p">[</span><span class="n">vSampleIdx</span><span class="p">,</span> <span class="p">:]</span>
+<span class="n">vYTest</span> <span class="o">=</span> <span class="n">vYTest</span><span class="p">[</span><span class="n">vSampleIdx</span><span class="p">]</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The number of train data samples: </span><span class="si">{</span><span class="n">mXTrain</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The number of train features per sample: </span><span class="si">{</span><span class="n">mXTrain</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The unique values of the train labels: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">vYTrain</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The number of test data samples: </span><span class="si">{</span><span class="n">mXTest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The number of test features per sample: </span><span class="si">{</span><span class="n">mXTest</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> 
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The unique values of the test labels: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">vYTest</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The number of train data samples: 4000
+The number of train features per sample: 784
+The unique values of the train labels: [0 1 2 3 4 5 6 7 8 9]
+The number of test data samples: 1000
+The number of test features per sample: 784
+The unique values of the test labels: [0 1 2 3 4 5 6 7 8 9]
+</pre></div>
+</div>
+</div>
+</div>
+<section id="pre-process-data">
+<h3>Pre Process Data<a class="headerlink" href="#pre-process-data" title="Permalink to this heading">#</a></h3>
+<p>The image data is in the <code class="docutils literal notranslate"><span class="pre">UInt8</span></code> data form with values in <code class="docutils literal notranslate"><span class="pre">{0,</span> <span class="pre">1,</span> <span class="pre">2,</span> <span class="pre">...,</span> <span class="pre">255}</span></code>.<br />
+The <em>pre process</em> step scales it into <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code> range.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pre Process Data</span>
+
+<span class="c1">#===========================Fill This===========================#</span>
+<span class="c1"># 1. Scale data into [0, 1] range.</span>
+<span class="n">mXTrain</span> <span class="o">=</span> <span class="n">mXTrain</span> <span class="o">/</span> <span class="mi">255</span>
+<span class="n">mXTest</span>  <span class="o">=</span> <span class="n">mXTest</span> <span class="o">/</span> <span class="mi">255</span>
+<span class="c1">#===============================================================#</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### TODO - check if will be the same for each pixel to be 0 or 1 !!!!</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="plot-data">
+<h3>Plot Data<a class="headerlink" href="#plot-data" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the Data</span>
+
+<span class="n">hF</span> <span class="o">=</span> <span class="n">PlotMnistImages</span><span class="p">(</span><span class="n">mXTrain</span><span class="p">,</span> <span class="n">vYTrain</span><span class="p">,</span> <span class="n">numImg</span><span class="p">,</span> <span class="n">lClasses</span> <span class="o">=</span> <span class="n">L_CLASSES</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/459f8d6973b75d622e80340ec329f842b64d425aebb8406e1d9167ef61de278e.png" src="../../../../_images/459f8d6973b75d622e80340ec329f842b64d425aebb8406e1d9167ef61de278e.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the Histogram of Classes</span>
+
+<span class="n">hA</span> <span class="o">=</span> <span class="n">PlotLabelsHistogram</span><span class="p">(</span><span class="n">vYTrain</span><span class="p">)</span>
+<span class="n">hA</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">L_CLASSES</span><span class="p">)))</span>
+<span class="n">hA</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">L_CLASSES</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/33775ca70c1210ec7f5caa198ab71ff583a31cfaf8b9bd4a88ed2f2833fa3d7a.png" src="../../../../_images/33775ca70c1210ec7f5caa198ab71ff583a31cfaf8b9bd4a88ed2f2833fa3d7a.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="train-linear-svm-classifier">
+<h2>Train Linear SVM Classifier<a class="headerlink" href="#train-linear-svm-classifier" title="Permalink to this heading">#</a></h2>
+<p>The <em>Linear SVM</em> will function as the baseline classifier.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># SVM Linear Model</span>
+<span class="c1">#===========================Fill This===========================#</span>
+<span class="c1"># 1. Construct a baseline model (Linear SVM).</span>
+<span class="c1"># 2. Train the model.</span>
+<span class="c1"># 3. Score the model (Accuracy). Keep result in a variable named `modelScore`.</span>
+<span class="n">svm_linear</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(</span><span class="n">C</span> <span class="o">=</span> <span class="n">paramC</span><span class="p">,</span> <span class="n">kernel</span> <span class="o">=</span> <span class="n">kernelType</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">mXTrain</span><span class="p">,</span> <span class="n">vYTrain</span><span class="p">)</span>
+<span class="n">modelScore</span> <span class="o">=</span> <span class="n">svm_linear</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">mXTest</span><span class="p">,</span> <span class="n">vYTest</span><span class="p">)</span>
+<span class="c1">#===============================================================#</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The model score (Accuracy) on the data: </span><span class="si">{</span><span class="n">modelScore</span><span class="si">:</span><span class="s1">0.2%</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1">#&lt;! Accuracy</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The model score (Accuracy) on the data: 79.30%
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="train-kernel-svm">
+<h2>Train Kernel SVM<a class="headerlink" href="#train-kernel-svm" title="Permalink to this heading">#</a></h2>
+<p>In this section we’ll train a Kernel SVM. We’ll find the optimal kernel and other hyper parameters by cross validation.<br />
+In order to optimize on the following parameters: <code class="docutils literal notranslate"><span class="pre">C</span></code>, <code class="docutils literal notranslate"><span class="pre">kernel</span></code> and <code class="docutils literal notranslate"><span class="pre">gamma</span></code> we’ll use <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GridSearchCV.html"><code class="docutils literal notranslate"><span class="pre">GridSearchCV()</span></code></a>.<br />
+The idea is iterating over the grid of parameters of the model to find the optimal one.<br />
+Each parameterized model is evaluated by a Cross Validation.</p>
+<p>In order to use it we need to define:</p>
+<ul class="simple">
+<li><p>The Model (<code class="docutils literal notranslate"><span class="pre">estimator</span></code>) - Which model is used.</p></li>
+<li><p>The Parameters Grid (<code class="docutils literal notranslate"><span class="pre">param_grid</span></code>) - The set of parameter to try.</p></li>
+<li><p>The Scoring (<code class="docutils literal notranslate"><span class="pre">scoring</span></code>) - The score used to define the best model.</p></li>
+<li><p>The Cross Validation Iterator (<code class="docutils literal notranslate"><span class="pre">cv</span></code>) - The iteration to validate the model.</p></li>
+</ul>
+<ul class="simple">
+<li><p><font color='brown'>(<strong>#</strong>)</font> Pay attention to the expected run time. Using <code class="docutils literal notranslate"><span class="pre">verbose</span></code> is useful.</p></li>
+<li><p><font color='brown'>(<strong>#</strong>)</font> This is a classic grid search which is not the most efficient policy. There are more advanced policies.</p></li>
+<li><p><font color='brown'>(<strong>#</strong>)</font> The <code class="docutils literal notranslate"><span class="pre">GridSearchCV()</span></code> is limited to one instance of an estimator.<br />
+Yet using Pipelines we may test different types of estimators.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Construct the Grid Search object </span>
+
+<span class="c1">#===========================Fill This===========================#</span>
+<span class="c1"># 1. Set the parameters to iterate over and their values.</span>
+<span class="n">dParams</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;C&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span>
+            <span class="s1">&#39;kernel&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="s1">&#39;poly&#39;</span><span class="p">,</span> <span class="s1">&#39;rbf&#39;</span><span class="p">,</span> <span class="s1">&#39;sigmoid&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;gamma&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s2">&quot;scale&quot;</span><span class="p">,</span> <span class="s2">&quot;auto&quot;</span><span class="p">],</span>
+            <span class="p">}</span>
+<span class="c1">#===============================================================#</span>
+
+<span class="n">oGsSvc</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">estimator</span> <span class="o">=</span> <span class="n">SVC</span><span class="p">(),</span> <span class="n">param_grid</span> <span class="o">=</span> <span class="n">dParams</span><span class="p">,</span> <span class="n">scoring</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">cv</span> <span class="o">=</span> <span class="n">numFold</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span><span class="n">n_jobs</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>TODO</p>
+<p><img alt="image.png" src="00_ai24/01_ml/02_featureEng/mnist/attachment:image.png" /></p>
+<section id="see-also-using-parametergrid">
+<h3>see also using ParameterGrid<a class="headerlink" href="#see-also-using-parametergrid" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">ParameterGrid</span>
+
+<span class="n">lParamGrid</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ParameterGrid</span><span class="p">(</span><span class="n">dParams</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The number of parameter combinations: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">lParamGrid</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">lParamGrid</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The number of parameter combinations: 32
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;C&#39;: 1, &#39;gamma&#39;: &#39;scale&#39;, &#39;kernel&#39;: &#39;rbf&#39;}
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><font color='brown'>(<strong>#</strong>)</font> You may want to have a look at the <code class="docutils literal notranslate"><span class="pre">n_jobs</span></code> parameter.</p></li>
+</ul>
+</section>
+</section>
+<section id="run">
+<h2>run<a class="headerlink" href="#run" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hyper Parameter Optimization</span>
+<span class="c1"># Training the model with each combination of hyper parameters.</span>
+
+<span class="c1">#===========================Fill This===========================#</span>
+<span class="c1"># 1. The model trains on the train data using Stratified K Fold cross validation.</span>
+<span class="n">oGsSvc</span> <span class="o">=</span> <span class="n">oGsSvc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">mXTrain</span><span class="p">,</span> <span class="n">vYTrain</span><span class="p">)</span> <span class="c1">#&lt;! It may take few minutes</span>
+<span class="c1">#===============================================================#</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fitting 5 folds for each of 32 candidates, totalling 160 fits
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[CV 1/5] END ...C=1, gamma=scale, kernel=linear;, score=0.820 total time=   5.4s
+[CV 3/5] END ...C=1, gamma=scale, kernel=linear;, score=0.816 total time=   5.4s
+[CV 4/5] END ...C=1, gamma=scale, kernel=linear;, score=0.823 total time=   5.6s
+[CV 2/5] END ...C=1, gamma=scale, kernel=linear;, score=0.841 total time=   5.7s
+[CV 5/5] END ...C=1, gamma=scale, kernel=linear;, score=0.828 total time=   2.5s
+[CV 1/5] END .....C=1, gamma=scale, kernel=poly;, score=0.787 total time=   2.8s
+[CV 2/5] END .....C=1, gamma=scale, kernel=poly;, score=0.794 total time=   2.6s
+[CV 3/5] END .....C=1, gamma=scale, kernel=poly;, score=0.779 total time=   4.1s
+[CV 5/5] END .....C=1, gamma=scale, kernel=poly;, score=0.807 total time=   2.2s
+[CV 4/5] END .....C=1, gamma=scale, kernel=poly;, score=0.786 total time=   3.2s
+[CV 1/5] END ......C=1, gamma=scale, kernel=rbf;, score=0.841 total time=   3.1s
+[CV 2/5] END ......C=1, gamma=scale, kernel=rbf;, score=0.849 total time=   3.7s
+[CV 3/5] END ......C=1, gamma=scale, kernel=rbf;, score=0.816 total time=   3.3s
+[CV 4/5] END ......C=1, gamma=scale, kernel=rbf;, score=0.840 total time=   3.3s
+[CV 5/5] END ......C=1, gamma=scale, kernel=rbf;, score=0.849 total time=   3.5s
+[CV 2/5] END ..C=1, gamma=scale, kernel=sigmoid;, score=0.417 total time=   3.6s
+[CV 4/5] END ..C=1, gamma=scale, kernel=sigmoid;, score=0.451 total time=   4.1s
+[CV 1/5] END ..C=1, gamma=scale, kernel=sigmoid;, score=0.411 total time=   6.0s
+[CV 3/5] END ..C=1, gamma=scale, kernel=sigmoid;, score=0.425 total time=   5.1s
+[CV 5/5] END ..C=1, gamma=scale, kernel=sigmoid;, score=0.401 total time=   3.7s
+[CV 3/5] END ....C=1, gamma=auto, kernel=linear;, score=0.816 total time=   1.8s
+[CV 1/5] END ....C=1, gamma=auto, kernel=linear;, score=0.820 total time=   2.8s
+[CV 2/5] END ....C=1, gamma=auto, kernel=linear;, score=0.841 total time=   2.8s
+[CV 4/5] END ....C=1, gamma=auto, kernel=linear;, score=0.823 total time=   2.5s
+[CV 5/5] END ....C=1, gamma=auto, kernel=linear;, score=0.828 total time=   2.2s
+[CV 2/5] END ......C=1, gamma=auto, kernel=poly;, score=0.439 total time=   7.6s
+[CV 4/5] END ......C=1, gamma=auto, kernel=poly;, score=0.431 total time=   7.5s
+[CV 1/5] END ......C=1, gamma=auto, kernel=poly;, score=0.430 total time=  11.7s
+[CV 3/5] END ......C=1, gamma=auto, kernel=poly;, score=0.432 total time=  10.6s
+[CV 1/5] END .......C=1, gamma=auto, kernel=rbf;, score=0.805 total time=   5.1s
+[CV 2/5] END .......C=1, gamma=auto, kernel=rbf;, score=0.792 total time=  10.3s
+[CV 3/5] END .......C=1, gamma=auto, kernel=rbf;, score=0.772 total time=  10.4s
+[CV 5/5] END ......C=1, gamma=auto, kernel=poly;, score=0.427 total time=  14.7s
+[CV 4/5] END .......C=1, gamma=auto, kernel=rbf;, score=0.796 total time=  12.9s
+[CV 5/5] END .......C=1, gamma=auto, kernel=rbf;, score=0.774 total time=  14.2s
+[CV 1/5] END ...C=1, gamma=auto, kernel=sigmoid;, score=0.770 total time=  14.1s
+[CV 2/5] END ...C=1, gamma=auto, kernel=sigmoid;, score=0.782 total time=  16.1s
+[CV 3/5] END ...C=1, gamma=auto, kernel=sigmoid;, score=0.752 total time=  13.1s
+[CV 1/5] END ...C=2, gamma=scale, kernel=linear;, score=0.812 total time=   6.5s
+[CV 2/5] END ...C=2, gamma=scale, kernel=linear;, score=0.836 total time=   7.5s
+[CV 4/5] END ...C=1, gamma=auto, kernel=sigmoid;, score=0.764 total time=  12.2s
+[CV 5/5] END ...C=1, gamma=auto, kernel=sigmoid;, score=0.759 total time=  15.0s
+[CV 3/5] END ...C=2, gamma=scale, kernel=linear;, score=0.814 total time=   7.0s
+[CV 5/5] END ...C=2, gamma=scale, kernel=linear;, score=0.823 total time=   5.8s
+[CV 4/5] END ...C=2, gamma=scale, kernel=linear;, score=0.829 total time=   6.9s
+[CV 1/5] END .....C=2, gamma=scale, kernel=poly;, score=0.805 total time=   7.6s
+[CV 2/5] END .....C=2, gamma=scale, kernel=poly;, score=0.811 total time=   8.2s
+[CV 3/5] END .....C=2, gamma=scale, kernel=poly;, score=0.797 total time=   7.0s
+[CV 4/5] END .....C=2, gamma=scale, kernel=poly;, score=0.799 total time=   6.6s
+[CV 5/5] END .....C=2, gamma=scale, kernel=poly;, score=0.809 total time=   2.9s
+[CV 3/5] END ......C=2, gamma=scale, kernel=rbf;, score=0.844 total time=   2.9s
+[CV 1/5] END ......C=2, gamma=scale, kernel=rbf;, score=0.856 total time=   4.5s
+[CV 4/5] END ......C=2, gamma=scale, kernel=rbf;, score=0.860 total time=   2.9s
+[CV 2/5] END ......C=2, gamma=scale, kernel=rbf;, score=0.864 total time=   4.6s
+[CV 5/5] END ......C=2, gamma=scale, kernel=rbf;, score=0.861 total time=   2.7s
+[CV 2/5] END ..C=2, gamma=scale, kernel=sigmoid;, score=0.394 total time=   3.0s
+[CV 4/5] END ..C=2, gamma=scale, kernel=sigmoid;, score=0.449 total time=   3.3s
+[CV 1/5] END ..C=2, gamma=scale, kernel=sigmoid;, score=0.396 total time=   5.5s
+[CV 3/5] END ..C=2, gamma=scale, kernel=sigmoid;, score=0.409 total time=   5.5s
+[CV 5/5] END ..C=2, gamma=scale, kernel=sigmoid;, score=0.376 total time=   3.2s
+[CV 1/5] END ....C=2, gamma=auto, kernel=linear;, score=0.812 total time=   1.6s
+[CV 2/5] END ....C=2, gamma=auto, kernel=linear;, score=0.836 total time=   2.4s
+[CV 4/5] END ....C=2, gamma=auto, kernel=linear;, score=0.829 total time=   1.8s
+[CV 3/5] END ....C=2, gamma=auto, kernel=linear;, score=0.814 total time=   2.6s
+[CV 5/5] END ....C=2, gamma=auto, kernel=linear;, score=0.823 total time=   3.0s
+[CV 1/5] END ......C=2, gamma=auto, kernel=poly;, score=0.510 total time=   7.2s
+[CV 2/5] END ......C=2, gamma=auto, kernel=poly;, score=0.562 total time=   7.7s
+[CV 4/5] END ......C=2, gamma=auto, kernel=poly;, score=0.514 total time=   7.6s
+[CV 3/5] END ......C=2, gamma=auto, kernel=poly;, score=0.544 total time=  10.0s
+[CV 1/5] END .......C=2, gamma=auto, kernel=rbf;, score=0.820 total time=   3.6s
+[CV 2/5] END .......C=2, gamma=auto, kernel=rbf;, score=0.809 total time=   4.0s
+[CV 5/5] END ......C=2, gamma=auto, kernel=poly;, score=0.534 total time=   6.9s
+[CV 3/5] END .......C=2, gamma=auto, kernel=rbf;, score=0.796 total time=   3.9s
+[CV 4/5] END .......C=2, gamma=auto, kernel=rbf;, score=0.806 total time=   3.2s
+[CV 5/5] END .......C=2, gamma=auto, kernel=rbf;, score=0.787 total time=   4.5s
+[CV 3/5] END ...C=2, gamma=auto, kernel=sigmoid;, score=0.776 total time=   6.1s
+[CV 1/5] END ...C=2, gamma=auto, kernel=sigmoid;, score=0.801 total time=   7.0s
+[CV 2/5] END ...C=2, gamma=auto, kernel=sigmoid;, score=0.792 total time=   8.2s
+[CV 4/5] END ...C=2, gamma=auto, kernel=sigmoid;, score=0.794 total time=   9.3s
+[CV 1/5] END ...C=3, gamma=scale, kernel=linear;, score=0.814 total time=   6.5s
+[CV 2/5] END ...C=3, gamma=scale, kernel=linear;, score=0.838 total time=   5.2s
+[CV 5/5] END ...C=2, gamma=auto, kernel=sigmoid;, score=0.775 total time=   9.4s
+[CV 3/5] END ...C=3, gamma=scale, kernel=linear;, score=0.810 total time=   4.8s
+[CV 4/5] END ...C=3, gamma=scale, kernel=linear;, score=0.828 total time=   5.8s
+[CV 5/5] END ...C=3, gamma=scale, kernel=linear;, score=0.820 total time=   6.2s
+[CV 1/5] END .....C=3, gamma=scale, kernel=poly;, score=0.815 total time=   4.8s
+[CV 2/5] END .....C=3, gamma=scale, kernel=poly;, score=0.820 total time=   6.8s
+[CV 3/5] END .....C=3, gamma=scale, kernel=poly;, score=0.806 total time=   5.6s
+[CV 4/5] END .....C=3, gamma=scale, kernel=poly;, score=0.805 total time=   5.5s
+[CV 5/5] END .....C=3, gamma=scale, kernel=poly;, score=0.816 total time=   5.8s
+[CV 1/5] END ......C=3, gamma=scale, kernel=rbf;, score=0.859 total time=   8.2s
+[CV 2/5] END ......C=3, gamma=scale, kernel=rbf;, score=0.864 total time=   8.6s
+[CV 3/5] END ......C=3, gamma=scale, kernel=rbf;, score=0.845 total time=   8.6s
+[CV 4/5] END ......C=3, gamma=scale, kernel=rbf;, score=0.860 total time=   7.8s
+[CV 1/5] END ..C=3, gamma=scale, kernel=sigmoid;, score=0.386 total time=   8.5s
+[CV 3/5] END ..C=3, gamma=scale, kernel=sigmoid;, score=0.401 total time=   7.6s
+[CV 5/5] END ......C=3, gamma=scale, kernel=rbf;, score=0.869 total time=   9.8s
+[CV 2/5] END ..C=3, gamma=scale, kernel=sigmoid;, score=0.388 total time=  10.0s
+[CV 1/5] END ....C=3, gamma=auto, kernel=linear;, score=0.814 total time=   5.7s
+[CV 2/5] END ....C=3, gamma=auto, kernel=linear;, score=0.838 total time=   6.3s
+[CV 5/5] END ..C=3, gamma=scale, kernel=sigmoid;, score=0.379 total time=   9.2s
+[CV 4/5] END ..C=3, gamma=scale, kernel=sigmoid;, score=0.450 total time=   9.3s
+[CV 3/5] END ....C=3, gamma=auto, kernel=linear;, score=0.810 total time=   5.5s
+[CV 4/5] END ....C=3, gamma=auto, kernel=linear;, score=0.828 total time=   6.7s
+[CV 5/5] END ....C=3, gamma=auto, kernel=linear;, score=0.820 total time=   6.2s
+[CV 1/5] END ......C=3, gamma=auto, kernel=poly;, score=0.562 total time=  11.1s
+[CV 2/5] END ......C=3, gamma=auto, kernel=poly;, score=0.546 total time=   9.6s
+[CV 3/5] END ......C=3, gamma=auto, kernel=poly;, score=0.557 total time=   8.5s
+[CV 4/5] END ......C=3, gamma=auto, kernel=poly;, score=0.532 total time=   8.4s
+[CV 1/5] END .......C=3, gamma=auto, kernel=rbf;, score=0.831 total time=   5.4s
+[CV 3/5] END .......C=3, gamma=auto, kernel=rbf;, score=0.804 total time=   3.5s
+[CV 5/5] END ......C=3, gamma=auto, kernel=poly;, score=0.542 total time=   7.0s
+[CV 2/5] END .......C=3, gamma=auto, kernel=rbf;, score=0.825 total time=   4.3s
+[CV 5/5] END .......C=3, gamma=auto, kernel=rbf;, score=0.810 total time=   3.0s
+[CV 1/5] END ...C=3, gamma=auto, kernel=sigmoid;, score=0.810 total time=   3.0s
+[CV 4/5] END .......C=3, gamma=auto, kernel=rbf;, score=0.823 total time=   4.8s
+[CV 2/5] END ...C=3, gamma=auto, kernel=sigmoid;, score=0.801 total time=   4.3s
+[CV 3/5] END ...C=3, gamma=auto, kernel=sigmoid;, score=0.784 total time=   3.2s
+[CV 4/5] END ...C=3, gamma=auto, kernel=sigmoid;, score=0.805 total time=   3.2s
+[CV 1/5] END ...C=4, gamma=scale, kernel=linear;, score=0.814 total time=   2.9s
+[CV 2/5] END ...C=4, gamma=scale, kernel=linear;, score=0.833 total time=   1.9s
+[CV 3/5] END ...C=4, gamma=scale, kernel=linear;, score=0.810 total time=   1.9s
+[CV 5/5] END ...C=3, gamma=auto, kernel=sigmoid;, score=0.784 total time=   4.2s
+[CV 1/5] END .....C=4, gamma=scale, kernel=poly;, score=0.820 total time=   2.0s
+[CV 4/5] END ...C=4, gamma=scale, kernel=linear;, score=0.821 total time=   2.4s
+[CV 5/5] END ...C=4, gamma=scale, kernel=linear;, score=0.819 total time=   2.1s
+[CV 2/5] END .....C=4, gamma=scale, kernel=poly;, score=0.830 total time=   3.5s
+[CV 3/5] END .....C=4, gamma=scale, kernel=poly;, score=0.812 total time=   2.1s
+[CV 5/5] END .....C=4, gamma=scale, kernel=poly;, score=0.828 total time=   2.1s
+[CV 4/5] END .....C=4, gamma=scale, kernel=poly;, score=0.801 total time=   3.1s
+[CV 1/5] END ......C=4, gamma=scale, kernel=rbf;, score=0.861 total time=   3.4s
+[CV 3/5] END ......C=4, gamma=scale, kernel=rbf;, score=0.849 total time=   3.3s
+[CV 2/5] END ......C=4, gamma=scale, kernel=rbf;, score=0.868 total time=   3.5s
+[CV 4/5] END ......C=4, gamma=scale, kernel=rbf;, score=0.864 total time=   3.3s
+[CV 1/5] END ..C=4, gamma=scale, kernel=sigmoid;, score=0.384 total time=   3.5s
+[CV 2/5] END ..C=4, gamma=scale, kernel=sigmoid;, score=0.400 total time=   4.0s
+[CV 5/5] END ......C=4, gamma=scale, kernel=rbf;, score=0.870 total time=   4.2s
+[CV 3/5] END ..C=4, gamma=scale, kernel=sigmoid;, score=0.396 total time=   4.2s
+[CV 1/5] END ....C=4, gamma=auto, kernel=linear;, score=0.814 total time=   5.8s
+[CV 2/5] END ....C=4, gamma=auto, kernel=linear;, score=0.833 total time=   6.9s
+[CV 4/5] END ..C=4, gamma=scale, kernel=sigmoid;, score=0.444 total time=   8.8s
+[CV 5/5] END ..C=4, gamma=scale, kernel=sigmoid;, score=0.376 total time=  10.3s
+[CV 3/5] END ....C=4, gamma=auto, kernel=linear;, score=0.810 total time=   6.0s
+[CV 5/5] END ....C=4, gamma=auto, kernel=linear;, score=0.819 total time=   5.2s
+[CV 4/5] END ....C=4, gamma=auto, kernel=linear;, score=0.821 total time=   6.0s
+[CV 1/5] END ......C=4, gamma=auto, kernel=poly;, score=0.574 total time=  16.4s
+[CV 2/5] END ......C=4, gamma=auto, kernel=poly;, score=0.568 total time=  16.7s
+[CV 3/5] END ......C=4, gamma=auto, kernel=poly;, score=0.580 total time=  15.8s
+[CV 4/5] END ......C=4, gamma=auto, kernel=poly;, score=0.554 total time=  19.0s
+[CV 2/5] END .......C=4, gamma=auto, kernel=rbf;, score=0.830 total time=   7.4s
+[CV 1/5] END .......C=4, gamma=auto, kernel=rbf;, score=0.831 total time=   9.8s
+[CV 3/5] END .......C=4, gamma=auto, kernel=rbf;, score=0.807 total time=   9.3s
+[CV 5/5] END ......C=4, gamma=auto, kernel=poly;, score=0.576 total time=  16.8s
+[CV 4/5] END .......C=4, gamma=auto, kernel=rbf;, score=0.826 total time=   8.4s
+[CV 5/5] END .......C=4, gamma=auto, kernel=rbf;, score=0.821 total time=   8.9s
+[CV 1/5] END ...C=4, gamma=auto, kernel=sigmoid;, score=0.818 total time=   7.2s
+[CV 2/5] END ...C=4, gamma=auto, kernel=sigmoid;, score=0.809 total time=   8.5s
+[CV 3/5] END ...C=4, gamma=auto, kernel=sigmoid;, score=0.789 total time=   7.2s
+[CV 4/5] END ...C=4, gamma=auto, kernel=sigmoid;, score=0.810 total time=   6.7s
+[CV 5/5] END ...C=4, gamma=auto, kernel=sigmoid;, score=0.790 total time=   5.0s
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Best Model</span>
+<span class="c1"># Extract the attributes of the best model.</span>
+
+<span class="c1">#===========================Fill This===========================#</span>
+<span class="c1"># 1. Extract the best score.</span>
+<span class="c1"># 2. Extract a dictionary of the parameters.</span>
+<span class="c1"># !! Use the attributes of the `oGsSvc` object.</span>
+<span class="n">bestScore</span>   <span class="o">=</span> <span class="n">oGsSvc</span><span class="o">.</span><span class="n">best_score_</span>
+<span class="n">dBestParams</span> <span class="o">=</span> <span class="n">oGsSvc</span><span class="o">.</span><span class="n">best_params_</span>
+<span class="c1">#===============================================================#</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The best model had the following parameters: </span><span class="si">{</span><span class="n">dBestParams</span><span class="si">}</span><span class="s1"> with the CV score: </span><span class="si">{</span><span class="n">bestScore</span><span class="si">:</span><span class="s1">0.2%</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The best model had the following parameters: {&#39;C&#39;: 4, &#39;gamma&#39;: &#39;scale&#39;, &#39;kernel&#39;: &#39;rbf&#39;} with the CV score: 86.23%
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><font color='brown'>(<strong>#</strong>)</font> In production one would visualize the effect of each parameter on the model result. Then use it to fine tune farther the parameters.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">oGsSvc</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">mXTest</span><span class="p">,</span> <span class="n">vYTest</span><span class="p">)</span> <span class="c1">## will be the same like extracting best model</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.85
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The Best Model</span>
+
+<span class="c1">#===========================Fill This===========================#</span>
+<span class="c1"># 1. Extract the best model.</span>
+<span class="c1"># 2. Score the best model on the test data set.</span>
+<span class="n">bestModel</span> <span class="o">=</span> <span class="n">oGsSvc</span><span class="o">.</span><span class="n">best_estimator_</span>
+<span class="n">modelScore</span> <span class="o">=</span> <span class="n">bestModel</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">mXTest</span><span class="p">,</span> <span class="n">vYTest</span><span class="p">)</span>
+<span class="c1">#===============================================================#</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The model score (Accuracy) on the data: </span><span class="si">{</span><span class="n">modelScore</span><span class="si">:</span><span class="s1">0.2%</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1">#&lt;! Accuracy</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The model score (Accuracy) on the data: 85.00%
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><font color='brown'>(<strong>#</strong>)</font> With proper tuning one can improve the baseline model by <code class="docutils literal notranslate"><span class="pre">~5%</span></code>.</p></li>
+</ul>
+<section id="train-the-best-model-on-the-train-data-set">
+<h3>Train the Best Model on the Train Data Set<a class="headerlink" href="#train-the-best-model-on-the-train-data-set" title="Permalink to this heading">#</a></h3>
+<p>In production we take the optimal Hyper Parameters and then retrain the model on the whole training data set.<br />
+This is the model we’ll use in production.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The Model with Optimal Parameters</span>
+
+<span class="c1">#===========================Fill This===========================#</span>
+<span class="c1"># 1. Construct the model.</span>
+<span class="c1"># 2. Train the model.</span>
+<span class="n">oSvmCls</span> <span class="o">=</span> <span class="n">bestModel</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">mXTrain</span><span class="p">,</span> <span class="n">vYTrain</span><span class="p">)</span>
+<span class="c1">#===============================================================#</span>
+
+<span class="n">modelScore</span> <span class="o">=</span> <span class="n">oSvmCls</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">mXTest</span><span class="p">,</span> <span class="n">vYTest</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The model score (Accuracy) on the data: </span><span class="si">{</span><span class="n">modelScore</span><span class="si">:</span><span class="s1">0.2%</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span> <span class="c1">#&lt;! Accuracy</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The model score (Accuracy) on the data: 85.00%
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><font color='red'>(<strong>?</strong>)</font> Is the value above exactly as the value from the best model of the grid search? If so, look at the <code class="docutils literal notranslate"><span class="pre">refit</span></code> parameter of <code class="docutils literal notranslate"><span class="pre">GridSearchCV</span></code>.</p></li>
+</ul>
+</section>
+</section>
+<section id="performance-metrics-scores">
+<h2>Performance Metrics / Scores<a class="headerlink" href="#performance-metrics-scores" title="Permalink to this heading">#</a></h2>
+<p>In this section we’ll analyze the model using the <em>confusion matrix</em>.</p>
+<section id="plot-the-confusion-matrix">
+<h3>Plot the Confusion Matrix<a class="headerlink" href="#plot-the-confusion-matrix" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the Confusion Matrix</span>
+<span class="n">hF</span><span class="p">,</span> <span class="n">hA</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="c1">#===========================Fill This===========================#</span>
+<span class="c1"># 1. Plot the confusion matrix for the best model.</span>
+<span class="c1"># 2. Use the data labels (`L_CLASSES`).</span>
+<span class="n">hA</span><span class="p">,</span> <span class="n">mConfMat</span> <span class="o">=</span> <span class="n">PlotConfusionMatrix</span><span class="p">(</span><span class="n">vYTest</span><span class="p">,</span> <span class="n">oSvmCls</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">mXTest</span><span class="p">),</span><span class="n">lLabels</span><span class="o">=</span> <span class="n">L_CLASSES</span><span class="p">,</span> <span class="n">hA</span> <span class="o">=</span> <span class="n">hA</span><span class="p">)</span>
+<span class="c1">#===============================================================#</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/99219a233fa53637e8f741036176be93cbd81b31eca92425481ca856e5f1fd62.png" src="../../../../_images/99219a233fa53637e8f741036176be93cbd81b31eca92425481ca856e5f1fd62.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p><font color='red'>(<strong>?</strong>)</font> Which class has the best accuracy?</p></li>
+<li><p><font color='red'>(<strong>?</strong>)</font> Which class has a dominant false prediction? Does it make sense?</p></li>
+<li><p><font color='red'>(<strong>?</strong>)</font> What’s the difference between <span class="math notranslate nohighlight">\(p \left( \hat{y}_{i} = \text{coat} \mid {x}_{i} = \text{coat} \right)\)</span> to <span class="math notranslate nohighlight">\(p \left( {y}_{i} = \text{coat} \mid \hat{y}_{i} = \text{coat} \right)\)</span>?</p></li>
+</ul>
+<p>recall and presicion</p>
+<ul class="simple">
+<li><p><font color='blue'>(<strong>!</strong>)</font> Make the proper calculations on <code class="docutils literal notranslate"><span class="pre">mConfMat</span></code> or the function <code class="docutils literal notranslate"><span class="pre">PlotConfusionMatrix</span></code> to answer the questions above.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the Confusion Matrix</span>
+<span class="n">hF</span><span class="p">,</span> <span class="n">hA</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="c1">#===========================Fill This===========================#</span>
+<span class="c1"># 1. Plot the confusion matrix for the best model.</span>
+<span class="c1"># 2. Use the data labels (`L_CLASSES`).</span>
+<span class="n">hA</span><span class="p">,</span> <span class="n">mConfMat</span> <span class="o">=</span> <span class="n">PlotConfusionMatrix</span><span class="p">(</span><span class="n">vYTest</span><span class="p">,</span> <span class="n">oSvmCls</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">mXTest</span><span class="p">),</span><span class="n">lLabels</span><span class="o">=</span> <span class="n">L_CLASSES</span><span class="p">,</span><span class="n">normMethod</span><span class="o">=</span> <span class="s1">&#39;true&#39;</span> <span class="p">,</span> <span class="n">hA</span> <span class="o">=</span> <span class="n">hA</span><span class="p">)</span>
+<span class="c1">#===============================================================#</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/9dd25d755f37965bd19bbbd1156fe2461a0c419fa9ac28f754b7b430cebc7f22.png" src="../../../../_images/9dd25d755f37965bd19bbbd1156fe2461a0c419fa9ac28f754b7b430cebc7f22.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./00_ai24/01_ml/02_featureEng/mnist"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="readme.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">mnist example with kernel trick</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../autouml/readme.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">AutoML</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revision-history">Revision History</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notations">Notations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-exercise">Code Exercise</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#model-parameter-optimization-with-kernel-svm">Model Parameter Optimization with Kernel SVM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-load-data">Generate / Load Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-process-data">Pre Process Data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-data">Plot Data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#train-linear-svm-classifier">Train Linear SVM Classifier</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#train-kernel-svm">Train Kernel SVM</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also-using-parametergrid">see also using ParameterGrid</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run">run</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#train-the-best-model-on-the-train-data-set">Train the Best Model on the Train Data Set</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-metrics-scores">Performance Metrics / Scores</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-confusion-matrix">Plot the Confusion Matrix</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By 0xsol
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

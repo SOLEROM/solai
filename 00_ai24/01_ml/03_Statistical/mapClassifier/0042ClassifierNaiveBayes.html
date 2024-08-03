@@ -1,0 +1,2544 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Naive Bayes Classifier &#8212; solAiKM</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/clipboard.min.js"></script>
+    <script src="../../../../_static/copybutton.js"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '00_ai24/01_ml/03_Statistical/mapClassifier/0042ClassifierNaiveBayes';</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="Decision Trees" href="../../04_tree/readme.html" />
+    <link rel="prev" title="Naive Bayes Classifier" href="naive.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../../readme.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">solAiKM</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../../readme.html">
+                    solai
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">AI24</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../links.html">links</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../readme.html">Machine Learning</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../labs.html">Labs</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../play/lab_normolize.html">normalize or not to normalize</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../play/gridSearchPipeline.html">grid search pipe</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../play/scaler_normalization.html">scaler normalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../play/missing_values_fill.html">missing values handeling</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../play/pps.html">PPS -  Predictive Power Score</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../00_intro/readme.html">Intro</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../00_intro/aboutML.html">About ML</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../00_intro/types.html">ML types</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../00_intro/applications.html">applications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../00_intro/hyperparams.html">hyperparams</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../00_intro/pipeline.html">pipeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../00_intro/xorChallengeExample.html">human intuition</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../general/readme.html">General topics</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../general/classVsRegr.html">Classification vs Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../general/complexStepDiff.html">Complex Step Differentiation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../general/featureProcessing.html">feature processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../general/treeEnsemble.html">Tree Ensemble vs Random Forest</a></li>
+
+
+<li class="toctree-l3"><a class="reference internal" href="../../general/wodoTricks.html">representation tricks</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../scikit/readme.html">Scikit</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/about.html">about scikit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/fetch_openml.html">fetch_openml</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/svc.html">SVC</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/knn.html">knn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/crossVal.html">cross validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/classificationReport.html">classification_report</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/decisionFunction.html">Decision function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/fscoreSupport.html">fscoreSupport</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/plot_conf_mat.html">PlotConfusionMatrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/roc.html">roc curve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/preprocessing.html">preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/pipe.html">pipeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/DecisionTreeClassifier.html">DecisionTreeClassifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/CalibratedClassifierCV.html">CalibratedClassifierCV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/checkEstim.html">check_estimator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/logiReg.html">logistics regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/classMetrics.html">classification metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/speedup.html">Speeding up scikit-learn</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01_classification/readme.html">Classification</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01_classification/binary/readme.html">Binary Classification</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../01_classification/linear/readme.html">linear classifiers</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/linear/classifiers.html">Linear Classifier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/linear/reparametrization.html">ReParametrization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/linear/0026LinearClassifier.html">Linear Classifier Random</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/linear/0027LinearClassifierTraining.html">Linear Classifier MOONs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/linear/0028LinearClassifier_RealCaseExample.html">Linear Classifier breast</a></li>
+
+
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../01_classification/svm/readme.html">SVM - support vector machine</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/svm/intro.html">Support Vector Machines (SVM)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/svm/0029LinearClassifierSVM.html">SVM Rand classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/svm/0030LinearClassifierSVM.html">SVM breast classification</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../01_classification/kNear/readme.html">k nearest neighbors</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/kNear/knn.html">KNN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/kNear/dimensionality.html">curse of dimensionality</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/kNear/0031ClassifierKNN.html">KNN random circles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/kNear/0032ClassifierKNN.html">KNN brest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/kNear/lab_Curse_of_Dimensionality.html">Curse lab</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../01_classification/training/readme.html">training</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/training/mnist.html">mnist multicalass example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/training/kfold.html">K FOLD</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/training/dataDivide.html">Data Split</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/training/fitProcessCompare.html">Training Process Comparison</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/resample/readme.html">resampling</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../01_classification/decFunc/readme.html">multi-class</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../01_classification/recall/readme.html">precision and recall</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01_classification/recall/BalAcc.html">Balanced Accuracy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01_classification/roc/readme.html">Roc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01_classification/cost/readme.html">cost</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../01_classification/labs/readme.html">classification labs</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/labs/scoreDemo.html">Performance Scores demo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/labs/0033ConfMatCrossValidation.html">MNIST KNN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/labs/0034ConfMatCrossValidation.html">MNIST SVM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/labs/decFunc.html">Decision Functions Demos</a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/labs/0035PerformanceScoreMetrics.html">Performance Scores</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/labs/0036PerformanceScoreMetrics.html">Calibrating Imbalanced</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/roc/auc_demo.html">Understanding the AUC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/labs/TensorBoard.html">TensorBoard</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../02_featureEng/readme.html">Feature Engineering</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../02_featureEng/transforms/normStd.html">Normalizing and Standardizing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../02_featureEng/transforms/nonSepr.html">Non Separable Problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../02_featureEng/transforms/techList.html">technics list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../02_featureEng/transforms/0037FeaturesTransform.html">Features Transform case1</a></li>
+
+
+<li class="toctree-l3"><a class="reference internal" href="../../02_featureEng/transforms/0038FeaturesTransform.html">Features Transform case2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../02_featureEng/kernelTrick/outline.html">Outline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../02_featureEng/kernelTrick/dual.html">Kernel Tricks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../02_featureEng/kernelTrick/0039ClassifierKernelSVM.html">Kernel SVM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../02_featureEng/mnist/readme.html">mnist example with kernel trick</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../02_featureEng/mnist/0040ClassifierKernelSVM.html">fashion-mnist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../02_featureEng/autouml/readme.html">AutoML</a></li>
+
+</ul>
+</li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../readme.html">Statistical Classification</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../logisticReg/readme.html">logistic regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../logisticReg/demo_LogisticRegression.html">Demo Lab Logistic Regression</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../logisticReg/crossEntropy.html">Cross Entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../logisticReg/0041ClassifierLogisticRegression.html">Mnist Logistic Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="readme.html">MAP Classifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="naive.html">Naive Bayes Classifier</a></li>
+
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">Naive Bayes Classifier</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../04_tree/readme.html">Decision Trees</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../04_tree/treeClassifier/readme.html">Decision Trees</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../04_tree/0043ClassifierDecisionTree.html">Circles Decision Tree Classifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../04_tree/0044HeartDecisionTree.html">Heart Disease Tree Classifier</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../05_regression/readme.html">Linear Regression</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/linear/readme.html">Linear Regression: Model Imperfection and Steps to Implement Regression</a></li>
+
+
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/poly/readme.html">Polynomial regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/phase/readme.html">Phase Estimation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/poly/0045RegressorPolynomialFit.html">Polynomial Fit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/poly/0046RegressorPolynomialFit.html">AI Program</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/regularization/ridge.html">Ridge Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/regularization/score.html">R2 Score</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/regularization/0047RegressorL1L2Regularization.html">Least Squares with <span class="math notranslate nohighlight">\({L}^{1}\)</span> / <span class="math notranslate nohighlight">\({L}^{2}\)</span> Regularization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/regularization/0048RegressorPolynomialFitLasso.html">Polynomial Fit with LASSO Regularization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/ransac/readme.html">outliers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/ransac/huber.html">huber</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/ransac/outiner.html">LS outiner</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/ransac/ransac.html">RANSAC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/ransac/0049RegressorRobust.html">Polynomial Fit with RANSAC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/wighetedLSQ/readme.html">Weighted Least Squares</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/nonLinSrt/readme.html">Non-Linear Least Squares (NLLS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/elasticNet/readme.html">ElasticNet</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../06_nonParam/readme.html">Non parametric regression</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-16"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../06_nonParam/kernelReg/readme.html">kernel regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_nonParam/kernelReg/multivar.html">Multivariate Kernel Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_nonParam/kernelReg/0050RegressorKernel.html">Kernel Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_nonParam/kernelReg/0051RegressorKernel.html">boston house Kernel Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_nonParam/polyReg/readme.html">Polynomial Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_nonParam/polyReg/0052RegressorLocalPolynomial.html">Polynomial Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_nonParam/spline/readme.html">Spline Interpolation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_nonParam/regTree/readme.html">Regression Tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_nonParam/regTree/0053RegressorDecisionTree.html">Regression - Decision Tree</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../07_ensemble/readme.html">Ensemble Methods</a><input class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-17"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/tradeoff/readme.html">Bias Variance Tradeoff</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/tradeoff/bagging.html">Bagging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/tradeoff/oob.html">Out-of-Bag Error (OOB)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/tradeoff/lab_tradeoff_Demo.html">Variance and Bias Trade-off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/randomForest/readme.html">Random Forest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/randomForest/importances.html">feature importances</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/randomForest/mdi.html">MDI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/randomForest/permutation.html">permutation importance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/randomForest/0054EnsembleRandomForests.html">Random Forests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/boosting/readme.html">Gradient boosting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/boosting/0055EnsembleGradientBoosting.html">Gradient Boosting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/boosting/adaBoost.html">ada boost</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/boosting/0056EnsembleAdaptiveBoosting.html">Adaptive Boosting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/optimizedLib/lightgbm/readme.html">LightGBM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../07_ensemble/optimizedLib/xgboost/readme.html">XGBoost</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../08_clustering/readme.html">Clustering</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-18"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/clustering.html">clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/kmean/readme.html">K-Means</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/kmean/0057ClusteringKMeans.html">K-Means</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/kmean/colorSpaceExample.html">color space quantization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/kmean/0058ClusteringKMeans.html">K-Means super pixcel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/gmm/readme.html">GMM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/gmm/0059ClusteringGMM.html">Gaussian Mixture Models (GMM)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/hierarchical/readme.html">Hierarchical clustering</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/hierarchical/0060ClusteringHierarchical.html">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/density/readme.html">Density</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/density/0061ClusteringDBSCAN.html">DBSCAN Demo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/hdbscan/readme.html">HDBSCAN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/hdbscan/0062ClusteringHDBSCAN.html">HDBSCAN Demo</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../09_dimred/readme.html">Dimensionality Reduction</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-19"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/pca/readme.html">pca</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/pca/rotation.html">Rotation</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/pca/eigDecom.html">Eigen Decomposition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/pca/fullPCA.html">Full PCA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/pca/oose.html">oose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/pca/svd.html">svd (pca)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/pca/lab_PCA_gene_demo.html">Gene PCA DEMO LAB</a></li>
+
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/pca/0063DimensionalityReductionPCA.html">PCA DEMO FACES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/pca/0064DimensionalityReductionPCA.html">PCA Brest Cancer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/nonLinPCA/readme.html">non Linear PCA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/nonLinPCA/kenrelPCA.html">Kernel PCA</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/nonLinPCA/dualPCA.html">Dual PCA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/nonLinPCA/0065DimensionalityReductionKPCA.html">Dimensionality Reduction - Kernel PCA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/mds/readme.html">MDS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/mds/0066DimensionalityReductionMDS.html">MultiDimensional Scaling (MDS)</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../10_manifold/readme.html">Manifold Learning</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-20"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/isomap/readme.html">isoMap</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/isomap/0067ManifoldLearningIsoMap.html">Manifold Learning - IsoMap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/spectral/readme.html">Spectral Clustering</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/tsne/readme.html">TSNE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/tsne/0068ManifoldLearningTSNE.html">t-SNE Demo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/entropy/readme.html">Entropy</a></li>
+
+
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/umap/readme.html">Umap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/umap/paramEmbed.html">parametric Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/umap/demo1.html">umap demo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/demo.html">manifold concepts demo</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/0069ManifoldLearning.html">Manifold Learning - multi model compare</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../11_anomDet/readme.html">Anomaly detection</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-21"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../11_anomDet/scores/zscore.html">zscore</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_anomDet/scores/mahalanobis.html">Mahalanobis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_anomDet/scores/timeSeries.html">Time Series</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_anomDet/lof/readme.html">Local Outlier Factor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_anomDet/lof/0070AnomalyDetectionLocalOutlierFactor.html">Local Outlier Factor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_anomDet/lof/0071AnomalyDetectionLocalOutlierFactor.html">LOF Exercise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_anomDet/isoForest/readme.html">Isolation forest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_anomDet/isoForest/0072AnomalyDetectionIsolationForest.html">Anomaly Detection - Isolation Forest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_anomDet/isoForest/0073AnomalyDetectionIsolationForest.html">Isolation Forest - Exercise</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../12_textAnal/readme.html">text Analysis</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-22"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../12_textAnal/lab_textOpt.html">text opts</a></li>
+
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../03_cv/readme.html">AI Computer Vision</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-23"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../03_cv/labs.html">Labs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../03_cv/convolution/readme.html">Convolution in Deep Learning</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-24"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/fullyConnectedDrawback.html">Fully Connected Drawbacks</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/cnnFrqExample.html">CNN for Frequency Estimation Problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/0085DeepLearning1DConvFreqEst.html">Convolution for Frequency Estimation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/2d.html">2D Convolution</a></li>
+
+
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/layers.html">Layers in Convolutional Neural Networks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/pooling.html">Pooling in Convolutional Neural Networks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/batchNorm.html">Batch Normalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/lab_batchNorm.html">demo batch norm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/filters.html">Common Filters for 2D Convolution</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/filter_laplacian.html">Common Filters for 2D Convolution</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/concept/recfield.html">Receptive Field (RF)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/concept/recField.html">Calc RF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/concept/encodeDecode.html">Encode-Decode Networks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/concept/skipConnections.html">skip connections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/0086DeepLearningConv2DCifar10.html">cifar10-2d-convolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/0087DeepLearningConv2DFashionMNIST.html">Image Classification Fashion MNIST</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/concept/studentTeacherDemo.html">studentTeacherDemo</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../03_cv/pytorch/readme.html">pytorch for CV</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-25"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/pytorch/common.html">pytorch layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/pytorch/custom.html">custom nn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/pytorch/microMacro.html">micro macro</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/torchvis/readme.html">TorchVision</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/torchvis/transformVers.html">torchvision.transforms</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../03_cv/augm/readme.html">Augmentation</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-26"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/augm/0094DeepLearningImageAugmentation.html">Image Augmentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/augm/cutMethods.html">Cut Effects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/augm/0095DeepLearningImageAugmentation.html">Image Augmentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/augm/smoothing.html">Smoothing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/augm/0096DeepLearningLabelSmoothing.html">Label Smoothing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/augm/0097DeepLearningRegularizedTraining.html">Regularized Training</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../03_cv/arch/readme.html">compare</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-27"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/darknet53.html">darknet53</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/alexnet.html">AlexNet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/vgg.html">vgg</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/googleNet.html">googleNet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/inception.html">Inception Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/resnet.html">resnet</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/0092DeepLearningResNet.html">ResNet Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/yolo.html">yolo</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/minirocket.html">minirocket</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/lab_minirocket_basicDemo.html">lab simple minirocket demo</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../03_cv/infer/readme.html">Pre-Defined Models</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-28"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/infer/pyInter.html">pytorch Inference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/infer/sota.html">sota - state-of-the-art</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/infer/zoo.html">zoo(s)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/infer/0091DeepLearningPreTrainedModels.html">Pre Trained Computer Vision Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../03_cv/transf/readme.html">Transfer Learning</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-29"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/transf/compare.html">compare methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/transf/fineTune.html">Fine-Tuning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/transf/freeze.html">Freeze Layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/transf/0093DeepLearningTransferLearning.html">Transfer Learning of resnet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/transf/overfit.html">Transfer overfit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/transf/lab_reducude_demo.html">lab reduce demo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/transf/transformers.html">transformers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/transf/lab_transofmers_basic.html">lab transform basic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/transf/adaptation.html">adaptation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../03_cv/visualize/readme.html">visualize and debug</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../03_cv/location/readme.html">Object Location</a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-30"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/location/lab_pretrain_demo.html">pre-trained model for object localization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/location/localization.html">Localization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/location/0098DeepLearningObjectLocalization.html">Object Localization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/location/detection.html">Detection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/location/lab_plot_transforms_e2e.html">Transforms v2: End-to-end object detection/segmentation example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/location/commonArch.html">Common Object Detector Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/location/hms.html">Non Maximum Suppression (NMS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/location/map.html">Mean Average Precision (mAP)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/wrkshp_yolo/readme.html">WorkShop - Object Detection with Yolov8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/wrkshp_yolo/labelme/readme.html">label example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/wrkshp_yolo/0001BoundingBoxFormat.html">yoloWRKSHP box formats</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../03_cv/segmentation/readme.html">segmentation workshop</a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-31"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/segmentation/intro.html">intro</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/segmentation/data.html">data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/segmentation/models.html">models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/segmentation/unet.html">UNET</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/wrkshp_unet/readme.html">the task</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SOLEROM/solai" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SOLEROM/solai/issues/new?title=Issue%20on%20page%20%2F00_ai24/01_ml/03_Statistical/mapClassifier/0042ClassifierNaiveBayes.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../../_sources/00_ai24/01_ml/03_Statistical/mapClassifier/0042ClassifierNaiveBayes.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Naive Bayes Classifier</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sentiment-analysis">Sentiment Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revision-history">Revision History</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notations">Notations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-exercise">Code Exercise</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Naive Bayes Classifier</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Sentiment Analysis</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-load-data">Generate / Load Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#train-test-split">Train / Test Split</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">Feature Engineering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classifier-model">Classifier Model</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <p><a class="reference external" href="https://fixelalgorithms.gitlab.io/"><img alt="Fixel Algorithms" src="https://i.imgur.com/AqKHVZ0.png" /></a></p>
+<section class="tex2jax_ignore mathjax_ignore" id="naive-bayes-classifier">
+<h1>Naive Bayes Classifier<a class="headerlink" href="#naive-bayes-classifier" title="Permalink to this heading">#</a></h1>
+<section id="sentiment-analysis">
+<h2>Sentiment Analysis<a class="headerlink" href="#sentiment-analysis" title="Permalink to this heading">#</a></h2>
+<blockquote>
+<div><p>Notebook by:</p>
+<ul class="simple">
+<li><p>Royi Avital <a class="reference external" href="mailto:RoyiAvital&#37;&#52;&#48;fixelalgorithms&#46;com">RoyiAvital<span>&#64;</span>fixelalgorithms<span>&#46;</span>com</a></p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="revision-history">
+<h2>Revision History<a class="headerlink" href="#revision-history" title="Permalink to this heading">#</a></h2>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Version</p></th>
+<th class="head"><p>Date</p></th>
+<th class="head"><p>User</p></th>
+<th class="head"><p>Content / Changes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1.0.000</p></td>
+<td><p>22/03/2024</p></td>
+<td><p>Royi Avital</p></td>
+<td><p>First version</p></td>
+</tr>
+</tbody>
+</table>
+<p><a class="reference external" href="https://colab.research.google.com/github/FixelAlgorithmsTeam/FixelCourses/blob/master/AIProgram/2024_02/0042ClassifierNaiveBayes.ipynb"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Import Packages</span>
+
+<span class="c1"># General Tools</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Machine Learning</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">ENGLISH_STOP_WORDS</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">precision_recall_fscore_support</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">MultinomialNB</span>
+
+<span class="kn">import</span> <span class="nn">nltk</span>
+<span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span><span class="p">,</span> <span class="n">names</span>
+<span class="kn">from</span> <span class="nn">nltk.stem</span> <span class="kn">import</span> <span class="n">WordNetLemmatizer</span>
+
+<span class="c1"># Image Processing</span>
+
+<span class="c1"># Machine Learning</span>
+
+<span class="c1"># Miscellaneous</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">platform</span> <span class="kn">import</span> <span class="n">python_version</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">timeit</span>
+
+<span class="c1"># Typing</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="c1"># Visualization</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="c1"># Jupyter</span>
+<span class="kn">from</span> <span class="nn">IPython</span> <span class="kn">import</span> <span class="n">get_ipython</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">Dropdown</span><span class="p">,</span> <span class="n">FloatSlider</span><span class="p">,</span> <span class="n">interact</span><span class="p">,</span> <span class="n">IntSlider</span><span class="p">,</span> <span class="n">Layout</span><span class="p">,</span> <span class="n">SelectionSlider</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="notations">
+<h2>Notations<a class="headerlink" href="#notations" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><font color='red'>(<strong>?</strong>)</font> Question to answer interactively.</p></li>
+<li><p><font color='blue'>(<strong>!</strong>)</font> Simple task to add code for the notebook.</p></li>
+<li><p><font color='green'>(<strong>&#64;</strong>)</font> Optional / Extra self practice.</p></li>
+<li><p><font color='brown'>(<strong>#</strong>)</font> Note / Useful resource / Food for thought.</p></li>
+</ul>
+<p>Code Notations:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">someVar</span>    <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="c1">#&lt;! Notation for a variable</span>
+<span class="n">vVector</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="c1">#&lt;! Notation for 1D array</span>
+<span class="n">mMatrix</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1">#&lt;! Notation for 2D array</span>
+<span class="n">tTensor</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1">#&lt;! Notation for nD array (Tensor)</span>
+<span class="n">tuTuple</span>    <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1">#&lt;! Notation for a tuple</span>
+<span class="n">lList</span>      <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="c1">#&lt;! Notation for a list</span>
+<span class="n">dDict</span>      <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span> <span class="c1">#&lt;! Notation for a dictionary</span>
+<span class="n">oObj</span>       <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span> <span class="c1">#&lt;! Notation for an object</span>
+<span class="n">dfData</span>     <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span> <span class="c1">#&lt;! Notation for a data frame</span>
+<span class="n">dsData</span>     <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">()</span> <span class="c1">#&lt;! Notation for a series</span>
+<span class="n">hObj</span>       <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">Axes</span><span class="p">()</span> <span class="c1">#&lt;! Notation for an object / handler / function handler</span>
+</pre></div>
+</div>
+<section id="code-exercise">
+<h3>Code Exercise<a class="headerlink" href="#code-exercise" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Single line fill</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>vallToFill = ???
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Multi Line to Fill (At least one)</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span># You need to start writing
+????
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Section to Fill</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>#===========================Fill This===========================#
+# 1. Explanation about what to do.
+# !! Remarks to follow / take under consideration.
+mX = ???
+
+???
+#===============================================================#
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configuration</span>
+<span class="c1"># %matplotlib inline</span>
+
+<span class="n">seedNum</span> <span class="o">=</span> <span class="mi">512</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seedNum</span><span class="p">)</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seedNum</span><span class="p">)</span>
+
+<span class="c1"># Matplotlib default color palette</span>
+<span class="n">lMatPltLibclr</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#1f77b4&#39;</span><span class="p">,</span> <span class="s1">&#39;#ff7f0e&#39;</span><span class="p">,</span> <span class="s1">&#39;#2ca02c&#39;</span><span class="p">,</span> <span class="s1">&#39;#d62728&#39;</span><span class="p">,</span> <span class="s1">&#39;#9467bd&#39;</span><span class="p">,</span> <span class="s1">&#39;#8c564b&#39;</span><span class="p">,</span> <span class="s1">&#39;#e377c2&#39;</span><span class="p">,</span> <span class="s1">&#39;#7f7f7f&#39;</span><span class="p">,</span> <span class="s1">&#39;#bcbd22&#39;</span><span class="p">,</span> <span class="s1">&#39;#17becf&#39;</span><span class="p">]</span>
+<span class="c1"># sns.set_theme() #&gt;! Apply SeaBorn theme</span>
+
+<span class="n">runInGoogleColab</span> <span class="o">=</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">())</span>
+
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;stopwords&#39;</span><span class="p">)</span>
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;names&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[nltk_data] Downloading package stopwords to /home/vlad/nltk_data...
+[nltk_data]   Package stopwords is already up-to-date!
+[nltk_data] Downloading package names to /home/vlad/nltk_data...
+[nltk_data]   Package names is already up-to-date!
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Constants</span>
+
+<span class="n">DATA_FILE_ID</span>        <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;12G6oUKCWzQnkDbv3TIcL9120YBdCwAmW&#39;</span>
+<span class="n">L_DATA_FILE_NAME</span>    <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;IMDBReviewsText.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;IMDBReviewsLabels.txt&#39;</span><span class="p">]</span>
+<span class="n">D_CATEGORY</span>          <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;positive&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;negative&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Courses Packages</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../&#39;</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../../&#39;</span><span class="p">)</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;../../../&#39;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">utils.DataManipulation</span> <span class="kn">import</span> <span class="n">DownloadGDriveZip</span>
+<span class="kn">from</span> <span class="nn">utils.DataVisualization</span> <span class="kn">import</span> <span class="n">PlotConfusionMatrix</span><span class="p">,</span> <span class="n">PlotLabelsHistogram</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># General Auxiliary Functions</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="id1">
+<h2>Naive Bayes Classifier<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<p>The <em>Naive Bayes Classifier</em> is built on the assumption conditional independence between every pair of features given the value of the class variable.</p>
+<p>Assume probabilistic model for the class given a set of features <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ P \left( y \mid {x}_{1}, \dots, {x}_{d} \right) = \frac{P \left( y \right) P( {x}_{1}, \dots, {x}_{d} \mid y)} {P \left( {x}_{1} , \dots, {x}_{d} \right)} \]</div>
+<p>Using the naive conditional independence assumption yields:</p>
+<div class="math notranslate nohighlight">
+\[ P \left( y \mid {x}_{1}, \dots, {x}_{d} \right) = \frac{P \left( y \right) \prod_{i = 1}^{d} P \left( {x}_{i} \mid y \right)} {P \left( {x}_{1}, \dots, {x}_{d} \right)} \]</div>
+<p>Given <span class="math notranslate nohighlight">\(P \left( {x}_{1}, \dots, {x}_{d} \right)\)</span> is a constant, one can optimize:</p>
+<div class="math notranslate nohighlight">
+\[ \arg \max_{y} P \left( y \right) \prod_{i = 1}^{d} P \left( {x}_{i} \mid y \right) \]</div>
+<p>The classifier model is set by the distribution set to the <span class="math notranslate nohighlight">\(i\)</span> -th feature given the class: <span class="math notranslate nohighlight">\(P \left( {x}_{i} \mid y \right)\)</span>.</p>
+<ul class="simple">
+<li><p><font color='brown'>(<strong>#</strong>)</font> In lectures, for continuous features, a more general case is described where the features are <em>Jointly Gaussian</em>.</p></li>
+<li><p><font color='brown'>(<strong>#</strong>)</font> The general case, where the joint distribution of the features (Which can be dependent) is unknown is usually modeled by a <em>Bayesian Net</em>.<br />
+One way to implement such net is by a Neural Network Net. See <a class="reference external" href="https://datascience.stackexchange.com/questions/9818">Neural Networks vs. Bayesian Networks</a> and <a class="reference external" href="https://ehudreiter.com/2021/07/05/bayesian-vs-neural-networks">Ehud Reiter’s Blog - Bayesian vs Neural Networks</a>.</p></li>
+</ul>
+<section id="id2">
+<h3>Sentiment Analysis<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
+<p>In this case highly polar reviews of movies will be analyzed for <em>Sentiment Analysis</em>.<br />
+The categories will be <em>negative</em> or <em>positive</em> reviews.</p>
+<p>The RAW data is a review text.<br />
+The process of the classification will be:</p>
+<ol class="arabic simple">
+<li><p>Download and Load the Data<br />
+The data will be downloaded and parsed into 2 lists: Reviews, Labels.</p></li>
+<li><p>Pre Process the Data<br />
+The text data will be cleaned, the labels will be transformed into numeric values.</p></li>
+<li><p>Feature Extraction<br />
+The text will be transformed into <em>histogram</em> like of the words in the review.</p></li>
+<li><p>Classification<br />
+The classification will be done using Multinomial Naive Bayes model.</p></li>
+</ol>
+<ul class="simple">
+<li><p><font color='brown'>(<strong>#</strong>)</font> <a class="reference external" href="https://en.wikipedia.org/wiki/Multinomial_distribution">Multinomial Distribution</a> is a generalization of the <a class="reference external" href="https://en.wikipedia.org/wiki/Binomial_distribution">Binomial Distribution</a>. It suits the case of counting the number of occurrence of the words.</p></li>
+<li><p><font color='brown'>(<strong>#</strong>)</font> A math deep introduction is given in <a class="reference external" href="http://www.cs.columbia.edu/~mcollins/em.pdf">Michael Collins - The Naive Bayes Model, Maximum Likelihood Estimation and the EM Algorithm</a>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Parameters</span>
+
+<span class="c1"># Data</span>
+<span class="n">numSamplesRatio</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+<span class="c1"># Features Engineering</span>
+<span class="c1"># Minimum Frequency of words</span>
+<span class="n">minDf</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="c1"># Maximum number of features (Histogram support)</span>
+<span class="n">numFeaturesMax</span> <span class="o">=</span> <span class="mi">500_000</span>
+<span class="n">minRatio</span> <span class="o">=</span> <span class="mf">2.5</span>
+<span class="n">maxRatio</span> <span class="o">=</span> <span class="mi">5</span> <span class="c1">#&lt;! No Effect (Visualization)</span>
+
+<span class="c1"># Model</span>
+<span class="n">α</span> <span class="o">=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="generate-load-data">
+<h2>Generate / Load Data<a class="headerlink" href="#generate-load-data" title="Permalink to this heading">#</a></h2>
+<p>Loading <a class="reference external" href="http://ai.stanford.edu/~amaas/data/sentiment">Andrew Maas’ Large Movie Review Dataset</a> data set.<br />
+The original data was processed into 25,000 labeled reviews (See <a class="reference external" href="https://github.com/x4nth055/sentiment_analysis_naive_bayes">Rockikz (<code class="docutils literal notranslate"><span class="pre">x4nth055</span></code>) - Sentiment Analysis Naive Bayes</a>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download Data </span>
+
+<span class="c1"># Download the data from Google Drive</span>
+<span class="n">DownloadGDriveZip</span><span class="p">(</span><span class="n">fileId</span> <span class="o">=</span> <span class="n">DATA_FILE_ID</span><span class="p">,</span> <span class="n">lFileCont</span> <span class="o">=</span> <span class="n">L_DATA_FILE_NAME</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading...
+From: https://drive.google.com/uc?id=12G6oUKCWzQnkDbv3TIcL9120YBdCwAmW
+To: /data/solai/2024/03_ml/03_Statistical/mapClassifier/IMDBReviews.zip
+100%|██████████| 11.4M/11.4M [00:01&lt;00:00, 9.61MB/s]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load Data</span>
+
+<span class="c1"># Read reviews - Python Context</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">L_DATA_FILE_NAME</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">as</span> <span class="n">hFile</span><span class="p">:</span>
+    <span class="n">lReview</span> <span class="o">=</span> <span class="n">hFile</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span> <span class="c1">#&lt;! Each review is a line</span>
+
+<span class="c1"># Read labels - Python Context</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">L_DATA_FILE_NAME</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">as</span> <span class="n">hFile</span><span class="p">:</span>
+    <span class="n">lLabels</span> <span class="o">=</span> <span class="n">hFile</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span> <span class="c1">#&lt;! Each review is a line</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Loaded </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">lReview</span><span class="p">)</span><span class="si">}</span><span class="s1"> reviews&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Loaded </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">lLabels</span><span class="p">)</span><span class="si">}</span><span class="s1"> labels&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loaded 25000 reviews
+Loaded 25000 labels
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pre Processing</span>
+<span class="c1"># 1. Remove leading and trailing spaces from text.</span>
+<span class="c1"># 2. Convert the labels: &#39;negative&#39; -&gt; 0, &#39;positive&#39; -&gt; 1 (Numpy Array).</span>
+
+<span class="n">lReview</span> <span class="o">=</span> <span class="p">[</span><span class="n">reviewTxt</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">reviewTxt</span> <span class="ow">in</span> <span class="n">lReview</span><span class="p">]</span> <span class="c1">#&lt;! Remove leading and trailing whitespaces</span>
+<span class="n">vY</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">D_CATEGORY</span><span class="p">[</span><span class="n">labelTxt</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span> <span class="k">for</span> <span class="n">labelTxt</span> <span class="ow">in</span> <span class="n">lLabels</span><span class="p">])</span> <span class="c1">#&lt;! &#39;negative&#39; -&gt; 0, &#39;positive&#39; -&gt; 1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Distribution of Labels</span>
+
+<span class="n">hA</span> <span class="o">=</span> <span class="n">PlotLabelsHistogram</span><span class="p">(</span><span class="n">vY</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/aa963fe00591bca365b4076d4ef6d041a46c3d2e5c630ae3ae3eb7cdf9f6459d.png" src="../../../../_images/aa963fe00591bca365b4076d4ef6d041a46c3d2e5c630ae3ae3eb7cdf9f6459d.png" />
+</div>
+</div>
+<section id="train-test-split">
+<h3>Train / Test Split<a class="headerlink" href="#train-test-split" title="Permalink to this heading">#</a></h3>
+<p>Since the feature engineering will be mostly about counting and the distribution of the words, the split is done before the feature engineering.<br />
+This is done to prevent the train data pollution / contamination (Also known as <a class="reference external" href="https://en.wikipedia.org/wiki/Leakage_(machine_learning)"><em>Data Leakage</em> in Machine Learning</a>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">numClass</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">vY</span><span class="p">))</span>
+<span class="n">lReviewTrain</span><span class="p">,</span> <span class="n">lReviewTest</span><span class="p">,</span> <span class="n">vYTrain</span><span class="p">,</span> <span class="n">vYTest</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">lReview</span><span class="p">,</span> <span class="n">vY</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="n">numSamplesRatio</span><span class="p">,</span> <span class="n">shuffle</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">stratify</span> <span class="o">=</span> <span class="n">vY</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="feature-engineering">
+<h2>Feature Engineering<a class="headerlink" href="#feature-engineering" title="Permalink to this heading">#</a></h2>
+<p>For simple based text tasks, most used features are based on the histogram of the words per object.<br />
+In general, the whole corpus of words in the data is described by a distribution.</p>
+<ul class="simple">
+<li><p><font color='brown'>(<strong>#</strong>)</font> The most simple</p></li>
+</ul>
+<p>In this case we’ll use SciKit Learn <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.CountVectorizer.html"><code class="docutils literal notranslate"><span class="pre">CountVectorizer</span></code></a> which learns the corpus of words.<br />
+Then, in its transformation phase, build the histogram per object.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build the Histogram Feature Vector</span>
+
+<span class="c1"># List of words to avoid counting</span>
+<span class="n">lNames</span>      <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">names</span><span class="o">.</span><span class="n">words</span><span class="p">())</span>
+<span class="n">lNames</span>      <span class="o">=</span> <span class="p">[</span><span class="n">name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">lNames</span><span class="p">]</span>
+<span class="n">lStopWords</span>  <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">())</span>
+<span class="n">lStopWords</span>  <span class="o">=</span> <span class="p">[</span><span class="n">word</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">lStopWords</span><span class="p">]</span>
+<span class="n">lIgnoreWords</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ENGLISH_STOP_WORDS</span><span class="p">)</span> <span class="o">+</span> <span class="n">lNames</span> <span class="o">+</span> <span class="n">lStopWords</span>
+
+<span class="c1"># The Count Object </span>
+<span class="n">oCntVec</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">strip_accents</span> <span class="o">=</span> <span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="n">stop_words</span> <span class="o">=</span> <span class="n">lIgnoreWords</span><span class="p">,</span> <span class="n">min_df</span> <span class="o">=</span> <span class="n">minDf</span><span class="p">,</span> <span class="n">max_features</span> <span class="o">=</span> <span class="n">numFeaturesMax</span><span class="p">)</span>
+<span class="n">mXTrain</span> <span class="o">=</span> <span class="n">oCntVec</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">lReviewTrain</span><span class="p">)</span> <span class="c1">#&lt;! Fit &amp; Transform</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/data/solai/venvMamabaFixel/lib/python3.11/site-packages/sklearn/feature_extraction/text.py:408: UserWarning: Your stop_words may be inconsistent with your preprocessing. Tokenizing the stop words generated tokens [&#39;acaba&#39;, &#39;acesti&#39;, &#39;aci&#39;, &#39;aiba&#39;, &#39;aixi&#39;, &#39;aixo&#39;, &#39;aldiz&#39;, &#39;altal&#39;, &#39;altalaban&#39;, &#39;altms&#39;, &#39;ambdos&#39;, &#39;amig&#39;, &#39;aqui&#39;, &#39;arasnda&#39;, &#39;arrol&#39;, &#39;artq&#39;, &#39;aslnda&#39;, &#39;astia&#39;, &#39;ate&#39;, &#39;aveti&#39;, &#39;avra&#39;, &#39;avro&#39;, &#39;azert&#39;, &#39;aztan&#39;, &#39;azutan&#39;, &#39;bade&#39;, &#39;bae&#39;, &#39;baiknya&#39;, &#39;baizik&#39;, &#39;bar&#39;, &#39;baz&#39;, &#39;belul&#39;, &#39;berkali&#39;, &#39;bes&#39;, &#39;bilr&#39;, &#39;birkac&#39;, &#39;birsey&#39;, &#39;bizlr&#39;, &#39;blk&#39;, &#39;bos&#39;, &#39;brzcas&#39;, &#39;brzkone&#39;, &#39;bukatzeko&#39;, &#39;bunlarn&#39;, &#39;butun&#39;, &#39;bzi&#39;, &#39;bzn&#39;, &#39;caci&#39;, &#39;cadascu&#39;, &#39;carei&#39;, &#39;caror&#39;, &#39;carui&#39;, &#39;catva&#39;, &#39;cem&#39;, &#39;cemer&#39;, &#39;cemerkoli&#39;, &#39;cemu&#39;, &#39;cemur&#39;, &#39;cemurkoli&#39;, &#39;ceprav&#39;, &#39;ceravno&#39;, &#39;cesa&#39;, &#39;cesarkoli&#39;, &#39;cetrta&#39;, &#39;cetrte&#39;, &#39;cetrtega&#39;, &#39;cetrtem&#39;, &#39;cetrtemu&#39;, &#39;cetrti&#39;, &#39;cetrtih&#39;, &#39;cetrtim&#39;, &#39;cetrtima&#39;, &#39;cetrtimi&#39;, &#39;cetrto&#39;, &#39;cetudi&#39;, &#39;cez&#39;, &#39;cezenj&#39;, &#39;ceznje&#39;, &#39;cigar&#39;, &#39;cigav&#39;, &#39;cigava&#39;, &#39;cigave&#39;, &#39;cigavega&#39;, &#39;cigavem&#39;, &#39;cigavemu&#39;, &#39;cigavi&#39;, &#39;cigavih&#39;, &#39;cigavim&#39;, &#39;cigavima&#39;, &#39;cigavimi&#39;, &#39;cigavo&#39;, &#39;cim&#39;, &#39;cimer&#39;, &#39;cimerkoli&#39;, &#39;citva&#39;, &#39;cok&#39;, &#39;cox&#39;, &#39;cunki&#39;, &#39;cunku&#39;, &#39;data&#39;, &#39;despres&#39;, &#39;dk&#39;, &#39;dn&#39;, &#39;dord&#39;, &#39;doua&#39;, &#39;dovolis&#39;, &#39;dqiq&#39;, &#39;drugacen&#39;, &#39;drugacna&#39;, &#39;drugacne&#39;, &#39;drugacnega&#39;, &#39;drugacnem&#39;, &#39;drugacnemu&#39;, &#39;drugacni&#39;, &#39;drugacnih&#39;, &#39;drugacnim&#39;, &#39;drugacnima&#39;, &#39;drugacnimi&#39;, &#39;drugacno&#39;, &#39;duz&#39;, &#39;dvainsestdeset&#39;, &#39;dvainsestdesetih&#39;, &#39;dvainsestdesetim&#39;, &#39;dvainsestdesetimi&#39;, &#39;edn&#39;, &#39;edota&#39;, &#39;eger&#39;, &#39;egesz&#39;, &#39;egyeb&#39;, &#39;eivat&#39;, &#39;eleg&#39;, &#39;elo&#39;, &#39;eloszor&#39;, &#39;elott&#39;, &#39;elso&#39;, &#39;eppen&#39;, &#39;eramos&#39;, &#39;ereu&#39;, &#39;essent&#39;, &#39;estabamos&#39;, &#39;estais&#39;, &#39;estao&#39;, &#39;estara&#39;, &#39;estaran&#39;, &#39;estaras&#39;, &#39;estare&#39;, &#39;estareis&#39;, &#39;estaria&#39;, &#39;estariais&#39;, &#39;estariamos&#39;, &#39;estarian&#39;, &#39;estarias&#39;, &#39;estavamos&#39;, &#39;estavem&#39;, &#39;estaveu&#39;, &#39;esteis&#39;, &#39;esten&#39;, &#39;esti&#39;, &#39;estiveramos&#39;, &#39;estivessemos&#39;, &#39;estuvieramos&#39;, &#39;estuviesemos&#39;, &#39;etaient&#39;, &#39;etais&#39;, &#39;etait&#39;, &#39;etant&#39;, &#39;etante&#39;, &#39;etantes&#39;, &#39;etants&#39;, &#39;ete&#39;, &#39;etee&#39;, &#39;etees&#39;, &#39;etes&#39;, &#39;etiez&#39;, &#39;etions&#39;, &#39;etm&#39;, &#39;etmk&#39;, &#39;eumes&#39;, &#39;eutes&#39;, &#39;eze&#39;, &#39;ezert&#39;, &#39;ezpabere&#39;, &#39;ezpada&#39;, &#39;ezperen&#39;, &#39;faro&#39;, &#39;fele&#39;, &#39;fiti&#39;, &#39;foramos&#39;, &#39;fossemos&#39;, &#39;fr&#39;, &#39;fueramos&#39;, &#39;fuesemos&#39;, &#39;fumes&#39;, &#39;fur&#39;, &#39;futes&#39;, &#39;gainera&#39;, &#39;gainerontzean&#39;, &#39;gairebe&#39;, &#39;gor&#39;, &#39;gr&#39;, &#39;guztiz&#39;, &#39;habeis&#39;, &#39;habia&#39;, &#39;habiais&#39;, &#39;habiamos&#39;, &#39;habian&#39;, &#39;habias&#39;, &#39;habra&#39;, &#39;habran&#39;, &#39;habras&#39;, &#39;habre&#39;, &#39;habreis&#39;, &#39;habria&#39;, &#39;habriais&#39;, &#39;habriamos&#39;, &#39;habrian&#39;, &#39;habrias&#39;, &#39;hainbestez&#39;, &#39;haneen&#39;, &#39;hanella&#39;, &#39;hanelle&#39;, &#39;hanelta&#39;, &#39;hanen&#39;, &#39;hanessa&#39;, &#39;hanesta&#39;, &#39;hanet&#39;, &#39;hanta&#39;, &#39;hao&#39;, &#39;haqqnda&#39;, &#39;hayais&#39;, &#39;hec&#39;, &#39;heidan&#39;, &#39;heidat&#39;, &#39;heilla&#39;, &#39;heilta&#39;, &#39;heissa&#39;, &#39;heista&#39;, &#39;heita&#39;, &#39;hic&#39;, &#39;hja&#39;, &#39;hmin&#39;, &#39;hmis&#39;, &#39;hoce&#39;, &#39;hocejo&#39;, &#39;hocem&#39;, &#39;hocemo&#39;, &#39;hoces&#39;, &#39;hoceta&#39;, &#39;hocete&#39;, &#39;hoceva&#39;, &#39;horra&#39;, &#39;houveramos&#39;, &#39;houverao&#39;, &#39;houveriamos&#39;, &#39;houvessemos&#39;, &#39;hr&#39;, &#39;hubieramos&#39;, &#39;hubiesemos&#39;, &#39;icin&#39;, &#39;igy&#39;, &#39;ild&#39;, &#39;inclos&#39;, &#39;ismet&#39;, &#39;istifad&#39;, &#39;jol&#39;, &#39;kakrsen&#39;, &#39;kakrsenkoli&#39;, &#39;kakrsna&#39;, &#39;kakrsnakoli&#39;, &#39;kakrsne&#39;, &#39;kakrsnega&#39;, &#39;kakrsnegakoli&#39;, &#39;kakrsnekoli&#39;, &#39;kakrsnem&#39;, &#39;kakrsnemkoli&#39;, &#39;kakrsnemu&#39;, &#39;kakrsnemukoli&#39;, &#39;kakrsni&#39;, &#39;kakrsnih&#39;, &#39;kakrsnihkoli&#39;, &#39;kakrsnikoli&#39;, &#39;kakrsnim&#39;, &#39;kakrsnima&#39;, &#39;kakrsnimakoli&#39;, &#39;kakrsnimi&#39;, &#39;kakrsnimikoli&#39;, &#39;kakrsnimkoli&#39;, &#39;kakrsno&#39;, &#39;kakrsnokoli&#39;, &#39;kaksen&#39;, &#39;kaksna&#39;, &#39;kaksne&#39;, &#39;kaksnega&#39;, &#39;kaksnem&#39;, &#39;kaksnemu&#39;, &#39;kaksni&#39;, &#39;kaksnih&#39;, &#39;kaksnim&#39;, &#39;kaksnima&#39;, &#39;kaksnimi&#39;, &#39;kaksno&#39;, &#39;keilla&#39;, &#39;keilta&#39;, &#39;keina&#39;, &#39;keissa&#39;, &#39;keista&#39;, &#39;keita&#39;, &#39;kenella&#39;, &#39;kenelta&#39;, &#39;kenena&#39;, &#39;kenessa&#39;, &#39;kenesta&#39;, &#39;keressunk&#39;, &#39;keresztul&#39;, &#39;keta&#39;, &#39;ketka&#39;, &#39;kivul&#39;, &#39;koliksen&#39;, &#39;koliksna&#39;, &#39;koliksne&#39;, &#39;koliksnega&#39;, &#39;koliksnem&#39;, &#39;koliksnemu&#39;, &#39;koliksni&#39;, &#39;koliksnih&#39;, &#39;koliksnim&#39;, &#39;koliksnima&#39;, &#39;koliksnimi&#39;, &#39;koliksno&#39;, &#39;konnen&#39;, &#39;konnte&#39;, &#39;kozott&#39;, &#39;kozul&#39;, &#39;kurangnya&#39;, &#39;langa&#39;, &#39;lbtt&#39;, &#39;legalabb&#39;, &#39;linga&#39;, &#39;lli&#39;, &#39;luc&#39;, &#39;magat&#39;, &#39;maras&#39;, &#39;marsicem&#39;, &#39;marsicemu&#39;, &#39;marsicesa&#39;, &#39;marsicim&#39;, &#39;marvec&#39;, &#39;masik&#39;, &#39;mata&#39;, &#39;meidan&#39;, &#39;meidat&#39;, &#39;meilla&#39;, &#39;meilta&#39;, &#39;meissa&#39;, &#39;meista&#39;, &#39;meita&#39;, &#39;meme&#39;, &#39;mhz&#39;, &#39;mias&#39;, &#39;miert&#39;, &#39;miine&#39;, &#39;milla&#39;, &#39;milta&#39;, &#39;minka&#39;, &#39;mios&#39;, &#39;mirsey&#39;, &#39;missa&#39;, &#39;mista&#39;, &#39;mita&#39;, &#39;mitka&#39;, &#39;mn&#39;, &#39;moci&#39;, &#39;moras&#39;, &#39;mores&#39;, &#39;nagon&#39;, &#39;nagot&#39;, &#39;nagra&#39;, &#39;naiden&#39;, &#39;naihin&#39;, &#39;naiksi&#39;, &#39;nailla&#39;, &#39;naille&#39;, &#39;nailta&#39;, &#39;naina&#39;, &#39;naissa&#39;, &#39;naista&#39;, &#39;naita&#39;, &#39;najbrz&#39;, &#39;namrec&#39;, &#39;nao&#39;, &#39;nar&#39;, &#39;nasa&#39;, &#39;nasega&#39;, &#39;nasem&#39;, &#39;nasemu&#39;, &#39;nasi&#39;, &#39;nasih&#39;, &#39;nasim&#39;, &#39;nasima&#39;, &#39;nasimi&#39;, &#39;nasl&#39;, &#39;naso&#39;, &#39;necem&#39;, &#39;necemu&#39;, &#39;necesa&#39;, &#39;necim&#39;, &#39;neha&#39;, &#39;nehany&#39;, &#39;nekaksen&#39;, &#39;nekaksna&#39;, &#39;nekaksne&#39;, &#39;nekaksnega&#39;, &#39;nekaksnem&#39;, &#39;nekaksnemu&#39;, &#39;nekaksni&#39;, &#39;nekaksnih&#39;, &#39;nekaksnim&#39;, &#39;nekaksnima&#39;, &#39;nekaksnimi&#39;, &#39;nekaksno&#39;, &#39;nelkul&#39;, &#39;nhayt&#39;, &#39;nic&#39;, &#39;nicemer&#39;, &#39;nicemur&#39;, &#39;nicesar&#39;, &#39;nicimer&#39;, &#39;nicin&#39;, &#39;nihce&#39;, &#39;niilla&#39;, &#39;niilta&#39;, &#39;niina&#39;, &#39;niissa&#39;, &#39;niista&#39;, &#39;niita&#39;, &#39;nikakrsen&#39;, &#39;nikakrsna&#39;, &#39;nikakrsne&#39;, &#39;nikakrsnega&#39;, &#39;nikakrsnem&#39;, &#39;nikakrsnemu&#39;, &#39;nikakrsni&#39;, &#39;nikakrsnih&#39;, &#39;nikakrsnim&#39;, &#39;nikakrsnima&#39;, &#39;nikakrsnimi&#39;, &#39;nikakrsno&#39;, &#39;niy&#39;, &#39;noastra&#39;, &#39;noce&#39;, &#39;nocejo&#39;, &#39;nocem&#39;, &#39;nocemo&#39;, &#39;noces&#39;, &#39;noceta&#39;, &#39;nocete&#39;, &#39;noceva&#39;, &#39;nomes&#39;, &#39;ogsa&#39;, &#39;oket&#39;, &#39;olah&#39;, &#39;oldugu&#39;, &#39;olmad&#39;, &#39;olmusdur&#39;, &#39;onlarn&#39;, &#39;ordea&#39;, &#39;oricand&#39;, &#39;oricat&#39;, &#39;oricind&#39;, &#39;oricit&#39;, &#39;oseminstirideset&#39;, &#39;oseminstiridesetih&#39;, &#39;oseminstiridesetim&#39;, &#39;oseminstiridesetimi&#39;, &#39;ossze&#39;, &#39;osterantzean&#39;, &#39;oz&#39;, &#39;ozu&#39;, &#39;pac&#39;, &#39;pana&#39;, &#39;perche&#39;, &#39;perque&#39;, &#39;petinstirideset&#39;, &#39;petinstirideseta&#39;, &#39;petinstiridesete&#39;, &#39;petinstiridesetega&#39;, &#39;petinstiridesetem&#39;, &#39;petinstiridesetemu&#39;, &#39;petinstirideseti&#39;, &#39;petinstiridesetih&#39;, &#39;petinstiridesetim&#39;, &#39;petinstiridesetima&#39;, &#39;petinstiridesetimi&#39;, &#39;petinstirideseto&#39;, &#39;piu&#39;, &#39;printr&#39;, &#39;putin&#39;, &#39;putina&#39;, &#39;qars&#39;, &#39;qdr&#39;, &#39;qrx&#39;, &#39;ra&#39;, &#39;sadan&#39;, &#39;sadana&#39;, &#39;sadant&#39;, &#39;sadc&#39;, &#39;sajat&#39;, &#39;saniy&#39;, &#39;sann&#39;, &#39;sao&#39;, &#39;saro&#39;, &#39;seais&#39;, &#39;sedeminsestdeset&#39;, &#39;sedeminsestdesetih&#39;, &#39;sedeminsestdesetim&#39;, &#39;sedeminsestdesetimi&#39;, &#39;sekurang&#39;, &#39;sele&#39;, &#39;seran&#39;, &#39;serao&#39;, &#39;sere&#39;, &#39;sereis&#39;, &#39;seriais&#39;, &#39;seriamos&#39;, &#39;serian&#39;, &#39;serias&#39;, &#39;sest&#39;, &#39;sesta&#39;, &#39;sestdeset&#39;, &#39;sestdeseta&#39;, &#39;sestdesete&#39;, &#39;sestdesetega&#39;, &#39;sestdesetem&#39;, &#39;sestdesetemu&#39;, &#39;sestdeseti&#39;, &#39;sestdesetih&#39;, &#39;sestdesetim&#39;, &#39;sestdesetima&#39;, &#39;sestdesetimi&#39;, &#39;sestdeseto&#39;, &#39;seste&#39;, &#39;sestega&#39;, &#39;sestem&#39;, &#39;sestemu&#39;, &#39;sesti&#39;, &#39;sestih&#39;, &#39;sestim&#39;, &#39;sestima&#39;, &#39;sestimi&#39;, &#39;sestindvajset&#39;, &#39;sestindvajsetih&#39;, &#39;sestindvajsetim&#39;, &#39;sestindvajsetimi&#39;, &#39;sestintrideset&#39;, &#39;sestintridesetih&#39;, &#39;sestintridesetim&#39;, &#39;sestintridesetimi&#39;, &#39;sestnajst&#39;, &#39;sestnajsta&#39;, &#39;sestnajste&#39;, &#39;sestnajstega&#39;, &#39;sestnajstem&#39;, &#39;sestnajstemu&#39;, &#39;sestnajsti&#39;, &#39;sestnajstih&#39;, &#39;sestnajstim&#39;, &#39;sestnajstima&#39;, &#39;sestnajstimi&#39;, &#39;sestnajsto&#39;, &#39;sesto&#39;, &#39;seststo&#39;, &#39;seststotih&#39;, &#39;seststotim&#39;, &#39;seststotimi&#39;, &#39;setidak&#39;, &#39;sey&#39;, &#39;shv&#39;, &#39;siina&#39;, &#39;siita&#39;, &#39;silla&#39;, &#39;silta&#39;, &#39;sita&#39;, &#39;sizlr&#39;, &#39;sjalv&#39;, &#39;sjl&#39;, &#39;skkiz&#39;, &#39;sksn&#39;, &#39;slind&#39;, &#39;smes&#39;, &#39;sn&#39;, &#39;snin&#39;, &#39;sprico&#39;, &#39;stara&#39;, &#39;staro&#39;, &#39;stiri&#39;, &#39;stirideset&#39;, &#39;stirideseta&#39;, &#39;stiridesete&#39;, &#39;stiridesetega&#39;, &#39;stiridesetem&#39;, &#39;stiridesetemu&#39;, &#39;stirideseti&#39;, &#39;stiridesetih&#39;, &#39;stiridesetim&#39;, &#39;stiridesetima&#39;, &#39;stiridesetimi&#39;, &#39;stirideseto&#39;, &#39;stirih&#39;, &#39;stiriindvajset&#39;, &#39;stiriindvajseta&#39;, &#39;stiriindvajsete&#39;, &#39;stiriindvajsetega&#39;, &#39;stiriindvajsetem&#39;, &#39;stiriindvajsetemu&#39;, &#39;stiriindvajseti&#39;, &#39;stiriindvajsetih&#39;, &#39;stiriindvajsetim&#39;, &#39;stiriindvajsetima&#39;, &#39;stiriindvajsetimi&#39;, &#39;stiriindvajseto&#39;, &#39;stirim&#39;, &#39;stirimi&#39;, &#39;stirinajst&#39;, &#39;stirinajsta&#39;, &#39;stirinajste&#39;, &#39;stirinajstega&#39;, &#39;stirinajstem&#39;, &#39;stirinajstemu&#39;, &#39;stirinajsti&#39;, &#39;stirinajstih&#39;, &#39;stirinajstim&#39;, &#39;stirinajstima&#39;, &#39;stirinajstimi&#39;, &#39;stirinajsto&#39;, &#39;stiristo&#39;, &#39;stiristotih&#39;, &#39;stiristotim&#39;, &#39;stiristotimi&#39;, &#39;stirje&#39;, &#39;sunteti&#39;, &#39;szamara&#39;, &#39;tahan&#39;, &#39;taksen&#39;, &#39;taksi&#39;, &#39;taksna&#39;, &#39;taksne&#39;, &#39;taksnega&#39;, &#39;taksnem&#39;, &#39;taksnemu&#39;, &#39;taksni&#39;, &#39;taksnih&#39;, &#39;taksnim&#39;, &#39;taksnima&#39;, &#39;taksnimi&#39;, &#39;taksno&#39;, &#39;talan&#39;, &#39;talla&#39;, &#39;talle&#39;, &#39;talta&#39;, &#39;tama&#39;, &#39;taman&#39;, &#39;tambe&#39;, &#39;tambem&#39;, &#39;tambien&#39;, &#39;tassa&#39;, &#39;tasta&#39;, &#39;tata&#39;, &#39;tau&#39;, &#39;tehat&#39;, &#39;teidan&#39;, &#39;teidat&#39;, &#39;teilla&#39;, &#39;teilta&#39;, &#39;teissa&#39;, &#39;teista&#39;, &#39;teita&#39;, &#39;temvec&#39;, &#39;tendra&#39;, &#39;tendran&#39;, &#39;tendras&#39;, &#39;tendre&#39;, &#39;tendreis&#39;, &#39;tendria&#39;, &#39;tendriais&#39;, &#39;tendriamos&#39;, &#39;tendrian&#39;, &#39;tendrias&#39;, &#39;teneis&#39;, &#39;tengais&#39;, &#39;tenia&#39;, &#39;teniais&#39;, &#39;teniamos&#39;, &#39;tenian&#39;, &#39;tenias&#39;, &#39;terao&#39;, &#39;teriamos&#39;, &#39;tidaknya&#39;, &#39;tie&#39;, &#39;tinhamos&#39;, &#39;tisoc&#39;, &#39;tisoca&#39;, &#39;tisoce&#39;, &#39;tisocega&#39;, &#39;tisocem&#39;, &#39;tisocemu&#39;, &#39;tisocer&#39;, &#39;tisocera&#39;, &#39;tisocere&#39;, &#39;tisocerega&#39;, &#39;tisocerem&#39;, &#39;tisoceremu&#39;, &#39;tisoceri&#39;, &#39;tisocerih&#39;, &#39;tisocerim&#39;, &#39;tisocerima&#39;, &#39;tisocerimi&#39;, &#39;tisocero&#39;, &#39;tisoci&#39;, &#39;tisocih&#39;, &#39;tisocim&#39;, &#39;tisocima&#39;, &#39;tisocimi&#39;, &#39;tisoco&#39;, &#39;tiveramos&#39;, &#39;tivessemos&#39;, &#39;tobb&#39;, &#39;toliksen&#39;, &#39;toliksna&#39;, &#39;toliksne&#39;, &#39;toliksnega&#39;, &#39;toliksnem&#39;, &#39;toliksnemu&#39;, &#39;toliksni&#39;, &#39;toliksnih&#39;, &#39;toliksnim&#39;, &#39;toliksnima&#39;, &#39;toliksnimi&#39;, &#39;toliksno&#39;, &#39;tovabb&#39;, &#39;tovabba&#39;, &#39;triinsestdeset&#39;, &#39;triinsestdesetih&#39;, &#39;triinsestdesetim&#39;, &#39;triinsestdesetimi&#39;, &#39;tssuf&#39;, &#39;tuota&#39;, &#39;tuvieramos&#39;, &#39;tuviesemos&#39;, &#39;uber&#39;, &#39;uc&#39;, &#39;ucun&#39;, &#39;ugy&#39;, &#39;uj&#39;, &#39;ujabb&#39;, &#39;ujra&#39;, &#39;ultim&#39;, &#39;utana&#39;, &#39;utolso&#39;, &#39;valo&#39;, &#39;varfor&#39;, &#39;vasa&#39;, &#39;vasega&#39;, &#39;vasem&#39;, &#39;vasemu&#39;, &#39;vasi&#39;, &#39;vasih&#39;, &#39;vasim&#39;, &#39;vasima&#39;, &#39;vasimi&#39;, &#39;vaso&#39;, &#39;vnovic&#39;, &#39;voastra&#39;, &#39;voce&#39;, &#39;voces&#39;, &#39;voua&#39;, &#39;vprico&#39;, &#39;vre&#39;, &#39;vret&#39;, &#39;vrt&#39;, &#39;vsakrsen&#39;, &#39;vsakrsna&#39;, &#39;vsakrsne&#39;, &#39;vsakrsnega&#39;, &#39;vsakrsnem&#39;, &#39;vsakrsnemu&#39;, &#39;vsakrsni&#39;, &#39;vsakrsnih&#39;, &#39;vsakrsnim&#39;, &#39;vsakrsnima&#39;, &#39;vsakrsnimi&#39;, &#39;vsakrsno&#39;, &#39;vsec&#39;, &#39;vstric&#39;, &#39;vzdolz&#39;, &#39;wahrend&#39;, &#39;wurde&#39;, &#39;wurden&#39;, &#39;xanm&#39;, &#39;yalnz&#39;, &#39;yaxs&#39;, &#39;yen&#39;, &#39;yetmis&#39;, &#39;yni&#39;, &#39;yuz&#39;, &#39;zelel&#39;, &#39;zelela&#39;, &#39;zelele&#39;, &#39;zeleli&#39;, &#39;zelelo&#39;, &#39;zelen&#39;, &#39;zelena&#39;, &#39;zelene&#39;, &#39;zeleni&#39;, &#39;zeleno&#39;, &#39;zeleti&#39;, &#39;zeli&#39;, &#39;zelijo&#39;, &#39;zelim&#39;, &#39;zelimo&#39;, &#39;zelis&#39;, &#39;zelita&#39;, &#39;zelite&#39;, &#39;zeliva&#39;, &#39;zmoci&#39;, &#39;zmores&#39;, &#39;zsa&#39;] not in stop_words.
+  warnings.warn(
+</pre></div>
+</div>
+</div>
+</div>
+<p>The features matrix is large and sparse.<br />
+The next move is to select important features.</p>
+<p>The concept, per feature, if it has some tendency to either class.<br />
+It makes sense since the assumption is each feature is independent of other given class.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The Class Ratio per Feature</span>
+
+<span class="n">numFeatures</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">oCntVec</span><span class="o">.</span><span class="n">vocabulary_</span><span class="p">)</span>
+<span class="n">lFeatNames</span>  <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">oCntVec</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">())</span>
+<span class="n">vClassRatio</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">numFeatures</span><span class="p">)</span>
+
+<span class="c1"># Number of occurrence per class</span>
+<span class="n">vSumNeg</span> <span class="o">=</span> <span class="n">mXTrain</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="p">(</span><span class="n">vYTrain</span> <span class="o">==</span> <span class="n">D_CATEGORY</span><span class="p">[</span><span class="s1">&#39;negative&#39;</span><span class="p">])</span>
+<span class="n">vSumPos</span> <span class="o">=</span> <span class="n">mXTrain</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="p">(</span><span class="n">vYTrain</span> <span class="o">==</span> <span class="n">D_CATEGORY</span><span class="p">[</span><span class="s1">&#39;positive&#39;</span><span class="p">])</span>
+
+<span class="n">hF</span><span class="p">,</span> <span class="n">hA</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">hA</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">numFeatures</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">vSumNeg</span><span class="p">),</span> <span class="n">color</span> <span class="o">=</span> <span class="n">lMatPltLibclr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Negative&#39;</span><span class="p">)</span>
+<span class="n">hA</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">numFeatures</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">vSumPos</span><span class="p">),</span> <span class="n">color</span> <span class="o">=</span> <span class="n">lMatPltLibclr</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Positive&#39;</span><span class="p">)</span>
+<span class="n">hA</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Feature Index&#39;</span><span class="p">)</span>
+<span class="n">hA</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Log(Count)&#39;</span><span class="p">)</span>
+<span class="n">hA</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/9066b5e3b60407a6e5383094e39ac4bedeed8406fedc72233d6a738b17a86167.png" src="../../../../_images/9066b5e3b60407a6e5383094e39ac4bedeed8406fedc72233d6a738b17a86167.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ratio per Feature</span>
+
+<span class="c1"># The ratio between the counts.</span>
+<span class="c1"># To make it symmetric, we&#39;ll take the maximum of both sides.</span>
+<span class="n">vClsRatio</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">((</span><span class="n">vSumNeg</span> <span class="o">/</span> <span class="p">(</span><span class="n">vSumPos</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">minRatio</span><span class="p">)),</span> <span class="n">vSumPos</span> <span class="o">/</span> <span class="p">(</span><span class="n">vSumNeg</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">minRatio</span><span class="p">)))),</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1"># Limit the ratio to [0, 2]</span>
+<span class="n">vClsRatio</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">vClsRatio</span><span class="p">,</span> <span class="n">a_min</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">a_max</span> <span class="o">=</span> <span class="n">maxRatio</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the Ratio</span>
+<span class="n">hF</span><span class="p">,</span> <span class="n">hA</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">hA</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">numFeatures</span><span class="p">),</span> <span class="n">vClsRatio</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">lMatPltLibclr</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Ratio&#39;</span><span class="p">)</span>
+<span class="n">hA</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span> <span class="n">minRatio</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">lMatPltLibclr</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Minimum Ratio&#39;</span><span class="p">)</span>
+<span class="n">hA</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Feature Index&#39;</span><span class="p">)</span>
+<span class="n">hA</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Ratio [0, </span><span class="si">{</span><span class="n">maxRatio</span><span class="si">}</span><span class="s1">]&#39;</span><span class="p">)</span>
+<span class="n">hA</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../../../_images/e0b05cb332f306d931f7cf499f88a775d9c648b131457b50b9bbbe73ca123ead.png" src="../../../../_images/e0b05cb332f306d931f7cf499f88a775d9c648b131457b50b9bbbe73ca123ead.png" />
+</div>
+</div>
+<p>Now, we build the words dictionary based on the selected words only.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Words Dictionary</span>
+
+<span class="n">lDicWord</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">oCntVec</span><span class="o">.</span><span class="n">get_feature_names_out</span><span class="p">()[</span><span class="n">vClsRatio</span> <span class="o">&gt;=</span> <span class="n">minRatio</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lDicWord</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;aaa&#39;,
+ &#39;aaaaaaah&#39;,
+ &#39;aaaaah&#39;,
+ &#39;aaaaatch&#39;,
+ &#39;aaaand&#39;,
+ &#39;aaaarrgh&#39;,
+ &#39;aaah&#39;,
+ &#39;aaaugh&#39;,
+ &#39;aachen&#39;,
+ &#39;aada&#39;,
+ &#39;aadha&#39;,
+ &#39;aag&#39;,
+ &#39;aage&#39;,
+ &#39;aaghh&#39;,
+ &#39;aah&#39;,
+ &#39;aahhh&#39;,
+ &#39;aaip&#39;,
+ &#39;aaja&#39;,
+ &#39;aaker&#39;,
+ &#39;aakrosh&#39;,
+ &#39;aaliyah&#39;,
+ &#39;aames&#39;,
+ &#39;aankh&#39;,
+ &#39;aapke&#39;,
+ &#39;aapkey&#39;,
+ &#39;aardman&#39;,
+ &#39;aardvarks&#39;,
+ &#39;aargh&#39;,
+ &#39;aarrrgh&#39;,
+ &#39;aatish&#39;,
+ &#39;aauugghh&#39;,
+ &#39;aavjo&#39;,
+ &#39;aaww&#39;,
+ &#39;abadi&#39;,
+ &#39;abahy&#39;,
+ &#39;abanazer&#39;,
+ &#39;abanks&#39;,
+ &#39;abas&#39;,
+ &#39;abashed&#39;,
+ &#39;abashidze&#39;,
+ &#39;abating&#39;,
+ &#39;abattoirs&#39;,
+ &#39;abba&#39;,
+ &#39;abbad&#39;,
+ &#39;abbots&#39;,
+ &#39;abbu&#39;,
+ &#39;abcd&#39;,
+ &#39;abdic&#39;,
+ &#39;abdicates&#39;,
+ &#39;abdicating&#39;,
+ &#39;abdomen&#39;,
+ &#39;abdominal&#39;,
+ &#39;abdu&#39;,
+ &#39;abductee&#39;,
+ &#39;abductions&#39;,
+ &#39;abductors&#39;,
+ &#39;abercrombie&#39;,
+ &#39;abernathy&#39;,
+ &#39;aberystwyth&#39;,
+ &#39;abets&#39;,
+ &#39;abetted&#39;,
+ &#39;abetting&#39;,
+ &#39;abeyance&#39;,
+ &#39;abgail&#39;,
+ &#39;abhay&#39;,
+ &#39;abhays&#39;,
+ &#39;abhijeet&#39;,
+ &#39;abhimaan&#39;,
+ &#39;abhisheh&#39;,
+ &#39;abhishek&#39;,
+ &#39;abhorrence&#39;,
+ &#39;abhorrent&#39;,
+ &#39;abhors&#39;,
+ &#39;abi&#39;,
+ &#39;abides&#39;,
+ &#39;abigil&#39;,
+ &#39;abilityof&#39;,
+ &#39;abishai&#39;,
+ &#39;abishek&#39;,
+ &#39;abject&#39;,
+ &#39;abjectly&#39;,
+ &#39;abkani&#39;,
+ &#39;ably&#39;,
+ &#39;abm&#39;,
+ &#39;abnormal&#39;,
+ &#39;abnormality&#39;,
+ &#39;abodes&#39;,
+ &#39;abolish&#39;,
+ &#39;abolished&#39;,
+ &#39;abolition&#39;,
+ &#39;abolitionism&#39;,
+ &#39;abolitionists&#39;,
+ &#39;abominable&#39;,
+ &#39;abomination&#39;,
+ &#39;abominations&#39;,
+ &#39;abominibal&#39;,
+ &#39;aboreson&#39;,
+ &#39;aborigin&#39;,
+ &#39;aboriginal&#39;,
+ &#39;aborigine&#39;,
+ &#39;aborigines&#39;,
+ &#39;aboriginies&#39;,
+ &#39;aborigins&#39;,
+ &#39;aborigone&#39;,
+ &#39;aborting&#39;,
+ &#39;abortion&#39;,
+ &#39;abortionist&#39;,
+ &#39;abortionists&#39;,
+ &#39;abortions&#39;,
+ &#39;abos&#39;,
+ &#39;abott&#39;,
+ &#39;abounded&#39;,
+ &#39;abounding&#39;,
+ &#39;aboutagirly&#39;,
+ &#39;aboutan&#39;,
+ &#39;abouts&#39;,
+ &#39;abracadabrantesque&#39;,
+ &#39;abrahamic&#39;,
+ &#39;abrasively&#39;,
+ &#39;abrazo&#39;,
+ &#39;abridge&#39;,
+ &#39;abril&#39;,
+ &#39;abromowitz&#39;,
+ &#39;abs&#39;,
+ &#39;absalom&#39;,
+ &#39;abscessed&#39;,
+ &#39;abscond&#39;,
+ &#39;absconded&#39;,
+ &#39;absconding&#39;,
+ &#39;absences&#39;,
+ &#39;absense&#39;,
+ &#39;absentminded&#39;,
+ &#39;absentmindedly&#39;,
+ &#39;abskani&#39;,
+ &#39;absolom&#39;,
+ &#39;absolutelly&#39;,
+ &#39;absoluter&#39;,
+ &#39;absolutey&#39;,
+ &#39;absolutlely&#39;,
+ &#39;absolutley&#39;,
+ &#39;absolve&#39;,
+ &#39;absorbent&#39;,
+ &#39;absorbing&#39;,
+ &#39;absorbs&#39;,
+ &#39;absoutley&#39;,
+ &#39;abstained&#39;,
+ &#39;abstains&#39;,
+ &#39;abstracted&#39;,
+ &#39;abstraction&#39;,
+ &#39;absurd&#39;,
+ &#39;absurder&#39;,
+ &#39;absurdism&#39;,
+ &#39;abt&#39;,
+ &#39;abu&#39;,
+ &#39;abuelita&#39;,
+ &#39;abunch&#39;,
+ &#39;abusers&#39;,
+ &#39;abuses&#39;,
+ &#39;abusively&#39;,
+ &#39;abut&#39;,
+ &#39;abutted&#39;,
+ &#39;abuzz&#39;,
+ &#39;abvious&#39;,
+ &#39;aby&#39;,
+ &#39;abydos&#39;,
+ &#39;abysmal&#39;,
+ &#39;abysmally&#39;,
+ &#39;abyssmal&#39;,
+ &#39;abysymal&#39;,
+ &#39;ac&#39;,
+ &#39;acadamy&#39;,
+ &#39;academe&#39;,
+ &#39;academically&#39;,
+ &#39;acadmey&#39;,
+ &#39;acapella&#39;,
+ &#39;acc&#39;,
+ &#39;accapella&#39;,
+ &#39;acceded&#39;,
+ &#39;accedes&#39;,
+ &#39;accelerant&#39;,
+ &#39;accelerated&#39;,
+ &#39;acceleration&#39;,
+ &#39;accelerator&#39;,
+ &#39;accentuated&#39;,
+ &#39;accentuates&#39;,
+ &#39;accentuation&#39;,
+ &#39;acceptation&#39;,
+ &#39;acceptence&#39;,
+ &#39;acception&#39;,
+ &#39;accesible&#39;,
+ &#39;accessability&#39;,
+ &#39;accessed&#39;,
+ &#39;accessible&#39;,
+ &#39;accession&#39;,
+ &#39;accessorizing&#39;,
+ &#39;accessory&#39;,
+ &#39;accidentee&#39;,
+ &#39;accidently&#39;,
+ &#39;acclamation&#39;,
+ &#39;acclimate&#39;,
+ &#39;acclimation&#39;,
+ &#39;accolade&#39;,
+ &#39;accommodated&#39;,
+ &#39;accommodates&#39;,
+ &#39;accompagnied&#39;,
+ &#39;accomplishes&#39;,
+ &#39;accordian&#39;,
+ &#39;accordion&#39;,
+ &#39;accords&#39;,
+ &#39;accorsi&#39;,
+ &#39;accost&#39;,
+ &#39;accountability&#39;,
+ &#39;accountable&#39;,
+ &#39;accountancy&#39;,
+ &#39;accouterments&#39;,
+ &#39;accredited&#39;,
+ &#39;accrutements&#39;,
+ &#39;acct&#39;,
+ &#39;accumulate&#39;,
+ &#39;accumulates&#39;,
+ &#39;accuracies&#39;,
+ &#39;accursed&#39;,
+ &#39;accusation&#39;,
+ &#39;accusers&#39;,
+ &#39;accustomed&#39;,
+ &#39;acd&#39;,
+ &#39;aced&#39;,
+ &#39;acedemy&#39;,
+ &#39;acedmy&#39;,
+ &#39;acerbic&#39;,
+ &#39;acerbity&#39;,
+ &#39;acetylene&#39;,
+ &#39;achad&#39;,
+ &#39;achala&#39;,
+ &#39;acharya&#39;,
+ &#39;acheaology&#39;,
+ &#39;ached&#39;,
+ &#39;acheived&#39;,
+ &#39;achero&#39;,
+ &#39;achievable&#39;,
+ &#39;achieveing&#39;,
+ &#39;achievement&#39;,
+ &#39;achievements&#39;,
+ &#39;achievers&#39;,
+ &#39;achile&#39;,
+ &#39;achilleas&#39;,
+ &#39;achilles&#39;,
+ &#39;achra&#39;,
+ &#39;achterbusch&#39;,
+ &#39;acidently&#39;,
+ &#39;acidic&#39;,
+ &#39;acidity&#39;,
+ &#39;acids&#39;,
+ &#39;acin&#39;,
+ &#39;acing&#39;,
+ &#39;aciton&#39;,
+ &#39;ack&#39;,
+ &#39;acker&#39;,
+ &#39;ackerman&#39;,
+ &#39;ackland&#39;,
+ &#39;acknowledging&#39;,
+ &#39;acknowledgments&#39;,
+ &#39;aclear&#39;,
+ &#39;aclu&#39;,
+ &#39;acmetropolis&#39;,
+ &#39;acolytes&#39;,
+ &#39;acomplication&#39;,
+ &#39;acorn&#39;,
+ &#39;acorns&#39;,
+ &#39;acoustics&#39;,
+ &#39;acp&#39;,
+ &#39;acquaint&#39;,
+ &#39;acquaintaces&#39;,
+ &#39;acquaints&#39;,
+ &#39;acquart&#39;,
+ &#39;acquiescence&#39;,
+ &#39;acquisition&#39;,
+ &#39;acquitane&#39;,
+ &#39;acquits&#39;,
+ &#39;acrap&#39;,
+ &#39;acrid&#39;,
+ &#39;acrimonious&#39;,
+ &#39;acrimony&#39;,
+ &#39;acronymic&#39;,
+ &#39;acropolis&#39;,
+ &#39;acs&#39;,
+ &#39;actally&#39;,
+ &#39;actelone&#39;,
+ &#39;actess&#39;,
+ &#39;actin&#39;,
+ &#39;actingjob&#39;,
+ &#39;actings&#39;,
+ &#39;actingwise&#39;,
+ &#39;actio&#39;,
+ &#39;actiona&#39;,
+ &#39;actioned&#39;,
+ &#39;actioneer&#39;,
+ &#39;actioneers&#39;,
+ &#39;actionless&#39;,
+ &#39;actionmovie&#39;,
+ &#39;actionpacked&#39;,
+ &#39;actionscenes&#39;,
+ &#39;activate&#39;,
+ &#39;activated&#39;,
+ &#39;actives&#39;,
+ &#39;activest&#39;,
+ &#39;activision&#39;,
+ &#39;activism&#39;,
+ &#39;actores&#39;,
+ &#39;actorsactresses&#39;,
+ &#39;actorsi&#39;,
+ &#39;actorstallone&#39;,
+ &#39;actorsthey&#39;,
+ &#39;actra&#39;,
+ &#39;actreesess&#39;,
+ &#39;actriss&#39;,
+ &#39;actualization&#39;,
+ &#39;actualize&#39;,
+ &#39;actuall&#39;,
+ &#39;actuelly&#39;,
+ &#39;actullly&#39;,
+ &#39;acturly&#39;,
+ &#39;acual&#39;,
+ &#39;acually&#39;,
+ &#39;acumen&#39;,
+ &#39;acupat&#39;,
+ &#39;acurately&#39;,
+ &#39;acus&#39;,
+ &#39;adabted&#39;,
+ &#39;adachi&#39;,
+ &#39;adage&#39;,
+ &#39;adagio&#39;,
+ &#39;adalbert&#39;,
+ &#39;adama&#39;,
+ &#39;adamantium&#39;,
+ &#39;adames&#39;,
+ &#39;adamos&#39;,
+ &#39;adaptable&#39;,
+ &#39;adaptaion&#39;,
+ &#39;adapters&#39;,
+ &#39;adapts&#39;,
+ &#39;adcox&#39;,
+ &#39;addam&#39;,
+ &#39;addario&#39;,
+ &#39;addicting&#39;,
+ &#39;addictions&#39;,
+ &#39;addictive&#39;,
+ &#39;addio&#39;,
+ &#39;addison&#39;,
+ &#39;additive&#39;,
+ &#39;additives&#39;,
+ &#39;addled&#39;,
+ &#39;addons&#39;,
+ &#39;addy&#39;,
+ &#39;adell&#39;,
+ &#39;ademir&#39;,
+ &#39;aden&#39;,
+ &#39;adenoidal&#39;,
+ &#39;adeptness&#39;,
+ &#39;adequateand&#39;,
+ &#39;adgth&#39;,
+ &#39;adhered&#39;,
+ &#39;adherent&#39;,
+ &#39;adheres&#39;,
+ &#39;adhura&#39;,
+ &#39;adibah&#39;,
+ &#39;adien&#39;,
+ &#39;adios&#39;,
+ &#39;aditiya&#39;,
+ &#39;adj&#39;,
+ &#39;adjani&#39;,
+ &#39;adjournment&#39;,
+ &#39;adjunct&#39;,
+ &#39;adjuncts&#39;,
+ &#39;adjurdubois&#39;,
+ &#39;adjust&#39;,
+ &#39;adjusted&#39;,
+ &#39;adjuster&#39;,
+ &#39;adjustin&#39;,
+ &#39;adjustment&#39;,
+ &#39;adjutant&#39;,
+ &#39;adkins&#39;,
+ &#39;adm&#39;,
+ &#39;adma&#39;,
+ &#39;adman&#39;,
+ &#39;admarible&#39;,
+ &#39;administer&#39;,
+ &#39;administered&#39;,
+ &#39;administering&#39;,
+ &#39;administrations&#39;,
+ &#39;adminsitrative&#39;,
+ &#39;admira&#39;,
+ &#39;admirably&#39;,
+ &#39;admirals&#39;,
+ &#39;admiralty&#39;,
+ &#39;admiration&#39;,
+ &#39;admirees&#39;,
+ &#39;admissible&#39;,
+ &#39;admitedly&#39;,
+ &#39;admitt&#39;,
+ &#39;admittadly&#39;,
+ &#39;admittance&#39;,
+ &#39;admittingly&#39;,
+ &#39;admixtures&#39;,
+ &#39;admonish&#39;,
+ &#39;admonishes&#39;,
+ &#39;admonishing&#39;,
+ &#39;admonition&#39;,
+ &#39;adnausem&#39;,
+ &#39;adolphs&#39;,
+ &#39;adone&#39;,
+ &#39;adonis&#39;,
+ &#39;adoptee&#39;,
+ &#39;adoptees&#39;,
+ &#39;adopter&#39;,
+ &#39;adopting&#39;,
+ &#39;adoptive&#39;,
+ &#39;adorable&#39;,
+ &#39;adorably&#39;,
+ &#39;adorble&#39;,
+ &#39;adored&#39;,
+ &#39;adores&#39;,
+ &#39;adorible&#39;,
+ &#39;adorning&#39;,
+ &#39;adotped&#39;,
+ &#39;adr&#39;,
+ &#39;adreno&#39;,
+ &#39;adreon&#39;,
+ &#39;adriano&#39;,
+ &#39;adriatic&#39;,
+ &#39;adrift&#39;,
+ &#39;adroitly&#39;,
+ &#39;ads&#39;,
+ &#39;adt&#39;,
+ &#39;adulating&#39;,
+ &#39;adulhood&#39;,
+ &#39;adulterate&#39;,
+ &#39;adulterated&#39;,
+ &#39;adulteress&#39;,
+ &#39;adulteries&#39;,
+ &#39;adulthood&#39;,
+ &#39;adultism&#39;,
+ &#39;adultry&#39;,
+ &#39;advan&#39;,
+ &#39;advancing&#39;,
+ &#39;advani&#39;,
+ &#39;advantaged&#39;,
+ &#39;advent&#39;,
+ &#39;adventist&#39;,
+ &#39;adventured&#39;,
+ &#39;adventuring&#39;,
+ &#39;adventurously&#39;,
+ &#39;adventurousness&#39;,
+ &#39;adversities&#39;,
+ &#39;adversity&#39;,
+ &#39;advertise&#39;,
+ &#39;advertized&#39;,
+ &#39;advices&#39;,
+ &#39;advisable&#39;,
+ &#39;advisement&#39;,
+ &#39;adviser&#39;,
+ &#39;advisers&#39;,
+ &#39;advision&#39;,
+ &#39;advisory&#39;,
+ &#39;advocated&#39;,
+ &#39;ae&#39;,
+ &#39;aed&#39;,
+ &#39;aegean&#39;,
+ &#39;aeneid&#39;,
+ &#39;aeons&#39;,
+ &#39;aerobic&#39;,
+ &#39;aerobicide&#39;,
+ &#39;aerobics&#39;,
+ &#39;aerodynamic&#39;,
+ &#39;aeronautical&#39;,
+ &#39;aesir&#39;,
+ &#39;aesop&#39;,
+ &#39;aestheically&#39;,
+ &#39;aesthete&#39;,
+ &#39;aesthetical&#39;,
+ &#39;aestheticism&#39;,
+ &#39;aetheist&#39;,
+ &#39;aetherial&#39;,
+ &#39;aetv&#39;,
+ &#39;afb&#39;,
+ &#39;afest&#39;,
+ &#39;afew&#39;,
+ &#39;aff&#39;,
+ &#39;affability&#39;,
+ &#39;affaire&#39;,
+ &#39;affect&#39;,
+ &#39;affectation&#39;,
+ &#39;affectations&#39;,
+ &#39;affectedly&#39;,
+ &#39;affecting&#39;,
+ &#39;affectingly&#39;,
+ &#39;affection&#39;,
+ &#39;affectionate&#39;,
+ &#39;affectionnates&#39;,
+ &#39;affective&#39;,
+ &#39;affectts&#39;,
+ &#39;afficinados&#39;,
+ &#39;afficionado&#39;,
+ &#39;afficionados&#39;,
+ &#39;affinities&#39;,
+ &#39;affirm&#39;,
+ &#39;affirmation&#39;,
+ &#39;affirmations&#39;,
+ &#39;affirmatively&#39;,
+ &#39;affirms&#39;,
+ &#39;affixed&#39;,
+ &#39;affleck&#39;,
+ &#39;afflect&#39;,
+ &#39;afflict&#39;,
+ &#39;afflictions&#39;,
+ &#39;affluent&#39;,
+ &#39;affordable&#39;,
+ &#39;affront&#39;,
+ &#39;affronting&#39;,
+ &#39;affronts&#39;,
+ &#39;affter&#39;,
+ &#39;afgahnistan&#39;,
+ &#39;afgan&#39;,
+ &#39;afgani&#39;,
+ &#39;afghani&#39;,
+ &#39;afghanistan&#39;,
+ &#39;afi&#39;,
+ &#39;afican&#39;,
+ &#39;afield&#39;,
+ &#39;afilm&#39;,
+ &#39;afirming&#39;,
+ &#39;afis&#39;,
+ &#39;afl&#39;,
+ &#39;aflac&#39;,
+ &#39;aflame&#39;,
+ &#39;afm&#39;,
+ &#39;afonya&#39;,
+ &#39;afoot&#39;,
+ &#39;aformentioned&#39;,
+ &#39;afortunately&#39;,
+ &#39;afresh&#39;,
+ &#39;africanism&#39;,
+ &#39;afrika&#39;,
+ &#39;afrikaner&#39;,
+ &#39;afrikanerdom&#39;,
+ &#39;afrikaners&#39;,
+ &#39;afrovideo&#39;,
+ &#39;aft&#39;,
+ &#39;afterbirth&#39;,
+ &#39;afterglow&#39;,
+ &#39;aftermath&#39;,
+ &#39;afternoons&#39;,
+ &#39;afterschool&#39;,
+ &#39;aftershock&#39;,
+ &#39;afterstory&#39;,
+ &#39;aftertaste&#39;,
+ &#39;afterthoughts&#39;,
+ &#39;afterwardsalligator&#39;,
+ &#39;afterwhile&#39;,
+ &#39;afterword&#39;,
+ &#39;afterwords&#39;,
+ &#39;afterworld&#39;,
+ &#39;aftra&#39;,
+ &#39;afv&#39;,
+ &#39;agaaaain&#39;,
+ &#39;agae&#39;,
+ &#39;agbayani&#39;,
+ &#39;agee&#39;,
+ &#39;agekudos&#39;,
+ &#39;ageless&#39;,
+ &#39;agendas&#39;,
+ &#39;agentine&#39;,
+ &#39;ager&#39;,
+ &#39;agers&#39;,
+ &#39;ages&#39;,
+ &#39;agey&#39;,
+ &#39;aggelopoulos&#39;,
+ &#39;aggh&#39;,
+ &#39;aggrandizement&#39;,
+ &#39;aggravate&#39;,
+ &#39;aggravating&#39;,
+ &#39;aggresive&#39;,
+ &#39;aggressed&#39;,
+ &#39;aggrieved&#39;,
+ &#39;aggrivating&#39;,
+ &#39;agha&#39;,
+ &#39;aghhh&#39;,
+ &#39;aghnaistan&#39;,
+ &#39;agi&#39;,
+ &#39;agian&#39;,
+ &#39;agility&#39;,
+ &#39;agis&#39;,
+ &#39;agitator&#39;,
+ &#39;agitators&#39;,
+ &#39;agito&#39;,
+ &#39;aglae&#39;,
+ &#39;agnew&#39;,
+ &#39;agnieszka&#39;,
+ &#39;agniezska&#39;,
+ &#39;agnisakshi&#39;,
+ &#39;agnostic&#39;,
+ &#39;agnosticism&#39;,
+ &#39;agnus&#39;,
+ &#39;agonia&#39;,
+ &#39;agonies&#39;,
+ &#39;agonise&#39;,
+ &#39;agonisingly&#39;,
+ &#39;agonize&#39;,
+ &#39;agonized&#39;,
+ &#39;agonizing&#39;,
+ &#39;agoraphobic&#39;,
+ &#39;agostino&#39;,
+ &#39;agrama&#39;,
+ &#39;agrandizement&#39;,
+ &#39;agrarian&#39;,
+ &#39;agrawal&#39;,
+ &#39;agreeable&#39;,
+ &#39;agreeably&#39;,
+ &#39;agreeing&#39;,
+ &#39;agreements&#39;,
+ &#39;agricultural&#39;,
+ &#39;agro&#39;,
+ &#39;agrument&#39;,
+ &#39;aguila&#39;,
+ &#39;aguilera&#39;,
+ &#39;agust&#39;,
+ &#39;agusti&#39;,
+ &#39;agutter&#39;,
+ &#39;ahab&#39;,
+ &#39;ahah&#39;,
+ &#39;ahahahah&#39;,
+ &#39;ahahahahahaaaaa&#39;,
+ &#39;ahahahahahhahahahahahahahahahhahahahahahahah&#39;,
+ &#39;ahahhahahaha&#39;,
+ &#39;ahamad&#39;,
+ &#39;ahamd&#39;,
+ &#39;ahehehe&#39;,
+ &#39;ahem&#39;,
+ &#39;ahet&#39;,
+ &#39;ahhhhh&#39;,
+ &#39;ahhhhhh&#39;,
+ &#39;ahhhhhhhhh&#39;,
+ &#39;ahista&#39;,
+ &#39;ahistorical&#39;,
+ &#39;ahlan&#39;,
+ &#39;ahlberg&#39;,
+ &#39;ahlstedt&#39;,
+ &#39;ahn&#39;,
+ &#39;ahold&#39;,
+ &#39;aholocolism&#39;,
+ &#39;ahoy&#39;,
+ &#39;aicha&#39;,
+ &#39;aicn&#39;,
+ &#39;aiello&#39;,
+ &#39;aielo&#39;,
+ &#39;aiieeee&#39;,
+ &#39;aiken&#39;,
+ &#39;aikido&#39;,
+ &#39;aikidoist&#39;,
+ &#39;ailed&#39;,
+ &#39;ailes&#39;,
+ &#39;ailing&#39;,
+ &#39;ailment&#39;,
+ &#39;ails&#39;,
+ &#39;ailtan&#39;,
+ &#39;ailton&#39;,
+ &#39;aimanov&#39;,
+ &#39;aiming&#39;,
+ &#39;aimlessly&#39;,
+ &#39;aimlessness&#39;,
+ &#39;aince&#39;,
+ &#39;ainley&#39;,
+ &#39;ainsworth&#39;,
+ &#39;aintry&#39;,
+ &#39;aip&#39;,
+ &#39;airbag&#39;,
+ &#39;airball&#39;,
+ &#39;airbrushed&#39;,
+ &#39;aircraft&#39;,
+ &#39;aircrafts&#39;,
+ &#39;aircrew&#39;,
+ &#39;airdate&#39;,
+ &#39;aire&#39;,
+ &#39;airfield&#39;,
+ &#39;airfix&#39;,
+ &#39;airforce&#39;,
+ &#39;airheaded&#39;,
+ &#39;airheadedness&#39;,
+ &#39;airheads&#39;,
+ &#39;airhostess&#39;,
+ &#39;airial&#39;,
+ &#39;airlessness&#39;,
+ &#39;airlift&#39;,
+ &#39;airliners&#39;,
+ &#39;airlock&#39;,
+ &#39;airman&#39;,
+ &#39;airphone&#39;,
+ &#39;airplay&#39;,
+ &#39;airships&#39;,
+ &#39;airsick&#39;,
+ &#39;airspace&#39;,
+ &#39;airstrip&#39;,
+ &#39;airtime&#39;,
+ &#39;airwolf&#39;,
+ &#39;airwolfs&#39;,
+ &#39;airy&#39;,
+ &#39;aishu&#39;,
+ &#39;aisling&#39;,
+ &#39;aissa&#39;,
+ &#39;aitd&#39;,
+ &#39;aito&#39;,
+ &#39;aja&#39;,
+ &#39;ajax&#39;,
+ &#39;ajeeb&#39;,
+ &#39;aji&#39;,
+ &#39;ajikko&#39;,
+ &#39;ajnabe&#39;,
+ &#39;ajnabi&#39;,
+ &#39;ak&#39;,
+ &#39;akai&#39;,
+ &#39;akane&#39;,
+ &#39;akas&#39;,
+ &#39;akbar&#39;,
+ &#39;akelly&#39;,
+ &#39;akerston&#39;,
+ &#39;akhras&#39;,
+ &#39;akhtar&#39;,
+ &#39;akim&#39;,
+ &#39;akimbo&#39;,
+ &#39;akimoto&#39;,
+ &#39;akira&#39;,
+ &#39;akiva&#39;,
+ &#39;akiyama&#39;,
+ &#39;akmed&#39;,
+ &#39;aknowledge&#39;,
+ &#39;akosua&#39;,
+ &#39;akras&#39;,
+ &#39;akria&#39;,
+ &#39;akroyd&#39;,
+ &#39;akshaya&#39;,
+ &#39;akshays&#39;,
+ &#39;akshey&#39;,
+ &#39;akst&#39;,
+ &#39;akte&#39;,
+ &#39;akuzi&#39;,
+ &#39;akyroyd&#39;,
+ &#39;alabaster&#39;,
+ &#39;alacrity&#39;,
+ &#39;aladdin&#39;,
+ &#39;aladin&#39;,
+ &#39;alamothirteen&#39;,
+ &#39;alanis&#39;,
+ &#39;alannis&#39;,
+ &#39;alanrickmaniac&#39;,
+ &#39;alaric&#39;,
+ &#39;alarik&#39;,
+ &#39;alarmist&#39;,
+ &#39;alarmists&#39;,
+ &#39;alarms&#39;,
+ &#39;alaska&#39;,
+ &#39;alaskey&#39;,
+ &#39;alatri&#39;,
+ &#39;albacore&#39;,
+ &#39;albania&#39;,
+ &#39;albanians&#39;,
+ &#39;albas&#39;,
+ &#39;albatross&#39;,
+ &#39;albeniz&#39;,
+ &#39;alberni&#39;,
+ &#39;alberson&#39;,
+ &#39;albertini&#39;,
+ &#39;albertson&#39;,
+ &#39;albiet&#39;,
+ &#39;albin&#39;,
+ &#39;albino&#39;,
+ &#39;albizo&#39;,
+ &#39;albizu&#39;,
+ &#39;albniz&#39;,
+ &#39;albot&#39;,
+ &#39;albright&#39;,
+ &#39;albums&#39;,
+ &#39;alcaine&#39;,
+ &#39;alcantara&#39;,
+ &#39;alcatraz&#39;,
+ &#39;alchemical&#39;,
+ &#39;alchemist&#39;,
+ &#39;alchemize&#39;,
+ &#39;alchoholic&#39;,
+ &#39;alcoholically&#39;,
+ &#39;alcott&#39;,
+ &#39;alcs&#39;,
+ &#39;alda&#39;,
+ &#39;aldar&#39;,
+ &#39;alderich&#39;,
+ &#39;alderson&#39;,
+ &#39;aldiss&#39;,
+ &#39;aldofo&#39;,
+ &#39;aldolpho&#39;,
+ &#39;aldridge&#39;,
+ &#39;aldwych&#39;,
+ &#39;alecks&#39;,
+ &#39;alegria&#39;,
+ &#39;aleination&#39;,
+ &#39;aleisa&#39;,
+ &#39;alejo&#39;,
+ &#39;alekos&#39;,
+ &#39;aleksandar&#39;,
+ &#39;aleksei&#39;,
+ &#39;aleopathic&#39;,
+ &#39;ales&#39;,
+ &#39;alesia&#39;,
+ &#39;alessio&#39;,
+ &#39;alexanader&#39;,
+ &#39;alexanderplatz&#39;,
+ &#39;alexanders&#39;,
+ &#39;alexandr&#39;,
+ &#39;alexandre&#39;,
+ &#39;alexej&#39;,
+ &#39;alexio&#39;,
+ &#39;alexondra&#39;,
+ &#39;aleya&#39;,
+ &#39;alfio&#39;,
+ &#39;alfre&#39;,
+ &#39;alfrie&#39;,
+ &#39;alfven&#39;,
+ &#39;algae&#39;,
+ &#39;alger&#39;,
+ &#39;algerian&#39;,
+ &#39;algerians&#39;,
+ &#39;algie&#39;,
+ &#39;algiers&#39;,
+ &#39;algorithm&#39;,
+ &#39;algrant&#39;,
+ &#39;algy&#39;,
+ &#39;alibi&#39;,
+ &#39;alibis&#39;,
+ &#39;alicianne&#39;,
+ &#39;alienate&#39;,
+ &#39;alienates&#39;,
+ &#39;alienator&#39;,
+ &#39;alienness&#39;,
+ &#39;alighting&#39;,
+ &#39;aligned&#39;,
+ &#39;aligning&#39;,
+ &#39;alija&#39;,
+ &#39;alik&#39;,
+ &#39;alikethat&#39;,
+ &#39;alimony&#39;,
+ &#39;alisan&#39;,
+ &#39;aliso&#39;,
+ &#39;alissia&#39;,
+ &#39;alistar&#39;,
+ &#39;alita&#39;,
+ &#39;alittle&#39;,
+ &#39;ality&#39;,
+ &#39;alives&#39;,
+ &#39;alki&#39;,
+ &#39;alladin&#39;,
+ &#39;allahabad&#39;,
+ &#39;allay&#39;,
+ &#39;allayli&#39;,
+ &#39;alldredge&#39;,
+ &#39;alleb&#39;,
+ &#39;alledgedly&#39;,
+ &#39;allegation&#39;,
+ &#39;allegations&#39;,
+ &#39;alleged&#39;,
+ &#39;allegiances&#39;,
+ &#39;alleging&#39;,
+ &#39;allegorical&#39;,
+ &#39;allegorically&#39;,
+ &#39;allens&#39;,
+ &#39;allergic&#39;,
+ &#39;allergies&#39;,
+ &#39;alleyways&#39;,
+ &#39;allgret&#39;,
+ &#39;alliance&#39;,
+ &#39;alliende&#39;,
+ &#39;alligator&#39;,
+ &#39;alllll&#39;,
+ &#39;allllllll&#39;,
+ &#39;allmighty&#39;,
+ &#39;allnut&#39;,
+ &#39;allocation&#39;,
+ &#39;alloimono&#39;,
+ &#39;allot&#39;,
+ &#39;alloted&#39;,
+ &#39;allotting&#39;,
+ &#39;allover&#39;,
+ &#39;allowance&#39;,
+ &#39;allowances&#39;,
+ &#39;allright&#39;,
+ &#39;allsuperb&#39;,
+ &#39;allthe&#39;,
+ &#39;allthewhile&#39;,
+ &#39;allthis&#39;,
+ &#39;allthrop&#39;,
+ &#39;alludes&#39;,
+ &#39;allurement&#39;,
+ &#39;allures&#39;,
+ &#39;allusive&#39;,
+ &#39;allwyn&#39;,
+ &#39;almanesque&#39;,
+ &#39;almeida&#39;,
+ &#39;almerayeda&#39;,
+ &#39;almereyda&#39;,
+ &#39;almodvar&#39;,
+ &#39;almonds&#39;,
+ &#39;almora&#39;,
+ &#39;almoust&#39;,
+ &#39;alock&#39;,
+ &#39;aloft&#39;,
+ &#39;aloha&#39;,
+ &#39;alohalani&#39;,
+ &#39;alois&#39;,
+ &#39;alok&#39;,
+ &#39;aloknath&#39;,
+ &#39;alon&#39;,
+ &#39;alona&#39;,
+ &#39;alones&#39;,
+ &#39;alongs&#39;,
+ &#39;aloo&#39;,
+ &#39;alos&#39;,
+ &#39;alosio&#39;,
+ &#39;alothugh&#39;,
+ &#39;alotta&#39;,
+ &#39;aloung&#39;,
+ &#39;alp&#39;,
+ &#39;alpahabet&#39;,
+ &#39;alpert&#39;,
+ &#39;alphabetti&#39;,
+ &#39;alphas&#39;,
+ &#39;alpine&#39;,
+ &#39;alredy&#39;,
+ &#39;alright&#39;,
+ &#39;alrite&#39;,
+ &#39;alsanjak&#39;,
+ &#39;alselmo&#39;,
+ &#39;alsobrook&#39;,
+ &#39;alsoduring&#39;,
+ &#39;altair&#39;,
+ &#39;altaira&#39;,
+ &#39;altaire&#39;,
+ &#39;altamont&#39;,
+ &#39;alterated&#39;,
+ &#39;altercations&#39;,
+ &#39;alterego&#39;,
+ &#39;alterio&#39;,
+ &#39;alterior&#39;,
+ &#39;alternante&#39;,
+ &#39;alternating&#39;,
+ &#39;alternation&#39;,
+ &#39;alternations&#39;,
+ &#39;alternativa&#39;,
+ &#39;althogh&#39;,
+ &#39;althou&#39;,
+ &#39;altieri&#39;,
+ &#39;altioklar&#39;,
+ &#39;altitude&#39;,
+ &#39;altmanesque&#39;,
+ &#39;alto&#39;,
+ &#39;altough&#39;,
+ &#39;altro&#39;,
+ &#39;altron&#39;,
+ &#39;altruism&#39;,
+ &#39;altruistically&#39;,
+ &#39;alucard&#39;,
+ &#39;alucarda&#39;,
+ &#39;alum&#39;,
+ &#39;aluminium&#39;,
+ &#39;aluminum&#39;,
+ &#39;alumna&#39;,
+ &#39;alumnus&#39;,
+ &#39;alums&#39;,
+ &#39;alun&#39;,
+ &#39;alvaro&#39;,
+ &#39;alveraze&#39;,
+ &#39;alway&#39;,
+ &#39;alwina&#39;,
+ &#39;aly&#39;,
+ &#39;alyn&#39;,
+ &#39;alysons&#39;,
+ &#39;amagula&#39;,
+ &#39;amair&#39;,
+ &#39;amalgam&#39;,
+ &#39;amalgamated&#39;,
+ &#39;amalgamation&#39;,
+ &#39;amalio&#39;,
+ &#39;amalric&#39;,
+ &#39;amamore&#39;,
+ &#39;amamoto&#39;,
+ &#39;aman&#39;,
+ &#39;amandola&#39;,
+ &#39;amang&#39;,
+ &#39;amanhecer&#39;,
+ &#39;amani&#39;,
+ &#39;amann&#39;,
+ &#39;amants&#39;,
+ &#39;amar&#39;,
+ &#39;amassed&#39;,
+ ...]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract Features</span>
+
+<span class="c1"># The Count Object </span>
+<span class="n">oCntVec</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">strip_accents</span> <span class="o">=</span> <span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="n">vocabulary</span> <span class="o">=</span> <span class="n">lDicWord</span><span class="p">)</span>
+<span class="n">mXTrain</span> <span class="o">=</span> <span class="n">oCntVec</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">lReviewTrain</span><span class="p">)</span> <span class="c1">#&lt;! Fit &amp; Transform</span>
+<span class="n">mXTest</span>  <span class="o">=</span> <span class="n">oCntVec</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">lReviewTest</span><span class="p">)</span> <span class="c1">#&lt;! Fit &amp; Transform</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Train Test Split</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The training features data shape: </span><span class="si">{</span><span class="n">mXTrain</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The training labels data shape: </span><span class="si">{</span><span class="n">vYTrain</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The test features data shape: </span><span class="si">{</span><span class="n">mXTest</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The test labels data shape: </span><span class="si">{</span><span class="n">vYTest</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The unique values of the labels: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">vY</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The training features data shape: (22500, 42550)
+The training labels data shape: (22500,)
+The test features data shape: (2500, 42550)
+The test labels data shape: (2500,)
+The unique values of the labels: [0 1]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="classifier-model">
+<h2>Classifier Model<a class="headerlink" href="#classifier-model" title="Permalink to this heading">#</a></h2>
+<p>There are 2 common Naive Bayes Models:</p>
+<ol class="arabic simple">
+<li><p>Gaussian Naive Bayes<br />
+Models each <strong>independent</strong> feature by <span class="math notranslate nohighlight">\(P \left( {x}_{i} \mid y \right) = \frac{1}{\sqrt{2 \pi {\sigma}_{y}^{2}}} \exp \left( -\frac{{\left( {x}_{i} - {\mu}_{y} \right)}^{2}}{2 {\sigma}_{y}^{2}}\right)\)</span>.<br />
+The features are assumed to be continuous.<br />
+It is the <em>go to</em> choice for the case of continuous variables.<br />
+It has some limitation for the case of bounded continuous variables.<br />
+Implemented by <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.GaussianNB.html"><code class="docutils literal notranslate"><span class="pre">GaussianNB</span></code></a>.</p></li>
+<li><p>Bernoulli Naive Bayes<br />
+Models each <strong>independent</strong> feature by <span class="math notranslate nohighlight">\(P \left( {x}_{i} \mid y \right) = P \left( {x}_{i} \mid y \right) {x}_{i} + \left( 1 - P \left( {x}_{i} \mid y \right) \right) \left( 1 - {x}_{i} \right)\)</span>.<br />
+Models the probability of the <em>occurrence</em> of the feature per class.<br />
+Assumes each feature is binary. It explicitly punishes for non <em>occurrence</em>.<br />
+Implemented by <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.BernoulliNB.html"><code class="docutils literal notranslate"><span class="pre">BernoulliNB</span></code></a>.</p></li>
+<li><p>Multinomial Naive Bayes<br />
+Models each <strong>independent</strong> feature by <span class="math notranslate nohighlight">\(P \left( {x}_{1}, {x}_{2}, \dots, {x}_{d} \mid y \right) = \frac{d!}{{x}_{1}! {x}_{2}! \cdots {x}_{d}!} {p}_{1}^{{x}_{1}} {p}_{2}^{{x}_{2}} \cdots {p}_{d}^{{x}_{d}}\)</span>.<br />
+Models the counting of the feature per class.<br />
+Assumes each feature is non negative integer.<br />
+Implemented by <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.naive_bayes.MultinomialNB.html"><code class="docutils literal notranslate"><span class="pre">MultinomialNB</span></code></a>.</p></li>
+</ol>
+<ul class="simple">
+<li><p><font color='brown'>(<strong>#</strong>)</font> In lectures, the Gaussian Model does not assume independence of the features as above.</p></li>
+<li><p><font color='brown'>(<strong>#</strong>)</font> Though the <em>Multinomial Naive Bayes</em> assume counts, in the context of text features, it is known to work well with <a class="reference external" href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf"><em>Term Frequency - Inverse Document Frequency</em></a> (TF-IDF) features as well.<br />
+See <a class="reference external" href="https://stackoverflow.com/questions/43237286">How to Use TFIDF Vectors with Multinomial Naive Bayes</a>.</p></li>
+<li><p><font color='brown'>(<strong>#</strong>)</font> The <em>Multinomial Naive Bayes</em> sets the probability according to the counts, the more the better. The <em>Bernoulli Naive Bayes</em> sets the probability based on occurrence, it <em>punishes</em> if there is no occurrence. Hence <em>Bernoulli Naive Bayes</em> has the benefit of explicitly modelling the absence of terms. It implies that a <em>Multinomial Naive Bayes</em> classifier with frequency counts truncated to one is not equivalent of <em>Bernoulli Naive Bayes</em> classifier. See <a class="reference external" href="https://datascience.stackexchange.com/questions/27624">Difference Between Bernoulli and Multinomial Naive Bayes</a>.</p></li>
+</ul>
+<p>In the case above, to match the counts the <em>Multinomial Naive Bayes</em> classifier will be used.</p>
+<ul class="simple">
+<li><p><font color='brown'>(<strong>#</strong>)</font> Some advantages of NB Classifiers:</p>
+<ul>
+<li><p>Easy to train and predict with decent results in many cases.</p></li>
+<li><p>Usually, have a closed form solution for their parameters.</p></li>
+<li><p>Can handle new data efficiently (See the <code class="docutils literal notranslate"><span class="pre">partial_fit</span></code> method).</p></li>
+<li><p>Can handle mixed type of features inherently.</p></li>
+</ul>
+</li>
+<li><p><font color='brown'>(<strong>#</strong>)</font> Some disadvantages of NB Classifiers:</p>
+<ul>
+<li><p>Can not be extended by <em>Ensembling</em>, <em>Boosting</em>, <em>Bagging</em> as there is no variance to reduce.</p></li>
+<li><p>Multinomial model assumes the counts will be similar in train and test sets (Otherwise, requires smoothing).</p></li>
+<li><p>Performance degrades as the features becomes more dependent.</p></li>
+<li><p>Highly sensitive to imbalanced data.</p></li>
+</ul>
+</li>
+<li><p><font color='red'>(<strong>?</strong>)</font> How mixed features, continuous, counts and binary, can be handled?</p></li>
+</ul>
+<p>— multiply the separated probabilities of the same type aggragate;</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># NB Classfier Model</span>
+<span class="n">oMultNomNBcls</span> <span class="o">=</span> <span class="n">MultinomialNB</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">α</span><span class="p">)</span>
+<span class="n">oMultNomNBcls</span> <span class="o">=</span> <span class="n">oMultNomNBcls</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">mXTrain</span><span class="p">,</span> <span class="n">vYTrain</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Performance Train Data</span>
+
+<span class="n">vHatY</span> <span class="o">=</span> <span class="n">oMultNomNBcls</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">mXTrain</span><span class="p">)</span>
+<span class="n">vYGt</span>  <span class="o">=</span> <span class="n">vYTrain</span>
+
+<span class="n">valAcc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">vHatY</span> <span class="o">==</span> <span class="n">vYGt</span><span class="p">)</span>
+<span class="n">valPrecision</span><span class="p">,</span> <span class="n">valRecall</span><span class="p">,</span> <span class="n">valF1</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">precision_recall_fscore_support</span><span class="p">(</span><span class="n">vYGt</span><span class="p">,</span> <span class="n">vHatY</span><span class="p">,</span> <span class="n">pos_label</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">average</span> <span class="o">=</span> <span class="s1">&#39;binary&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Accuracy  = </span><span class="si">{</span><span class="n">valAcc</span><span class="si">:</span><span class="s1">0.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Precision = </span><span class="si">{</span><span class="n">valPrecision</span><span class="si">:</span><span class="s1">0.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Recall    = </span><span class="si">{</span><span class="n">valRecall</span><span class="si">:</span><span class="s1">0.3f</span><span class="si">}</span><span class="s1">&#39;</span>   <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;F1 Score  = </span><span class="si">{</span><span class="n">valF1</span><span class="si">:</span><span class="s1">0.3f</span><span class="si">}</span><span class="s1">&#39;</span>       <span class="p">)</span>
+
+<span class="n">dScore</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Accuracy&#39;</span><span class="p">:</span> <span class="n">valAcc</span><span class="p">}</span>
+
+<span class="n">hF</span><span class="p">,</span> <span class="n">hA</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">PlotConfusionMatrix</span><span class="p">(</span><span class="n">vYGt</span><span class="p">,</span> <span class="n">vHatY</span><span class="p">,</span> <span class="n">normMethod</span> <span class="o">=</span> <span class="s1">&#39;true&#39;</span><span class="p">,</span> <span class="n">hA</span> <span class="o">=</span> <span class="n">hA</span><span class="p">,</span> <span class="n">dScore</span> <span class="o">=</span> <span class="n">dScore</span><span class="p">,</span> <span class="n">valFormat</span> <span class="o">=</span> <span class="s1">&#39;0.1%&#39;</span><span class="p">)</span> <span class="c1">#&lt;! The accuracy should be &gt;= than above!</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Performance Test Data</span>
+
+<span class="n">vHatY</span> <span class="o">=</span> <span class="n">oMultNomNBcls</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">mXTest</span><span class="p">)</span>
+<span class="n">vYGt</span>  <span class="o">=</span> <span class="n">vYTest</span>
+
+<span class="n">valAcc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">vHatY</span> <span class="o">==</span> <span class="n">vYGt</span><span class="p">)</span>
+<span class="n">valPrecision</span><span class="p">,</span> <span class="n">valRecall</span><span class="p">,</span> <span class="n">valF1</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">precision_recall_fscore_support</span><span class="p">(</span><span class="n">vYGt</span><span class="p">,</span> <span class="n">vHatY</span><span class="p">,</span> <span class="n">pos_label</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">average</span> <span class="o">=</span> <span class="s1">&#39;binary&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Accuracy  = </span><span class="si">{</span><span class="n">valAcc</span><span class="si">:</span><span class="s1">0.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Precision = </span><span class="si">{</span><span class="n">valPrecision</span><span class="si">:</span><span class="s1">0.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Recall    = </span><span class="si">{</span><span class="n">valRecall</span><span class="si">:</span><span class="s1">0.3f</span><span class="si">}</span><span class="s1">&#39;</span>   <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;F1 Score  = </span><span class="si">{</span><span class="n">valF1</span><span class="si">:</span><span class="s1">0.3f</span><span class="si">}</span><span class="s1">&#39;</span>       <span class="p">)</span>
+
+<span class="n">dScore</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Accuracy&#39;</span><span class="p">:</span> <span class="n">valAcc</span><span class="p">}</span>
+
+<span class="n">hF</span><span class="p">,</span> <span class="n">hA</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">PlotConfusionMatrix</span><span class="p">(</span><span class="n">vYGt</span><span class="p">,</span> <span class="n">vHatY</span><span class="p">,</span> <span class="n">normMethod</span> <span class="o">=</span> <span class="s1">&#39;true&#39;</span><span class="p">,</span> <span class="n">hA</span> <span class="o">=</span> <span class="n">hA</span><span class="p">,</span> <span class="n">dScore</span> <span class="o">=</span> <span class="n">dScore</span><span class="p">,</span> <span class="n">valFormat</span> <span class="o">=</span> <span class="s1">&#39;0.1%&#39;</span><span class="p">)</span> <span class="c1">#&lt;! The accuracy should be &gt;= than above!</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p><font color='green'>(<strong>&#64;</strong>)</font> Redo the exercise using TF-IDF. See SciKit Learn’s <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfTransformer.html"><code class="docutils literal notranslate"><span class="pre">TfidfTransformer</span></code></a> and <a class="reference external" href="https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html"><code class="docutils literal notranslate"><span class="pre">TfidfVectorizer</span></code></a>.</p></li>
+<li><p><font color='green'>(<strong>&#64;</strong>)</font> Redo the exercise using <em>Bernoulli Naive Bayes</em> classifier. Adjust the features accordingly.</p></li>
+<li><p><font color='green'>(<strong>&#64;</strong>)</font> Try to improve results for accuracy. You may use <code class="docutils literal notranslate"><span class="pre">NLTK</span></code> Lemmatizer (<code class="docutils literal notranslate"><span class="pre">WordNetLemmatizer</span></code>).</p></li>
+<li><p><font color='brown'>(<strong>#</strong>)</font> You may read about <a class="reference external" href="https://stackoverflow.com/questions/12298150">The Difference Between a Bayesian Network and a Naive Bayes Classifier</a>.<br />
+It has a great example on the <em>XOR Problem</em> and the problem with the assumption of feature independence.</p></li>
+<li><p><font color='brown'>(<strong>#</strong>)</font> You may read about <a class="reference external" href="https://stats.stackexchange.com/questions/212240">The Difference Between a Bayesian Network and a Naive Bayes Classifier</a> (Different source).</p></li>
+<li><p><font color='brown'>(<strong>#</strong>)</font> You may read about <a class="reference external" href="https://neptune.ai/blog/bayesian-neural-networks-with-jax">Bayesian Neural Networks: Implementing, Training, Inference With the JAX Framework</a>.</p></li>
+</ul>
+<ul class="simple">
+<li><p><font color='brown'>(<strong>#</strong>)</font> To work with mixed features:</p>
+<ol class="arabic simple">
+<li><p>Build a Multinomial NB classifier for the <em>count based features</em>.</p></li>
+<li><p>Build a Bernoulli NB classifier using the <em>binary features</em>.</p></li>
+<li><p>Build a Gaussian NB classifier using the <em>continuous features</em>.</p></li>
+<li><p>Multiply the probabilities of each model to find the maximum probability based on all features (Using the **independence assumption).</p></li>
+</ol>
+</li>
+</ul>
+</br>
+<ul class="simple">
+<li><p><font color='brown'>(<strong>#</strong>)</font> Categorical features can be transformed into counts using <em>dummy variables</em>.</p></li>
+<li><p><font color='brown'>(<strong>#</strong>)</font> Some continuous features should be engineered to better suit a Gaussian model (Like <code class="docutils literal notranslate"><span class="pre">log()</span></code>).</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./00_ai24/01_ml/03_Statistical/mapClassifier"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="naive.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Naive Bayes Classifier</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../../04_tree/readme.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Decision Trees</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sentiment-analysis">Sentiment Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revision-history">Revision History</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#notations">Notations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#code-exercise">Code Exercise</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Naive Bayes Classifier</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Sentiment Analysis</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-load-data">Generate / Load Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#train-test-split">Train / Test Split</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#feature-engineering">Feature Engineering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classifier-model">Classifier Model</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By 0xsol
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

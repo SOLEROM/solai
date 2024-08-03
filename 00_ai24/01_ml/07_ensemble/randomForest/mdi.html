@@ -1,0 +1,913 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>MDI &#8212; solAiKM</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/clipboard.min.js"></script>
+    <script src="../../../../_static/copybutton.js"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '00_ai24/01_ml/07_ensemble/randomForest/mdi';</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="permutation importance" href="permutation.html" />
+    <link rel="prev" title="feature importances" href="importances.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../../readme.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">solAiKM</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../../readme.html">
+                    solai
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">AI24</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../links.html">links</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="../../readme.html">Machine Learning</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../labs.html">Labs</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../play/lab_normolize.html">normalize or not to normalize</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../play/gridSearchPipeline.html">grid search pipe</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../play/scaler_normalization.html">scaler normalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../play/missing_values_fill.html">missing values handeling</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../play/pps.html">PPS -  Predictive Power Score</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../00_intro/readme.html">Intro</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../00_intro/aboutML.html">About ML</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../00_intro/types.html">ML types</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../00_intro/applications.html">applications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../00_intro/hyperparams.html">hyperparams</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../00_intro/pipeline.html">pipeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../00_intro/xorChallengeExample.html">human intuition</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../general/readme.html">General topics</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../general/classVsRegr.html">Classification vs Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../general/complexStepDiff.html">Complex Step Differentiation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../general/featureProcessing.html">feature processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../general/treeEnsemble.html">Tree Ensemble vs Random Forest</a></li>
+
+
+<li class="toctree-l3"><a class="reference internal" href="../../general/wodoTricks.html">representation tricks</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../scikit/readme.html">Scikit</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/about.html">about scikit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/fetch_openml.html">fetch_openml</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/svc.html">SVC</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/knn.html">knn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/crossVal.html">cross validation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/classificationReport.html">classification_report</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/decisionFunction.html">Decision function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/fscoreSupport.html">fscoreSupport</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/plot_conf_mat.html">PlotConfusionMatrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/roc.html">roc curve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/preprocessing.html">preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/pipe.html">pipeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/DecisionTreeClassifier.html">DecisionTreeClassifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/CalibratedClassifierCV.html">CalibratedClassifierCV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/checkEstim.html">check_estimator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/logiReg.html">logistics regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/classMetrics.html">classification metrics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../scikit/speedup.html">Speeding up scikit-learn</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../01_classification/readme.html">Classification</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../01_classification/binary/readme.html">Binary Classification</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../01_classification/linear/readme.html">linear classifiers</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/linear/classifiers.html">Linear Classifier</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/linear/reparametrization.html">ReParametrization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/linear/0026LinearClassifier.html">Linear Classifier Random</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/linear/0027LinearClassifierTraining.html">Linear Classifier MOONs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/linear/0028LinearClassifier_RealCaseExample.html">Linear Classifier breast</a></li>
+
+
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../01_classification/svm/readme.html">SVM - support vector machine</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/svm/intro.html">Support Vector Machines (SVM)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/svm/0029LinearClassifierSVM.html">SVM Rand classification</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/svm/0030LinearClassifierSVM.html">SVM breast classification</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../01_classification/kNear/readme.html">k nearest neighbors</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/kNear/knn.html">KNN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/kNear/dimensionality.html">curse of dimensionality</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/kNear/0031ClassifierKNN.html">KNN random circles</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/kNear/0032ClassifierKNN.html">KNN brest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/kNear/lab_Curse_of_Dimensionality.html">Curse lab</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../01_classification/training/readme.html">training</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/training/mnist.html">mnist multicalass example</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/training/kfold.html">K FOLD</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/training/dataDivide.html">Data Split</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/training/fitProcessCompare.html">Training Process Comparison</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/resample/readme.html">resampling</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../01_classification/decFunc/readme.html">multi-class</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../01_classification/recall/readme.html">precision and recall</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01_classification/recall/BalAcc.html">Balanced Accuracy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01_classification/roc/readme.html">Roc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../01_classification/cost/readme.html">cost</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../01_classification/labs/readme.html">classification labs</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/labs/scoreDemo.html">Performance Scores demo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/labs/0033ConfMatCrossValidation.html">MNIST KNN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/labs/0034ConfMatCrossValidation.html">MNIST SVM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/labs/decFunc.html">Decision Functions Demos</a></li>
+
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/labs/0035PerformanceScoreMetrics.html">Performance Scores</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/labs/0036PerformanceScoreMetrics.html">Calibrating Imbalanced</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/roc/auc_demo.html">Understanding the AUC</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../01_classification/labs/TensorBoard.html">TensorBoard</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../02_featureEng/readme.html">Feature Engineering</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../02_featureEng/transforms/normStd.html">Normalizing and Standardizing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../02_featureEng/transforms/nonSepr.html">Non Separable Problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../02_featureEng/transforms/techList.html">technics list</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../02_featureEng/transforms/0037FeaturesTransform.html">Features Transform case1</a></li>
+
+
+<li class="toctree-l3"><a class="reference internal" href="../../02_featureEng/transforms/0038FeaturesTransform.html">Features Transform case2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../02_featureEng/kernelTrick/outline.html">Outline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../02_featureEng/kernelTrick/dual.html">Kernel Tricks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../02_featureEng/kernelTrick/0039ClassifierKernelSVM.html">Kernel SVM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../02_featureEng/mnist/readme.html">mnist example with kernel trick</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../02_featureEng/mnist/0040ClassifierKernelSVM.html">fashion-mnist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../02_featureEng/autouml/readme.html">AutoML</a></li>
+
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../03_Statistical/readme.html">Statistical Classification</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../03_Statistical/logisticReg/readme.html">logistic regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_Statistical/logisticReg/demo_LogisticRegression.html">Demo Lab Logistic Regression</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../03_Statistical/logisticReg/crossEntropy.html">Cross Entropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_Statistical/logisticReg/0041ClassifierLogisticRegression.html">Mnist Logistic Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_Statistical/mapClassifier/readme.html">MAP Classifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../03_Statistical/mapClassifier/naive.html">Naive Bayes Classifier</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../03_Statistical/mapClassifier/0042ClassifierNaiveBayes.html">Naive Bayes Classifier</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../04_tree/readme.html">Decision Trees</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../04_tree/treeClassifier/readme.html">Decision Trees</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../04_tree/0043ClassifierDecisionTree.html">Circles Decision Tree Classifier</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../04_tree/0044HeartDecisionTree.html">Heart Disease Tree Classifier</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../05_regression/readme.html">Linear Regression</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/linear/readme.html">Linear Regression: Model Imperfection and Steps to Implement Regression</a></li>
+
+
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/poly/readme.html">Polynomial regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/phase/readme.html">Phase Estimation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/poly/0045RegressorPolynomialFit.html">Polynomial Fit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/poly/0046RegressorPolynomialFit.html">AI Program</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/regularization/ridge.html">Ridge Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/regularization/score.html">R2 Score</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/regularization/0047RegressorL1L2Regularization.html">Least Squares with <span class="math notranslate nohighlight">\({L}^{1}\)</span> / <span class="math notranslate nohighlight">\({L}^{2}\)</span> Regularization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/regularization/0048RegressorPolynomialFitLasso.html">Polynomial Fit with LASSO Regularization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/ransac/readme.html">outliers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/ransac/huber.html">huber</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/ransac/outiner.html">LS outiner</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/ransac/ransac.html">RANSAC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/ransac/0049RegressorRobust.html">Polynomial Fit with RANSAC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/wighetedLSQ/readme.html">Weighted Least Squares</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/nonLinSrt/readme.html">Non-Linear Least Squares (NLLS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../05_regression/elasticNet/readme.html">ElasticNet</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../06_nonParam/readme.html">Non parametric regression</a><input class="toctree-checkbox" id="toctree-checkbox-16" name="toctree-checkbox-16" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-16"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../06_nonParam/kernelReg/readme.html">kernel regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_nonParam/kernelReg/multivar.html">Multivariate Kernel Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_nonParam/kernelReg/0050RegressorKernel.html">Kernel Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_nonParam/kernelReg/0051RegressorKernel.html">boston house Kernel Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_nonParam/polyReg/readme.html">Polynomial Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_nonParam/polyReg/0052RegressorLocalPolynomial.html">Polynomial Regression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_nonParam/spline/readme.html">Spline Interpolation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_nonParam/regTree/readme.html">Regression Tree</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../06_nonParam/regTree/0053RegressorDecisionTree.html">Regression - Decision Tree</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="../readme.html">Ensemble Methods</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-17" name="toctree-checkbox-17" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-17"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../tradeoff/readme.html">Bias Variance Tradeoff</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tradeoff/bagging.html">Bagging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tradeoff/oob.html">Out-of-Bag Error (OOB)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tradeoff/lab_tradeoff_Demo.html">Variance and Bias Trade-off</a></li>
+<li class="toctree-l3"><a class="reference internal" href="readme.html">Random Forest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="importances.html">feature importances</a></li>
+
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">MDI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="permutation.html">permutation importance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="0054EnsembleRandomForests.html">Random Forests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../boosting/readme.html">Gradient boosting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../boosting/0055EnsembleGradientBoosting.html">Gradient Boosting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../boosting/adaBoost.html">ada boost</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../boosting/0056EnsembleAdaptiveBoosting.html">Adaptive Boosting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../optimizedLib/lightgbm/readme.html">LightGBM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../optimizedLib/xgboost/readme.html">XGBoost</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../08_clustering/readme.html">Clustering</a><input class="toctree-checkbox" id="toctree-checkbox-18" name="toctree-checkbox-18" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-18"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/clustering.html">clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/kmean/readme.html">K-Means</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/kmean/0057ClusteringKMeans.html">K-Means</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/kmean/colorSpaceExample.html">color space quantization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/kmean/0058ClusteringKMeans.html">K-Means super pixcel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/gmm/readme.html">GMM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/gmm/0059ClusteringGMM.html">Gaussian Mixture Models (GMM)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/hierarchical/readme.html">Hierarchical clustering</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/hierarchical/0060ClusteringHierarchical.html">Hierarchical Clustering</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/density/readme.html">Density</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/density/0061ClusteringDBSCAN.html">DBSCAN Demo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/hdbscan/readme.html">HDBSCAN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../08_clustering/hdbscan/0062ClusteringHDBSCAN.html">HDBSCAN Demo</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../09_dimred/readme.html">Dimensionality Reduction</a><input class="toctree-checkbox" id="toctree-checkbox-19" name="toctree-checkbox-19" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-19"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/pca/readme.html">pca</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/pca/rotation.html">Rotation</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/pca/eigDecom.html">Eigen Decomposition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/pca/fullPCA.html">Full PCA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/pca/oose.html">oose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/pca/svd.html">svd (pca)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/pca/lab_PCA_gene_demo.html">Gene PCA DEMO LAB</a></li>
+
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/pca/0063DimensionalityReductionPCA.html">PCA DEMO FACES</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/pca/0064DimensionalityReductionPCA.html">PCA Brest Cancer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/nonLinPCA/readme.html">non Linear PCA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/nonLinPCA/kenrelPCA.html">Kernel PCA</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/nonLinPCA/dualPCA.html">Dual PCA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/nonLinPCA/0065DimensionalityReductionKPCA.html">Dimensionality Reduction - Kernel PCA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/mds/readme.html">MDS</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../09_dimred/mds/0066DimensionalityReductionMDS.html">MultiDimensional Scaling (MDS)</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../10_manifold/readme.html">Manifold Learning</a><input class="toctree-checkbox" id="toctree-checkbox-20" name="toctree-checkbox-20" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-20"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/isomap/readme.html">isoMap</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/isomap/0067ManifoldLearningIsoMap.html">Manifold Learning - IsoMap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/spectral/readme.html">Spectral Clustering</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/tsne/readme.html">TSNE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/tsne/0068ManifoldLearningTSNE.html">t-SNE Demo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/entropy/readme.html">Entropy</a></li>
+
+
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/umap/readme.html">Umap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/umap/paramEmbed.html">parametric Embedding</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/umap/demo1.html">umap demo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/demo.html">manifold concepts demo</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../10_manifold/0069ManifoldLearning.html">Manifold Learning - multi model compare</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../11_anomDet/readme.html">Anomaly detection</a><input class="toctree-checkbox" id="toctree-checkbox-21" name="toctree-checkbox-21" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-21"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../11_anomDet/scores/zscore.html">zscore</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_anomDet/scores/mahalanobis.html">Mahalanobis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_anomDet/scores/timeSeries.html">Time Series</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_anomDet/lof/readme.html">Local Outlier Factor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_anomDet/lof/0070AnomalyDetectionLocalOutlierFactor.html">Local Outlier Factor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_anomDet/lof/0071AnomalyDetectionLocalOutlierFactor.html">LOF Exercise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_anomDet/isoForest/readme.html">Isolation forest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_anomDet/isoForest/0072AnomalyDetectionIsolationForest.html">Anomaly Detection - Isolation Forest</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../11_anomDet/isoForest/0073AnomalyDetectionIsolationForest.html">Isolation Forest - Exercise</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../12_textAnal/readme.html">text Analysis</a><input class="toctree-checkbox" id="toctree-checkbox-22" name="toctree-checkbox-22" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-22"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../12_textAnal/lab_textOpt.html">text opts</a></li>
+
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../03_cv/readme.html">AI Computer Vision</a><input class="toctree-checkbox" id="toctree-checkbox-23" name="toctree-checkbox-23" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-23"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../03_cv/labs.html">Labs</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../03_cv/convolution/readme.html">Convolution in Deep Learning</a><input class="toctree-checkbox" id="toctree-checkbox-24" name="toctree-checkbox-24" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-24"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/fullyConnectedDrawback.html">Fully Connected Drawbacks</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/cnnFrqExample.html">CNN for Frequency Estimation Problem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/0085DeepLearning1DConvFreqEst.html">Convolution for Frequency Estimation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/2d.html">2D Convolution</a></li>
+
+
+
+
+
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/layers.html">Layers in Convolutional Neural Networks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/pooling.html">Pooling in Convolutional Neural Networks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/batchNorm.html">Batch Normalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/lab_batchNorm.html">demo batch norm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/filters.html">Common Filters for 2D Convolution</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/filter_laplacian.html">Common Filters for 2D Convolution</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/concept/recfield.html">Receptive Field (RF)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/concept/recField.html">Calc RF</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/concept/encodeDecode.html">Encode-Decode Networks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/concept/skipConnections.html">skip connections</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/0086DeepLearningConv2DCifar10.html">cifar10-2d-convolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/convolution/0087DeepLearningConv2DFashionMNIST.html">Image Classification Fashion MNIST</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/concept/studentTeacherDemo.html">studentTeacherDemo</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../03_cv/pytorch/readme.html">pytorch for CV</a><input class="toctree-checkbox" id="toctree-checkbox-25" name="toctree-checkbox-25" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-25"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/pytorch/common.html">pytorch layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/pytorch/custom.html">custom nn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/pytorch/microMacro.html">micro macro</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/torchvis/readme.html">TorchVision</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/torchvis/transformVers.html">torchvision.transforms</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../03_cv/augm/readme.html">Augmentation</a><input class="toctree-checkbox" id="toctree-checkbox-26" name="toctree-checkbox-26" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-26"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/augm/0094DeepLearningImageAugmentation.html">Image Augmentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/augm/cutMethods.html">Cut Effects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/augm/0095DeepLearningImageAugmentation.html">Image Augmentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/augm/smoothing.html">Smoothing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/augm/0096DeepLearningLabelSmoothing.html">Label Smoothing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/augm/0097DeepLearningRegularizedTraining.html">Regularized Training</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../03_cv/arch/readme.html">compare</a><input class="toctree-checkbox" id="toctree-checkbox-27" name="toctree-checkbox-27" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-27"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/darknet53.html">darknet53</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/alexnet.html">AlexNet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/vgg.html">vgg</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/googleNet.html">googleNet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/inception.html">Inception Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/resnet.html">resnet</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/0092DeepLearningResNet.html">ResNet Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/yolo.html">yolo</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/minirocket.html">minirocket</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/arch/lab_minirocket_basicDemo.html">lab simple minirocket demo</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../03_cv/infer/readme.html">Pre-Defined Models</a><input class="toctree-checkbox" id="toctree-checkbox-28" name="toctree-checkbox-28" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-28"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/infer/pyInter.html">pytorch Inference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/infer/sota.html">sota - state-of-the-art</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/infer/zoo.html">zoo(s)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/infer/0091DeepLearningPreTrainedModels.html">Pre Trained Computer Vision Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../03_cv/transf/readme.html">Transfer Learning</a><input class="toctree-checkbox" id="toctree-checkbox-29" name="toctree-checkbox-29" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-29"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/transf/compare.html">compare methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/transf/fineTune.html">Fine-Tuning</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/transf/freeze.html">Freeze Layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/transf/0093DeepLearningTransferLearning.html">Transfer Learning of resnet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/transf/overfit.html">Transfer overfit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/transf/lab_reducude_demo.html">lab reduce demo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/transf/transformers.html">transformers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/transf/lab_transofmers_basic.html">lab transform basic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/transf/adaptation.html">adaptation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../03_cv/visualize/readme.html">visualize and debug</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../03_cv/location/readme.html">Object Location</a><input class="toctree-checkbox" id="toctree-checkbox-30" name="toctree-checkbox-30" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-30"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/location/lab_pretrain_demo.html">pre-trained model for object localization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/location/localization.html">Localization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/location/0098DeepLearningObjectLocalization.html">Object Localization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/location/detection.html">Detection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/location/lab_plot_transforms_e2e.html">Transforms v2: End-to-end object detection/segmentation example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/location/commonArch.html">Common Object Detector Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/location/hms.html">Non Maximum Suppression (NMS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/location/map.html">Mean Average Precision (mAP)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/wrkshp_yolo/readme.html">WorkShop - Object Detection with Yolov8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/wrkshp_yolo/labelme/readme.html">label example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/wrkshp_yolo/0001BoundingBoxFormat.html">yoloWRKSHP box formats</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../03_cv/segmentation/readme.html">segmentation workshop</a><input class="toctree-checkbox" id="toctree-checkbox-31" name="toctree-checkbox-31" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-31"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/segmentation/intro.html">intro</a></li>
+
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/segmentation/data.html">data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/segmentation/models.html">models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/segmentation/unet.html">UNET</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../03_cv/wrkshp_unet/readme.html">the task</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/SOLEROM/solai" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/SOLEROM/solai/issues/new?title=Issue%20on%20page%20%2F00_ai24/01_ml/07_ensemble/randomForest/mdi.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../../../_sources/00_ai24/01_ml/07_ensemble/randomForest/mdi.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>MDI</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="mdi">
+<h1>MDI<a class="headerlink" href="#mdi" title="Permalink to this heading">#</a></h1>
+<p><strong>General Overview:</strong>
+Mean Decrease Impurity (MDI) is a technique used to assess feature importance in decision tree-based models, such as Random Forests. It measures the importance of a feature by calculating the reduction in impurity (e.g., Gini impurity or entropy) it contributes across all the trees in the ensemble.</p>
+<p><strong>Key Concepts:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Impurity:</strong> A metric used to measure the homogeneity of nodes in a decision tree. Common impurity measures include Gini impurity and entropy.</p></li>
+<li><p><strong>Decision Trees:</strong> Models that split data into subsets based on feature values, aiming to reduce impurity at each split.</p></li>
+<li><p><strong>Ensemble Methods:</strong> Techniques like Random Forests, which build multiple decision trees and aggregate their results.</p></li>
+<li><p><strong>Feature Splits:</strong> In decision trees, features that effectively reduce impurity are selected for splits.</p></li>
+</ol>
+<p><strong>Procedure:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Train Decision Trees:</strong> Build decision trees as part of an ensemble model (e.g., Random Forest).</p></li>
+<li><p><strong>Calculate Impurity Reduction:</strong> For each feature, calculate how much it reduces impurity at each split in every tree.</p></li>
+<li><p><strong>Aggregate Importance:</strong> Sum the impurity reductions for each feature across all trees in the model.</p></li>
+<li><p><strong>Normalize Importance:</strong> Normalize these sums to get relative feature importance scores, often represented as percentages.</p></li>
+</ol>
+<p><strong>Applications:</strong></p>
+<ul class="simple">
+<li><p><strong>Feature Ranking:</strong> Identifying the most important features for making predictions.</p></li>
+<li><p><strong>Model Interpretation:</strong> Understanding the contribution of each feature in the decision-making process of the model.</p></li>
+<li><p><strong>Feature Selection:</strong> Selecting the most influential features to reduce model complexity and improve performance.</p></li>
+</ul>
+<p><strong>Advantages:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Efficiency:</strong> Fast to compute since it is derived from the tree-building process.</p></li>
+<li><p><strong>Built-in Method:</strong> Naturally integrated into tree-based models, requiring no additional computation.</p></li>
+<li><p><strong>Interpretability:</strong> Provides clear and intuitive insights into which features are most influential.</p></li>
+</ol>
+<p><strong>Disadvantages:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Bias Towards High Cardinality:</strong> Features with many unique values (high cardinality) may appear more important because they can be used more often to split data.</p></li>
+<li><p><strong>Overfitting Risk:</strong> In trees that are too deep or not pruned properly, MDI can reflect noise rather than true importance.</p></li>
+<li><p><strong>Correlation Sensitivity:</strong> Like permutation importance, MDI can be misleading when features are highly correlated, as splits may be attributed to multiple correlated features.</p></li>
+</ol>
+<p><strong>Comparison with Permutation Importance:</strong></p>
+<ul class="simple">
+<li><p><strong>Computation Method:</strong> MDI uses the tree-building process to measure importance, while permutation importance relies on shuffling feature values and observing performance changes.</p></li>
+<li><p><strong>Model Dependency:</strong> MDI is specific to tree-based models, whereas permutation importance is model-agnostic.</p></li>
+<li><p><strong>Bias:</strong> MDI can be biased towards high-cardinality features, while permutation importance is more robust but computationally intensive.</p></li>
+</ul>
+<p><strong>Conclusion:</strong>
+Mean Decrease Impurity is a useful and efficient method for determining feature importance in decision tree-based models. While it provides valuable insights into feature contributions, users should be aware of its potential biases and limitations, especially regarding high-cardinality features and feature correlations. Properly understanding and addressing these issues can help in making more informed decisions about feature selection and model interpretation.</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./00_ai24/01_ml/07_ensemble/randomForest"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="importances.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">feature importances</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="permutation.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">permutation importance</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By 0xsol
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
