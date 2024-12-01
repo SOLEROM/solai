@@ -3,3 +3,5 @@
 * [classVsRegr](./classVsRegr.md)
 * [Complex Step Differentiation](./complexStepDiff.md)
 
+* [softmax](./softmax.md)
+

@@ -37,6 +37,7 @@ parts:
         - file: 00_ai24/01_ml/general/featureProcessing.md
         - file: 00_ai24/01_ml/general/treeEnsemble.md
         - file: 00_ai24/01_ml/general/wodoTricks.md
+        - file: 00_ai24/01_ml/general/softmax.md
       ###  scikit
       - file: 00_ai24/01_ml/scikit/readme.md
         sections:
